@@ -1,0 +1,9 @@
+{{!-- 默认布局，这里定义页面的 nav, main, footer --}}
+{{#> baseLayout}}
+  {{#*inline "headContent"}}
+    <title>{{title}}</title>
+  {{/inline}}
+  {{#*inline "bodyContent"}}
+    {{> page}}
+  {{/inline}}
+{{/baseLayout}}

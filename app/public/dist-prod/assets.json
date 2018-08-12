@@ -1,0 +1,14 @@
+{
+  "user-profile": {
+    "js": "https://cdn-doamin/asset/root/path/js/user-profile-e7e586c2fd670b237bc6.js"
+  },
+  "user-list": {
+    "js": "https://cdn-doamin/asset/root/path/js/user-list-cb0a0d0ec036f2959b51.js"
+  },
+  "home": {
+    "js": "https://cdn-doamin/asset/root/path/js/home-6375c61afc9ca0b00990.js"
+  },
+  "metadata": {
+    "build-time": 1533883597436
+  }
+}

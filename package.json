@@ -1,0 +1,55 @@
+{
+  "name": "egg-demo",
+  "version": "1.0.0",
+  "description": "基于egg和guido的demo项目",
+  "private": true,
+  "dependencies": {
+    "egg": "^2.2.1",
+    "egg-scripts": "^2.5.0",
+    "egg-view-handlebars": "^2.0.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "^3.9.5",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.0.0",
+    "egg-bin": "^4.3.5",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.14.0",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^6.0.0",
+    "extend2": "^1.0.0",
+    "guido": "^3.7.5",
+    "webstorm-disable-index": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-egg-demo",
+    "start-sit": "EGG_SERVER_ENV=sit npm start",
+    "stop": "egg-scripts stop --title=egg-server-egg-demo",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod",
+    "dev-assets": "EGG_SERVER_ENV=local RUN_ENV=server ./node_modules/.bin/guido server",
+    "build-assets-prod": "EGG_SERVER_ENV=prod npm run build-assets",
+    "build-assets-sit": "EGG_SERVER_ENV=sit npm run build-assets",
+    "build-assets": "RUN_ENV=production && ./node_modules/.bin/guido publish"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "张家泳",
+  "license": "MIT"
+}

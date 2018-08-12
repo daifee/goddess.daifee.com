@@ -1,0 +1,12 @@
+{{!-- 基本布局，没有body内容，只有head内容和引入其他静态资源 --}}
+<!doctype html>
+<html>
+  <head>
+    {{> headContent}}
+    {{> pageStyleAssets}}
+  </head>
+  <body>
+    {{> bodyContent}}
+    {{> pageScriptAssets}}
+  </body>
+</html>

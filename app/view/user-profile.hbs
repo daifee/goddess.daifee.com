@@ -1,0 +1,9 @@
+{{!-- 使用 ./partials/default-layout.hbs 布局 --}}
+
+{{#> defaultLayout}}
+  {{#*inline "page"}}
+    <h1>hello, {{name}}</h1>
+    <div><a href="/users/{{name}}/edit">修改资料</a></div>
+  {{/inline}}
+{{/defaultLayout}}
+
