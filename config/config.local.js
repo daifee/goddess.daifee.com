@@ -16,5 +16,12 @@ module.exports = appInfo => {
     outputPath: path.resolve(appInfo.baseDir, './.guido-cache/dist'),
   };
 
+  config.mongoose = {
+    client: {
+      url: 'mongodb://127.0.0.1:27017/goddess',
+      options: {},
+    },
+  };
+
   return config;
 };

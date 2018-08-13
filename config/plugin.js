@@ -7,3 +7,8 @@ exports.handlebars = {
   enable: true,
   package: 'egg-view-handlebars',
 };
+
+exports.mongoose = {
+  enable: true,
+  package: 'egg-mongoose',
+};
