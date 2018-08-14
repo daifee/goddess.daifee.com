@@ -33,6 +33,14 @@ module.exports = app => {
         message: '未定义博文类型：{VALUE}',
       },
     },
+    subject: {
+      type: String,
+      required: [ true, 'subject不能为空' ],
+      enum: {
+        values: [ 'goddess', 'landscape', 'self' ],
+        message: '未定义博文专题：{VALUE}',
+      },
+    },
     text: {
       type: String,
       maxlength: [ 140, '博文不能超过140个字符' ],
