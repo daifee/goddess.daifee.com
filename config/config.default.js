@@ -52,5 +52,21 @@ module.exports = appInfo => {
     path: path.resolve(appInfo.baseDir, './app/assets'),
   };
 
+  /**
+   * 配置mongoose
+   */
+  config.mongoose = {
+    client: {
+      url: 'mongodb://127.0.0.1:27017/goddess',
+      options: {
+        useNewUrlParser: true,
+        auth: {
+          user: process.env.MONGODB_USER,
+          password: process.env.MONGODB_PASSWORD,
+        },
+      },
+    },
+  };
+
   return config;
 };

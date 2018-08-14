@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = function(app) {
   // 加载 assets.json
   app.beforeStart(async () => {
