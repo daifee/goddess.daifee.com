@@ -35,7 +35,6 @@ module.exports = app => {
     },
     subject: {
       type: String,
-      required: [ true, 'subject不能为空' ],
       enum: {
         values: [ 'goddess', 'landscape', 'self' ],
         message: '未定义博文专题：{VALUE}',

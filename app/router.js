@@ -5,7 +5,8 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  require('./router/api')(app);
+  require('./router/v1')(app);
+  require('./router/admin')(app);
 
   // 首页
   router.get('/', controller.home.index);
