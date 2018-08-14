@@ -25,6 +25,13 @@ module.exports = app => {
       type: String,
       required: [ true, 'targetId不能为空' ],
     },
+    // 状态
+    status: {
+      type: String,
+      default: 'normal',
+      // 正常，已删除
+      enum: [ 'normal', 'deleted' ],
+    },
   }, {
     timestamps: true,
   });

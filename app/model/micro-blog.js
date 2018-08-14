@@ -45,6 +45,13 @@ module.exports = app => {
       type: String,
       maxlength: [ 140, '博文不能超过140个字符' ],
     },
+    // 状态
+    status: {
+      type: String,
+      default: 'normal',
+      // 正常，已删除
+      enum: [ 'normal', 'deleted' ],
+    },
   }, {
     timestamps: true,
   });
