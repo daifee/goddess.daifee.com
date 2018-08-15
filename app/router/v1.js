@@ -10,10 +10,10 @@ module.exports = app => {
   /**
    * 用户：
    * * 注册
-   * * 登录
+   * * 授权
    */
   router.post('/api/v1/users/', todo);
-  router.post('/api/v1/users/~', todo);
+  router.post('/api/v1/authorization', todo);
 
   /**
    * 用户内容：

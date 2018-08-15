@@ -52,12 +52,6 @@ module.exports = app => {
         return Date.now() + '';
       },
     },
-    // 标识
-    token: {
-      type: String,
-      unique: true,
-      maxlength: [ 100, 'token不能超过100个字符' ],
-    },
     // 状态
     status: {
       type: String,
@@ -70,21 +64,11 @@ module.exports = app => {
     timestamps: true,
   });
 
+  // schema.methods = {
+  //   verifyPassword() {
 
-  // /**
-  //  * 创建token
-  //  *
-  //  * @param {ObjectId} id 用户ID
-  //  * @param {String} password 加密后的密码
-  //  * @return {String} token
-  //  */
-  // function createToken(id, password) {
-  //   const hmac = crypto.createHmac('sha256', password);
-  //   const token = hmac.update(id).digest('hex');
-
-  //   return token;
-  // }
-
+  //   }
+  // };
 
   // /**
   //  * 对用户密码进行加密（加密后才能存库）
