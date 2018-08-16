@@ -11,7 +11,7 @@ module.exports = function(app) {
       const fileName = 'assets.json';
       const config = app.config;
 
-      if (app.env === 'local') {
+      if (app.config.env === 'local') {
         const url = `${config.assets.publicPath}/${fileName}`;
         const response = await app.curl(url, {
           method: 'GET',

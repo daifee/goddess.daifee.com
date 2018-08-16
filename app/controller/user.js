@@ -4,7 +4,8 @@ const Controller = require('egg').Controller;
 
 class UserController extends Controller {
   async post() {
-    const { request, User } = this.ctx;
+    const { request, model } = this.ctx;
+    const { User } = model;
     const data = request.body;
 
     if (data.password !== data.repeatPassword) {

@@ -25,6 +25,7 @@ module.exports = app => {
       type: String,
       unique: true,
       trip: true,
+      // 不匹配“0开头的11位数字”
       match: [ /\d{11}/, '手机号码格式不正确' ],
     },
     role: {
@@ -43,7 +44,7 @@ module.exports = app => {
       type: String,
       required: [ true, '密码不能为空' ],
       minlength: [ 6, '密码不能少于6个字符' ],
-      maxlength: [ 60, '密码不能多于60个字符' ],
+      maxlength: [ 64, '密码不能多于60个字符' ],
     },
     // 私有盐
     salt: {
