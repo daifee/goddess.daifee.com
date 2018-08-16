@@ -1,31 +1,31 @@
 import React from 'react';
-import render, {hideInitLoading} from '../render';
+import render, { hideInitLoading } from '../render';
 
 function Login() {
-  return (
-    <React.Fragment>
-      <h1>登录</h1>
-      <p>这是React渲染的页面</p>
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <h1>登录</h1>
+            <p>这是React渲染的页面</p>
+        </React.Fragment>
+    );
 }
 
 class LoginContainer extends React.Component {
   state = {
-    loading: true
+      loading: true,
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({loading: false});
-      hideInitLoading();
-    }, 800);
+      setTimeout(() => {
+          this.setState({ loading: false });
+          hideInitLoading();
+      }, 800);
   }
 
   render() {
-    if (this.state.loading) return null;
+      if (this.state.loading) return null;
 
-    return (<Login />);
+      return (<Login />);
   }
 }
 

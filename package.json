@@ -21,6 +21,7 @@
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0",
+    "eslint-plugin-flowtype": "^2.50.0",
     "extend2": "^1.0.0",
     "guido": "^3.7.5",
     "webstorm-disable-index": "^1.2.0"
@@ -32,8 +33,8 @@
     "start": "egg-scripts start --daemon --title=egg-server-egg-demo",
     "start-sit": "EGG_SERVER_ENV=sit npm start",
     "stop": "egg-scripts stop --title=egg-server-egg-demo",
-    "dev": "MONGODB_USER=web MONGODB_PASSWORD=123456 egg-bin dev",
-    "debug": "MONGODB_USER=web MONGODB_PASSWORD=123456 egg-bin debug",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",

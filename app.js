@@ -1,23 +1,35 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = function(app) {
   // 加载 assets.json
   app.beforeStart(async () => {
-    // 如果CDN防盗链，可能请求不了
-    const url = `${app.config.assets.publicPath}/assets.json`;
-    try {
-      const response = await app.curl(url, {
-        method: 'GET',
-        dataType: 'json',
-      });
 
-      if (response.data) {
-        Object.assign(app.locals, {
-          assetsMap: response.data,
+    try {
+      let assetsMap;
+      const fileName = 'assets.json';
+      const config = app.config;
+
+      if (app.env === 'local') {
+        const url = `${config.assets.publicPath}/${fileName}`;
+        const response = await app.curl(url, {
+          method: 'GET',
+          dataType: 'json',
         });
+        assetsMap = response.data;
       } else {
+        const file = path.resolve(config.assets.outputPath, fileName);
+        assetsMap = require(file);
+      }
+
+      if (!assetsMap) {
         throw new Error('assetsMap缺失数据');
       }
+
+      Object.assign(app.locals, {
+        assetsMap,
+      });
     } catch (err) {
       app.coreLogger.error('加载assets.json错误：' + err.message);
       // 需要延时，等待写入日志，不然无法正常写错误日志。

@@ -1,8 +1,9 @@
 /**
- * 本地开发环境的配置
+ * 单元测试环境的配置
  */
 
 'use strict';
+
 const path = require('path');
 
 module.exports = appInfo => {
@@ -16,12 +17,13 @@ module.exports = appInfo => {
     outputPath: path.resolve(appInfo.baseDir, './.guido-cache/dist'),
   };
 
+
   /**
    * 配置mongoose
    */
   config.mongoose = {
     client: {
-      url: 'mongodb://127.0.0.1:27017/goddess',
+      url: 'mongodb://127.0.0.1:27017/goddess_unittest',
       options: {
         useNewUrlParser: true,
         auth: {
@@ -31,6 +33,7 @@ module.exports = appInfo => {
       },
     },
   };
+
 
   return config;
 };
