@@ -3,6 +3,28 @@
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
+  async post() {
+    const { request, User } = this.ctx;
+    const data = request.body;
+
+    if (data.password !== data.repeatPassword) {
+      // TODO 定义 error code
+      this.ctx.throw();
+    }
+
+    // TODO 过滤，只留必要字段
+    const user = new User(data);
+
+    if (user.validateSync()) {
+      // TODO 定义 error code
+      this.ctx.throw();
+    }
+
+    // TODO insert to db
+
+    // TODO 响应 user数据和token
+  }
+
   async profile() {
     const PAGE_NAME = 'user-profile';
     await this.ctx.render(PAGE_NAME, {

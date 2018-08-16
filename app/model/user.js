@@ -3,7 +3,7 @@
  */
 'use strict';
 
-// const crypto = require('crypto');
+const crypto = require('crypto');
 
 module.exports = app => {
   const { mongoose } = app;
@@ -21,11 +21,11 @@ module.exports = app => {
       match: [ /^http(s)?:\/\//, '头像URL格式不正确' ],
       maxlength: [ 400, '头像URL不能超过400个字符' ],
     },
-    email: {
+    phone: {
       type: String,
       unique: true,
       trip: true,
-      match: [ /^[^@]+@[^@.]+(\.[^@.]+)+$/, '邮箱格式不正确' ],
+      match: [ /\d{11}/, '手机号码格式不正确' ],
     },
     role: {
       type: String,
@@ -64,25 +64,29 @@ module.exports = app => {
     timestamps: true,
   });
 
-  // schema.methods = {
-  //   verifyPassword() {
+  schema.methods = {
+    verifyPassword(password) {
+      return this.password === encryptPassword(password, this.salt);
+    },
+    encryptPassword() {
+      const { salt, password } = this;
+      this.password = encryptPassword(password, salt);
+    },
+  };
 
-  //   }
-  // };
+  /**
+   * 对用户密码进行加密（加密后才能存库）
+   *
+   * @param {string} password 用户输入的密码
+   * @param {string} salt User的salt
+   * @return {string} password
+   */
+  function encryptPassword(password, salt) {
+    const hmac = crypto.createHmac('sha256', password);
+    password = hmac.update(salt).digest('hex');
 
-  // /**
-  //  * 对用户密码进行加密（加密后才能存库）
-  //  *
-  //  * @param {string} password 用户输入的密码
-  //  * @param {string} salt User的salt
-  //  * @return {string} password
-  //  */
-  // function encryptPassword(password, salt) {
-  //   const hmac = crypto.createHmac('sha256', password);
-  //   password = hmac.update(salt).digest('hex');
-
-  //   return password;
-  // }
+    return password;
+  }
 
 
   return mongoose.model('User', schema);
