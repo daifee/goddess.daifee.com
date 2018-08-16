@@ -16,10 +16,19 @@ class UserService extends Service {
     return user;
   }
 
+  //
   async findByPhone(phone) {
     const { User } = this.ctx.model;
     const filter = '-password -salt';
     const user = await User.findOne({ phone }, filter);
+    return user;
+  }
+
+  //
+  async findById(id) {
+    const { User } = this.ctx.model;
+    const filter = '-password -salt';
+    const user = await User.findOne({ _id: id }, filter);
     return user;
   }
 }

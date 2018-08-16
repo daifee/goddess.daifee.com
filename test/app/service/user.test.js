@@ -88,4 +88,22 @@ describe('test/app/service/user.test.js', () => {
       assert(user === null);
     });
   });
+
+
+  describe('findById', () => {
+    it('成功——找到用户', async () => {
+      const ctx = app.mockContext();
+      const { User } = ctx.model;
+      const data = mock.user();
+      let user = await ctx.service.user.create(new User(data));
+
+      user = await ctx.service.user.findById(user.id);
+
+      assert.deepStrictEqual({
+        phone: data.phone,
+      }, {
+        phone: user.phone,
+      });
+    });
+  });
 });
