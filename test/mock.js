@@ -52,10 +52,28 @@ exports.createUser = async function(user = {}) {
 };
 
 
+exports.createUsers = async function(num = 1, user = {}) {
+  const ctx = app.mockContext({});
+  const { User } = ctx.model;
+
+  const data = loop(() => exports.user(user), num);
+  return await User.create(data);
+};
+
+
 exports.createLabel = async function(label = {}) {
   const ctx = app.mockContext({});
   const { Label } = ctx.model;
   const data = exports.label(label);
+  return await Label.create(data);
+};
+
+
+exports.createLabels = async function(num = 1, label = {}) {
+  const ctx = app.mockContext({});
+  const { Label } = ctx.model;
+
+  const data = loop(() => exports.label(label), num);
   return await Label.create(data);
 };
 

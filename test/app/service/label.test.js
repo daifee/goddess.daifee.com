@@ -4,7 +4,7 @@ const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
 
-describe('test/app/service/label.test.js', () => {
+describe.only('test/app/service/label.test.js', () => {
   before(async () => {
     await app.mongoose.connection.dropDatabase();
 
@@ -46,10 +46,11 @@ describe('test/app/service/label.test.js', () => {
     });
 
     it('创建新标签，重名', async () => {
+      const data = mock.label();
+      await mock.createLabel(data);
+
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
-      const data = mock.label();
-      await ctx.service.label.create(new Label(data));
 
       try {
         await ctx.service.label.create(new Label(data));
@@ -63,10 +64,9 @@ describe('test/app/service/label.test.js', () => {
 
   describe('update(id, model)', () => {
     it('更新标签，成功', async () => {
-      const ctx = app.mockContext({});
+      const label = await mock.createLabel();
 
-      const data = mock.label();
-      const label = await ctx.service.label.create(data);
+      const ctx = app.mockContext({});
 
       const data2 = mock.label();
       const label2 = await ctx.service.label.update(label.id, data2);
@@ -76,10 +76,10 @@ describe('test/app/service/label.test.js', () => {
     });
 
     it('更新标签，重名', async () => {
+      const label = await mock.createLabel();
+
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
-      const data = mock.label();
-      const label = await ctx.service.label.create(new Label(data));
 
       const data2 = mock.label();
       const label2 = await ctx.service.label.create(new Label(data2));
@@ -94,20 +94,18 @@ describe('test/app/service/label.test.js', () => {
     });
 
     it('更新标签，名字重置为空。update不验证schema数据', async () => {
+      const label = await mock.createLabel();
+
       const ctx = app.mockContext({});
-      const { Label } = ctx.model;
-      const data = mock.label();
-      const label = await ctx.service.label.create(new Label(data));
 
       const newLabel = await ctx.service.label.update(label.id, { name: '' });
       assert(newLabel.name === '');
     });
 
     it('更新标签，不会更新ID', async () => {
+      const label = await mock.createLabel();
+
       const ctx = app.mockContext({});
-      const { Label } = ctx.model;
-      const data = mock.label();
-      const label = await ctx.service.label.create(new Label(data));
 
       try {
         await ctx.service.label.update(label.id, { _id: 'fuck' });
@@ -119,10 +117,9 @@ describe('test/app/service/label.test.js', () => {
 
   describe('delete(id)', () => {
     it('删除标签，成功', async () => {
+      const label = await mock.createLabel();
+
       const ctx = app.mockContext({});
-      const { Label } = ctx.model;
-      const data = mock.label();
-      const label = await ctx.service.label.create(new Label(data));
 
       const result = await ctx.service.label.delete(label.id);
       assert(result.status === 'deleted');
@@ -131,13 +128,10 @@ describe('test/app/service/label.test.js', () => {
 
   describe('find()', () => {
     it('查询所有标签，成功', async () => {
-      const ctx = app.mockContext({});
-      const { Label } = ctx.model;
+      await mock.createLabels(2);
+      await mock.createLabels(1, { status: 'deleted' });
 
-      await ctx.service.label.create(new Label(mock.label()));
-      await ctx.service.label.create(new Label(mock.label()));
-      // deleted
-      await ctx.service.label.create(new Label(mock.label({ status: 'deleted' })));
+      const ctx = app.mockContext({});
 
       const arr = await ctx.service.label.find();
 
