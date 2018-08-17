@@ -7,6 +7,10 @@ module.exports = app => {
   const { mongoose } = app;
 
   const schema = new mongoose.Schema({
+    userId: {
+      type: String,
+      required: [ true, '不能缺少userId' ],
+    },
     name: {
       type: String,
       unique: true,

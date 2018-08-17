@@ -7,6 +7,11 @@ module.exports = app => {
   const { mongoose } = app;
 
   const schema = new mongoose.Schema({
+    userId: {
+      type: String,
+      required: [ true, '不能缺少userId' ],
+    },
+    labelIds: [ String ],
     url: {
       type: String,
       index: true,
@@ -14,7 +19,6 @@ module.exports = app => {
       unique: true,
       maxlength: [ 400, '图片URL不能超过400个字符' ],
     },
-    labelIds: [ String ],
     likeNum: {
       type: Number,
       default: 0,

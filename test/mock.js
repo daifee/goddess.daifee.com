@@ -2,6 +2,9 @@
 
 const { app } = require('egg-mock/bootstrap');
 
+exports.stringId = function() {
+  return app.mongoose.Types.ObjectId().toString();
+};
 
 exports.int = function(min = 0, max = 999999) {
   const range = max - min;
@@ -23,7 +26,10 @@ exports.string = function(len = 9, seed = '发窘啊876发达奇偶') {
 
 
 exports.user = function(user = {}) {
+  const id = exports.stringId();
   return Object.assign({
+    _id: id,
+    id,
     name: exports.string(),
     password: exports.string(7, 'fjaio*7f^&fda324'),
     phone: exports.string(11, '123456789'),
@@ -31,15 +37,19 @@ exports.user = function(user = {}) {
 };
 
 exports.label = function(label = {}) {
+  const user = exports.user();
   return Object.assign({
+    userId: user.id,
     name: exports.string(6),
     description: exports.string(32),
   }, label);
 };
 
 exports.picture = function(picture = {}) {
+  const user = exports.user();
   return Object.assign({
     url: exports.string(12),
+    userId: user.id,
   }, picture);
 };
 
