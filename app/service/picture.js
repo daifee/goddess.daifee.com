@@ -25,9 +25,9 @@ class PictureService extends Service {
   // 查找，分页
   async find(page = 1, perPage = 10) {
     const query = this.ctx.model.Picture.find({})
+      .find({ status: { $ne: 'deleted' } })
       .skip((page - 1) * perPage)
-      .limit(perPage)
-      .find({ status: { $ne: 'deleted' } });
+      .limit(perPage);
 
     return query.exec();
   }

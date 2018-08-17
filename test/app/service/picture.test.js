@@ -30,10 +30,7 @@ describe('test/app/service/picture.test.js', () => {
   describe('update(id, obj)', () => {
     it('更新图片，成功', async () => {
       const ctx = app.mockContext({});
-      const { Picture } = ctx.model;
-      const data = mock.picture();
-
-      const picture = await ctx.service.picture.create(new Picture(data));
+      const picture = await mock.createPicture();
 
       const picture2 = await ctx.service.picture.update(picture.id, {
         labelIds: [ 'add label' ],
@@ -47,10 +44,8 @@ describe('test/app/service/picture.test.js', () => {
   describe('delete(id)', () => {
     it('删除图片，成功', async () => {
       const ctx = app.mockContext({});
-      const { Picture } = ctx.model;
-      const data = mock.picture();
+      const picture = await mock.createPicture();
 
-      const picture = await ctx.service.picture.create(new Picture(data));
       const result = await ctx.service.picture.delete(picture.id);
       assert(result.status === 'deleted');
     });
@@ -58,16 +53,11 @@ describe('test/app/service/picture.test.js', () => {
 
   describe('find(page = 1, perPage = 10)', () => {
     it('查找图片，成功', async () => {
+      await mock.createPictures(2);
+      await mock.createPictures(1, { status: 'deleted' });
+      await mock.createPictures(2);
+
       const ctx = app.mockContext({});
-      const { Picture } = ctx.model;
-
-      for (let i = 0; i < 5; i++) {
-        const data = mock.picture({
-          status: i === 2 ? 'deleted' : undefined,
-        });
-        await ctx.service.picture.create(new Picture(data));
-      }
-
       const arr = await ctx.service.picture.find(1, 3);
 
       assert(arr.length === 3);
