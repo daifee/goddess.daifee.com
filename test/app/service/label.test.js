@@ -75,11 +75,46 @@ describe('test/app/service/label.test.js', () => {
       assert(label.name !== label2.name);
     });
 
-    it('更新标签，重名');
+    it('更新标签，重名', async () => {
+      const ctx = app.mockContext({});
+      const { Label } = ctx.model;
+      const data = mock.label();
+      const label = await ctx.service.label.create(new Label(data));
 
-    it('更新标签，名字重置为空');
+      const data2 = mock.label();
+      const label2 = await ctx.service.label.create(new Label(data2));
 
-    it('更新标签，不会更新ID');
+      try {
+        await ctx.service.label.update(label.id, { name: label2.name });
+        assert.fail('不应该运行到这里');
+      } catch (err) {
+        assert(err.code === 11000);
+        assert(err instanceof Error);
+      }
+    });
+
+    it('更新标签，名字重置为空。update不验证schema数据', async () => {
+      const ctx = app.mockContext({});
+      const { Label } = ctx.model;
+      const data = mock.label();
+      const label = await ctx.service.label.create(new Label(data));
+
+      const newLabel = await ctx.service.label.update(label.id, { name: '' });
+      assert(newLabel.name === '');
+    });
+
+    it.only('更新标签，不会更新ID', async () => {
+      const ctx = app.mockContext({});
+      const { Label } = ctx.model;
+      const data = mock.label();
+      const label = await ctx.service.label.create(new Label(data));
+
+      try {
+        await ctx.service.label.update(label.id, { _id: 'fuck' });
+      } catch (err) {
+        assert(err instanceof Error);
+      }
+    });
   });
 
   describe('delete(id)', () => {
