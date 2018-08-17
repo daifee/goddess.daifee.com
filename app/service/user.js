@@ -19,16 +19,26 @@ class UserService extends Service {
   //
   async findByPhone(phone) {
     const { User } = this.ctx.model;
-    const filter = '-password -salt';
-    const user = await User.findOne({ phone, status: { $ne: 'deleted' } }, filter);
+
+    const query = User.find({});
+    const filter = { phone, status: { $ne: 'deleted' } };
+    const projection = '-password -salt';
+
+    const user = await query.findOne(filter, projection).exec();
+
     return user;
   }
 
   //
   async findById(id) {
     const { User } = this.ctx.model;
-    const filter = '-password -salt';
-    const user = await User.findOne({ _id: id, status: { $ne: 'deleted' } }, filter);
+
+    const query = User.find({});
+    const filter = { _id: id, status: { $ne: 'deleted' } };
+    const projection = '-password -salt';
+
+    const user = await query.findOne(filter, projection).exec();
+
     return user;
   }
 }
