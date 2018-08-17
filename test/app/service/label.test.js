@@ -3,11 +3,17 @@
 const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
-before(async () => {
-  await app.mongoose.connection.dropDatabase();
-});
 
-describe('test/app/service/user.label.js', () => {
+describe('test/app/service/label.test.js', () => {
+  before(async () => {
+    await app.mongoose.connection.dropDatabase();
+
+    const ctx = app.mockContext({});
+    const { Label } = ctx.model;
+    await Label.ensureIndexes();
+  });
+
+
   describe('create(model)', () => {
     it('创建新标签，成功', async () => {
       const ctx = app.mockContext({});
@@ -38,7 +44,7 @@ describe('test/app/service/user.label.js', () => {
       }
     });
 
-    it.skip('创建新标签，重名', async () => {
+    it('创建新标签，重名', async () => {
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
       const data = mock.label({ age: 'normal' });

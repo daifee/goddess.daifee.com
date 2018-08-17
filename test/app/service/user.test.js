@@ -3,12 +3,17 @@
 const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
-before(async () => {
-  await app.mongoose.connection.dropDatabase();
-});
-
 
 describe('test/app/service/user.test.js', () => {
+  before(async () => {
+    await app.mongoose.connection.dropDatabase();
+
+    const ctx = app.mockContext({});
+    const { User } = ctx.model;
+    await User.ensureIndexes();
+  });
+
+
   describe('create(userJson)', () => {
     it('成功——创建新用户', async () => {
       const ctx = app.mockContext({});
