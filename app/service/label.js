@@ -22,9 +22,7 @@ class LabelService extends Service {
   }
 
   async delete(id) {
-    const { Label } = this.ctx.model;
-
-    return await this.update(id, new Label({ status: 'deleted' }));
+    return await this.update(id, { status: 'deleted' });
   }
 
   /**

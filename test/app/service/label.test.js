@@ -103,7 +103,7 @@ describe('test/app/service/label.test.js', () => {
       assert(newLabel.name === '');
     });
 
-    it.only('更新标签，不会更新ID', async () => {
+    it('更新标签，不会更新ID', async () => {
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
       const data = mock.label();
@@ -118,10 +118,30 @@ describe('test/app/service/label.test.js', () => {
   });
 
   describe('delete(id)', () => {
-    it('删除标签，成功');
+    it('删除标签，成功', async () => {
+      const ctx = app.mockContext({});
+      const { Label } = ctx.model;
+      const data = mock.label();
+      const label = await ctx.service.label.create(new Label(data));
+
+      const result = await ctx.service.label.delete(label.id);
+      assert(result.status === 'deleted');
+    });
   });
 
   describe('find()', () => {
-    it('查询所有标签，成功');
+    it('查询所有标签，成功', async () => {
+      const ctx = app.mockContext({});
+      const { Label } = ctx.model;
+
+      await ctx.service.label.create(new Label(mock.label()));
+      await ctx.service.label.create(new Label(mock.label()));
+      // deleted
+      await ctx.service.label.create(new Label(mock.label({ status: 'deleted' })));
+
+      const arr = await ctx.service.label.find();
+
+      assert(arr.length >= 2);
+    });
   });
 });
