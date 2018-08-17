@@ -5,13 +5,13 @@ const { Service } = require('egg');
 class UserService extends Service {
   /**
    * 创建新用户
-   * @param {User} model 用户对象
+   * @param {User} doc 用户对象
    * @return {User} 新用户对象
    */
-  async create(model) {
+  async create(doc) {
     const { User } = this.ctx.model;
-    model.encryptPassword();
-    const user = await User.create(model);
+    doc.encryptPassword();
+    const user = await User.create(doc);
 
     return user;
   }
