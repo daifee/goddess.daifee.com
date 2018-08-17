@@ -4,7 +4,7 @@ const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
 
-describe.only('test/app/service/label.test.js', () => {
+describe('test/app/service/label.test.js', () => {
   before(async () => {
     await app.mongoose.connection.dropDatabase();
 

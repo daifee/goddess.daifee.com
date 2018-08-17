@@ -71,11 +71,9 @@ describe('test/app/service/user.test.js', () => {
 
   describe('findByPhone', () => {
     it('成功——找到用户', async () => {
-      const ctx = app.mockContext();
-      const { User } = ctx.model;
-      const data = mock.user();
-      await ctx.service.user.create(new User(data));
+      const data = await mock.createUser();
 
+      const ctx = app.mockContext();
       const user = await ctx.service.user.findByPhone(data.phone);
 
       assert.deepStrictEqual({
@@ -94,13 +92,9 @@ describe('test/app/service/user.test.js', () => {
     });
 
     it('不能找到已删除的用户', async () => {
-      const ctx = app.mockContext();
-      const { User } = ctx.model;
-      const data = mock.user({
-        status: 'deleted',
-      });
-      await ctx.service.user.create(new User(data));
+      const data = await mock.createUser({ status: 'deleted' });
 
+      const ctx = app.mockContext();
       const user = await ctx.service.user.findByPhone(data.phone);
 
       assert(user === null);
@@ -110,12 +104,10 @@ describe('test/app/service/user.test.js', () => {
 
   describe('findById', () => {
     it('成功——找到用户', async () => {
-      const ctx = app.mockContext();
-      const { User } = ctx.model;
-      const data = mock.user();
-      let user = await ctx.service.user.create(new User(data));
+      const data = await mock.createUser();
 
-      user = await ctx.service.user.findById(user.id);
+      const ctx = app.mockContext();
+      const user = await ctx.service.user.findById(data.id);
 
       assert.deepStrictEqual({
         phone: data.phone,
@@ -125,14 +117,10 @@ describe('test/app/service/user.test.js', () => {
     });
 
     it('不能找到已删除的用户', async () => {
+      const data = await mock.createUser({ status: 'deleted' });
       const ctx = app.mockContext();
-      const { User } = ctx.model;
-      const data = mock.user({
-        status: 'deleted',
-      });
-      let user = await ctx.service.user.create(new User(data));
 
-      user = await ctx.service.user.findById(user.id);
+      const user = await ctx.service.user.findById(data.id);
 
       assert(user === null);
     });
