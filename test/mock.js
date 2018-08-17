@@ -33,3 +33,9 @@ exports.label = function(label = {}) {
     description: exports.string(32),
   }, label);
 };
+
+exports.picture = function(picture = {}) {
+  return Object.assign({
+    url: exports.string(12),
+  }, picture);
+};

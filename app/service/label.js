@@ -4,9 +4,9 @@ const { Service } = require('egg');
 
 class LabelService extends Service {
 
-  async create(model) {
+  async create(doc) {
     const { Label } = this.ctx.model;
-    const label = await Label.create(model);
+    const label = await Label.create(doc);
     return label;
   }
 
