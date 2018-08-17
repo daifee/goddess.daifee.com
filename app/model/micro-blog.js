@@ -33,10 +33,10 @@ module.exports = app => {
         message: '未定义博文类型：{VALUE}',
       },
     },
-    subject: {
+    recommended: {
       type: String,
       enum: {
-        values: [ 'goddess', 'landscape', 'self' ],
+        values: [ 'goddess', 'landscape', 'animal' ],
         message: '未定义博文专题：{VALUE}',
       },
     },
