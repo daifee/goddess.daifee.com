@@ -26,3 +26,10 @@ exports.user = function(user = {}) {
     phone: exports.string(11, '123456789'),
   }, user);
 };
+
+exports.label = function(label = {}) {
+  return Object.assign({
+    name: exports.string(6),
+    description: exports.string(32),
+  }, label);
+};

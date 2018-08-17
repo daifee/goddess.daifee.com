@@ -9,8 +9,9 @@ module.exports = app => {
   const schema = new mongoose.Schema({
     name: {
       type: String,
-      index: true, // 索引
       unique: true,
+      index: true,
+      trim: true,
       required: true,
       maxlength: [ 10, '标签名不能超过10个字符' ],
     },
