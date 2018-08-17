@@ -15,6 +15,7 @@ describe('test/app/service/label.test.js', () => {
 
 
   describe('create(model)', () => {
+
     it('创建新标签，成功', async () => {
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
@@ -47,7 +48,7 @@ describe('test/app/service/label.test.js', () => {
     it('创建新标签，重名', async () => {
       const ctx = app.mockContext({});
       const { Label } = ctx.model;
-      const data = mock.label({ age: 'normal' });
+      const data = mock.label();
       await ctx.service.label.create(new Label(data));
 
       try {
@@ -61,7 +62,18 @@ describe('test/app/service/label.test.js', () => {
   });
 
   describe('update(id, model)', () => {
-    it('更新标签，成功');
+    it('更新标签，成功', async () => {
+      const ctx = app.mockContext({});
+
+      const data = mock.label();
+      const label = await ctx.service.label.create(data);
+
+      const data2 = mock.label();
+      const label2 = await ctx.service.label.update(label.id, data2);
+
+      assert(label.id === label2.id);
+      assert(label.name !== label2.name);
+    });
 
     it('更新标签，重名');
 

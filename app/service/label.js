@@ -10,12 +10,11 @@ class LabelService extends Service {
     return label;
   }
 
-  async update(id, model) {
+  async update(id, obj) {
     const { Label } = this.ctx.model;
 
     const query = Label.find({})
-      .select('name description status')
-      .findOneAndUpdate({ _id: id }, model, { new: true });
+      .findOneAndUpdate({ _id: id }, obj, { new: true });
 
     const label = await query.exec();
 
