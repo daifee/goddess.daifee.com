@@ -20,7 +20,7 @@ class UserService extends Service {
   async findByPhone(phone) {
     const { User } = this.ctx.model;
     const filter = '-password -salt';
-    const user = await User.findOne({ phone }, filter);
+    const user = await User.findOne({ phone, status: { $ne: 'deleted' } }, filter);
     return user;
   }
 
@@ -28,7 +28,7 @@ class UserService extends Service {
   async findById(id) {
     const { User } = this.ctx.model;
     const filter = '-password -salt';
-    const user = await User.findOne({ _id: id }, filter);
+    const user = await User.findOne({ _id: id, status: { $ne: 'deleted' } }, filter);
     return user;
   }
 }

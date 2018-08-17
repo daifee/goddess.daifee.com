@@ -87,6 +87,19 @@ describe('test/app/service/user.test.js', () => {
 
       assert(user === null);
     });
+
+    it('不能找到已删除的用户', async () => {
+      const ctx = app.mockContext();
+      const { User } = ctx.model;
+      const data = mock.user({
+        status: 'deleted',
+      });
+      await ctx.service.user.create(new User(data));
+
+      const user = await ctx.service.user.findByPhone(data.phone);
+
+      assert(user === null);
+    });
   });
 
 
@@ -104,6 +117,19 @@ describe('test/app/service/user.test.js', () => {
       }, {
         phone: user.phone,
       });
+    });
+
+    it('不能找到已删除的用户', async () => {
+      const ctx = app.mockContext();
+      const { User } = ctx.model;
+      const data = mock.user({
+        status: 'deleted',
+      });
+      let user = await ctx.service.user.create(new User(data));
+
+      user = await ctx.service.user.findById(user.id);
+
+      assert(user === null);
     });
   });
 });
