@@ -16,13 +16,13 @@ module.exports = app => {
     pictureUrls: {
       type: [ String ],
       required: [ function() {
-        return !!this.videoUrl || !!this.pictureUrls.length;
+        return !this.videoUrl && !this.pictureUrls.length;
       }, '必须发布图片或视频' ],
     },
     videoUrl: {
       type: String,
       required: [ function() {
-        return !!this.video || !!this.pictures.length;
+        return !this.videoUrl && !this.pictureUrls.length;
       }, '必须发布图片或视频' ],
     },
     type: {
@@ -38,6 +38,12 @@ module.exports = app => {
       enum: {
         values: [ 'goddess', 'landscape', 'animal' ],
         message: '未定义博文专题：{VALUE}',
+      },
+    },
+    recommendedTime: {
+      type: Date,
+      default: () => {
+        return new Date();
       },
     },
     text: {

@@ -53,6 +53,22 @@ exports.picture = function(picture = {}) {
   }, picture);
 };
 
+exports.microBlog = function(microBlog = {}) {
+  const user = exports.user();
+  return Object.assign({
+    userId: user.id,
+    pictureUrls: [
+      exports.string(12),
+      exports.string(11),
+      exports.string(13),
+      exports.string(10),
+    ],
+    type: 'picture',
+    text: exports.string(11),
+
+  }, microBlog);
+};
+
 
 exports.createUser = async function(user = {}) {
   const ctx = app.mockContext({});
@@ -101,6 +117,21 @@ exports.createPictures = async function(num = 1, picture = {}) {
 
   const data = loop(() => exports.picture(picture), num);
   return await Picture.create(data);
+};
+
+exports.createMicroBlog = async function(microBlog = {}) {
+  const ctx = app.mockContext({});
+  const { MicroBlog } = ctx.model;
+  const data = exports.microBlog(microBlog);
+
+  return await MicroBlog.create(data);
+};
+
+exports.createMicroBlogs = async function(num = 1, microBlog = {}) {
+  const ctx = app.mockContext({});
+  const { MicroBlog } = ctx.model;
+  const data = loop(() => exports.microBlog(microBlog), num);
+  return await MicroBlog.create(data);
 };
 
 function loop(cb, times = 0) {
