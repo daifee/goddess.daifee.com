@@ -13,13 +13,13 @@ module.exports = app => {
       required: [ true, 'userId不能为空' ],
       maxlength: [ 100, '用户ID不能超过100个字符' ],
     },
-    pictureIds: {
+    pictureUrls: {
       type: [ String ],
       required: [ function() {
-        return !!this.videoId || !!this.pictureIds.length;
+        return !!this.videoUrl || !!this.pictureUrls.length;
       }, '必须发布图片或视频' ],
     },
-    videoId: {
+    videoUrl: {
       type: String,
       required: [ function() {
         return !!this.video || !!this.pictures.length;
