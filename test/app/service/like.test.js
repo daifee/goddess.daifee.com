@@ -110,6 +110,22 @@ describe('test/app/service/like.test.js', () => {
 
       assert(arr.length === 3);
     });
+
+    it('查找多个收藏，其中一个不存在', async () => {
+      const userId = mock.stringId();
+      const likes = await mock.createLikes(3, { userId });
+      const ctx = app.mockContext();
+      const targetIds = likes.map(like => {
+        return like.targetId;
+      });
+
+      // 不存在
+      targetIds.push(mock.stringId());
+
+      const arr = await ctx.service.like.findMulti(userId, targetIds);
+
+      assert(arr.length === 3);
+    });
   });
 
   describe('find(userId, page = 1, perPage = 10)', () => {
