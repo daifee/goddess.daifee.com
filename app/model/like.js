@@ -21,8 +21,11 @@ module.exports = app => {
         message: '未定义博文类型：{VALUE}',
       },
     },
+    // 收藏目标的ID（可能是：ObjectId, 资源url）
     targetId: {
       type: String,
+      unique: true,
+      index: true,
       required: [ true, 'targetId不能为空' ],
     },
     // 状态
