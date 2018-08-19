@@ -63,7 +63,7 @@ describe('test/app/service/user.test.js', () => {
         await ctx.service.user.create(new User(data));
         assert.fail('不应该运行到这里');
       } catch (err) {
-        assert(err.code === 200001);
+        assert(err.code === 20001);
         assert(err instanceof Error);
       }
     });

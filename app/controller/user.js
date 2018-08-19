@@ -10,14 +10,14 @@ class UserController extends Controller {
     const data = objectUtil.filter(request.body, 'name phone password repeatPassword');
 
     if (data.password !== data.repeatPassword) {
-      this.ctx.throw(100001);
+      this.ctx.throw(10001);
     }
 
     let user = new User(data);
     const error = user.validateSync();
 
     if (error) {
-      this.ctx.throw(100002, { error });
+      this.ctx.throw(10002, { error });
     }
 
     user = await this.ctx.service.user.create(user);

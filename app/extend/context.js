@@ -52,7 +52,7 @@ module.exports = {
    * 自定义错误响应规范
    * 重写Koa的`ctx.throw(status, message, properties)`接口
    *
-   * @param {number} [code=10000] config/error-codes.json定义的`code`
+   * @param {number} [code=1000] config/error-codes.json定义的`code`
    * @param {object} [properties={}] 自扩展参数
    */
   throw(code = 10000, properties = {}) {

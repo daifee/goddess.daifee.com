@@ -17,11 +17,11 @@ class UserService extends Service {
       user = await User.create(doc);
     } catch (err) {
       if (err.code === 11000) {
-        this.ctx.throw(200001, { error: err });
+        this.ctx.throw(20001, { error: err });
       } else if (err.name === 'ValidationError') {
-        this.ctx.throw(200002);
+        this.ctx.throw(20002);
       } else {
-        this.ctx.throw(200003);
+        this.ctx.throw(20003);
       }
     }
     // 不暴露
