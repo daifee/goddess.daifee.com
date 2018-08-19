@@ -43,6 +43,7 @@ describe('test/app/service/user.test.js', () => {
       try {
         await ctx.service.user.create(new User({
           phone: '13246433455',
+          password: '1345678',
         }));
 
         assert.fail('不应该运行到这里');
@@ -62,7 +63,7 @@ describe('test/app/service/user.test.js', () => {
         await ctx.service.user.create(new User(data));
         assert.fail('不应该运行到这里');
       } catch (err) {
-        assert(err.code === 11000);
+        assert(err.code === 200001);
         assert(err instanceof Error);
       }
     });

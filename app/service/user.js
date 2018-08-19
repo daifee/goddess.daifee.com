@@ -10,8 +10,20 @@ class UserService extends Service {
    */
   async create(doc) {
     const { User } = this.ctx.model;
-    doc.encryptPassword();
-    const user = await User.create(doc);
+    let user;
+
+    try {
+      doc.encryptPassword();
+      user = await User.create(doc);
+    } catch (err) {
+      if (err.code === 11000) {
+        this.ctx.throw(200001, { error: err });
+      } else if (err.name === 'ValidationError') {
+        this.ctx.throw(200002);
+      } else {
+        this.ctx.throw(200003);
+      }
+    }
     // 不暴露
     user.password = undefined;
     user.salt = undefined;

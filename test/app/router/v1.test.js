@@ -12,7 +12,7 @@ describe('test/app/router/v1.test.js', () => {
     await User.ensureIndexes();
   });
 
-  describe.only('post /api/v1/users/', () => {
+  describe('post /api/v1/users/', () => {
     it('创建用户，成功', async () => {
       const data = {
         name: mock.string(6),
