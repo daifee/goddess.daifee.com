@@ -69,12 +69,20 @@ exports.microBlog = function(microBlog = {}) {
   }, microBlog);
 };
 
+exports.like = function(like = {}) {
+  const user = exports.user();
+  const picture = exports.picture();
+  return Object.assign({
+    userId: user.id,
+    type: 'picture',
+    target: picture.url,
+  }, like);
+};
+
 
 exports.createUser = async function(user = {}) {
-  const ctx = app.mockContext({});
-  const { User } = ctx.model;
-  const data = exports.user(user);
-  return await User.create(data);
+  const arr = await exports.createUsers(1, user);
+  return arr[0];
 };
 
 
@@ -88,10 +96,8 @@ exports.createUsers = async function(num = 1, user = {}) {
 
 
 exports.createLabel = async function(label = {}) {
-  const ctx = app.mockContext({});
-  const { Label } = ctx.model;
-  const data = exports.label(label);
-  return await Label.create(data);
+  const arr = await exports.createLabels(1, label);
+  return arr[0];
 };
 
 
@@ -105,10 +111,8 @@ exports.createLabels = async function(num = 1, label = {}) {
 
 
 exports.createPicture = async function(picture = {}) {
-  const ctx = app.mockContext({});
-  const { Picture } = ctx.model;
-  const data = exports.picture(picture);
-  return await Picture.create(data);
+  const arr = await exports.createPictures(1, picture);
+  return arr[0];
 };
 
 exports.createPictures = async function(num = 1, picture = {}) {
@@ -120,11 +124,8 @@ exports.createPictures = async function(num = 1, picture = {}) {
 };
 
 exports.createMicroBlog = async function(microBlog = {}) {
-  const ctx = app.mockContext({});
-  const { MicroBlog } = ctx.model;
-  const data = exports.microBlog(microBlog);
-
-  return await MicroBlog.create(data);
+  const arr = await exports.createMicroBlogs(1, microBlog);
+  return arr[0];
 };
 
 exports.createMicroBlogs = async function(num = 1, microBlog = {}) {
@@ -133,6 +134,19 @@ exports.createMicroBlogs = async function(num = 1, microBlog = {}) {
   const data = loop(() => exports.microBlog(microBlog), num);
   return await MicroBlog.create(data);
 };
+
+exports.createLike = async function(like = {}) {
+  const arr = await exports.createLikes(1, like);
+  return arr[0];
+};
+
+exports.createLikes = async function(num = 1, like = {}) {
+  const ctx = app.mockContext({});
+  const { Like } = ctx.model;
+  const data = loop(() => exports.like(like), num);
+  return await Like.create(data);
+};
+
 
 function loop(cb, times = 0) {
   const result = [];
