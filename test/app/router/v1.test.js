@@ -12,23 +12,30 @@ describe('test/app/router/v1.test.js', () => {
     await User.ensureIndexes();
   });
 
-  describe.only('post /api/v1/users/', () => {
+  describe('post /api/v1/users/', () => {
     it('创建用户，成功', async () => {
-
+      const data = {
+        name: mock.string(6),
+        phone: mock.string(11, '123456789'),
+        password: '12345678',
+        repeatPassword: '12345678',
+      };
       const response = await app.httpRequest()
         .post('/api/v1/users/')
-        .send({
-          name: mock.string(6),
-          phone: mock.string(11, '123456789'),
-          password: '12345678',
-          repeatPassword: '12345678',
-        })
+        .send(data)
         .expect('Content-Type', /json/)
         .expect(200);
 
       const body = response.body;
       assert(body.code === 0);
-      assert(body.data);
+      assert.deepStrictEqual({
+        name: body.data.name,
+        phone: body.data.phone,
+      }, {
+        name: data.name,
+        phone: data.phone,
+      });
+      assert(!body.data.password);
     });
   });
 });

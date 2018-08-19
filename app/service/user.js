@@ -12,6 +12,9 @@ class UserService extends Service {
     const { User } = this.ctx.model;
     doc.encryptPassword();
     const user = await User.create(doc);
+    // 不暴露
+    user.password = undefined;
+    user.salt = undefined;
 
     return user;
   }
