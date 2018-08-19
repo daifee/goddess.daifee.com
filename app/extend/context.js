@@ -53,27 +53,33 @@ module.exports = {
    * 重写Koa的`ctx.throw(status, message, properties)`接口
    *
    * @param {number} [code=1000] config/error-codes.json定义的`code`
+   * @param {string} [message=''] 错误信息
    * @param {object} [properties={}] 自扩展参数
    */
-  throw(code = 10000, properties = {}) {
+  throw(code = 99999, message = '', properties = {}) {
     const app = this.app;
-    let message;
     const errorCodes = app.config.errorCodes;
+    let status;
 
-    // Egg内部抛出的异常
     if (code < 10000) {
-      message = properties;
-      properties = arguments[2];
+      // egg框架异常
+      status = code;
+    } else if (code >= 10000 && code < 20000) {
+      // controller异常
+      status = 400;
     } else {
-      // 自定义异常
-      message = errorCodes[code];
+      status = 500;
     }
 
     if (!message) {
-      message = '缺失错误信息';
+      if (errorCodes[code]) {
+        message = errorCodes[code];
+      } else {
+        message = '缺失错误信息';
+      }
     }
 
-    throw createError(400, message, Object.assign({ code }, properties));
+    throw createError(status, message, Object.assign({ code }, properties));
   },
 };
 
