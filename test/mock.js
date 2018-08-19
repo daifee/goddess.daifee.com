@@ -75,7 +75,7 @@ exports.like = function(like = {}) {
   return Object.assign({
     userId: user.id,
     type: 'picture',
-    target: picture.url,
+    targetId: picture.url,
   }, like);
 };
 

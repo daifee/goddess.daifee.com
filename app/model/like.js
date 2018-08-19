@@ -24,7 +24,6 @@ module.exports = app => {
     // 收藏目标的ID（可能是：ObjectId, 资源url）
     targetId: {
       type: String,
-      unique: true,
       index: true,
       required: [ true, 'targetId不能为空' ],
     },
@@ -38,6 +37,8 @@ module.exports = app => {
   }, {
     timestamps: true,
   });
+
+  schema.index({ userId: 1, targetId: 1 }, { unique: true });
 
   return mongoose.model('Like', schema);
 };
