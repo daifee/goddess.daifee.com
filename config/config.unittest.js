@@ -34,6 +34,10 @@ module.exports = appInfo => {
     },
   };
 
+  // 单元测试就不需要在终端打印日志
+  config.logger = {
+    consoleLevel: 'NONE',
+  };
 
   return config;
 };

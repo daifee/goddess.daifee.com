@@ -12,7 +12,7 @@ describe('test/app/router/v1.test.js', () => {
     await User.ensureIndexes();
   });
 
-  describe('post /api/v1/users/', () => {
+  describe.only('post /api/v1/users/', () => {
     it('创建用户，成功', async () => {
       const data = {
         name: mock.string(6),
@@ -37,5 +37,45 @@ describe('test/app/router/v1.test.js', () => {
       });
       assert(!body.data.password);
     });
+
+    it('创建用户，密码不一致', async () => {
+      const data = {
+        name: mock.string(6),
+        phone: mock.string(11, '123456789'),
+        password: '12345678',
+        repeatPassword: '87654321',
+      };
+      const response = await app.httpRequest()
+        .post('/api/v1/users/')
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 100001);
+      assert(body.message);
+    });
+
+    it('创建用户，数据验证不合法', async () => {
+      const data = {
+        name: '',
+        phone: '竟然是中文',
+        password: '12345678',
+        repeatPassword: '12345678',
+      };
+      const response = await app.httpRequest()
+        .post('/api/v1/users/')
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 100002);
+      assert(body.message);
+    });
+
+    it('创建用户，已被占用');
   });
 });

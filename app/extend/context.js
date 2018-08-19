@@ -73,7 +73,7 @@ module.exports = {
       message = '缺失错误信息';
     }
 
-    throw createError(200, message, Object.assign({ code }, properties));
+    throw createError(400, message, Object.assign({ code }, properties));
   },
 };
 

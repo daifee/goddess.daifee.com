@@ -26,7 +26,6 @@ module.exports = appInfo => {
   config.onerror = {
     json(err, ctx) {
       ctx.status = 200;
-
       ctx.body = {
         code: err.code,
         message: err.message,
