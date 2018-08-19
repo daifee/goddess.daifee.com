@@ -5,14 +5,14 @@ async function todo() {
 }
 
 module.exports = app => {
-  const { router } = app;
+  const { router, controller } = app;
 
   /**
    * 用户：
    * * 注册
    * * 授权
    */
-  router.post('/api/v1/users/', todo);
+  router.post('/api/v1/users/', controller.user.post);
   router.post('/api/v1/authorization', todo);
 
   /**

@@ -9,6 +9,12 @@ const errorCodes = require('./error-codes');
 module.exports = appInfo => {
   const config = exports = {};
 
+  exports.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
   /**
    * 自定义API错误码
    */

@@ -1,29 +1,29 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const objectUtil = require('../util/object');
 
 class UserController extends Controller {
   async post() {
     const { request, model } = this.ctx;
     const { User } = model;
-    const data = request.body;
+    const data = objectUtil.filter(request.body, 'name phone password repeatPassword');
 
     if (data.password !== data.repeatPassword) {
-      // TODO 定义 error code
-      this.ctx.throw();
+      this.ctx.throw(100001);
     }
 
-    // TODO 过滤，只留必要字段
-    const user = new User(data);
+    let user = new User(data);
+    const error = user.validateSync();
 
-    if (user.validateSync()) {
-      // TODO 定义 error code
-      this.ctx.throw();
+    if (error) {
+      this.ctx.throw(100002, { error });
     }
 
-    // TODO insert to db
+    user = await this.ctx.service.user.create(user);
 
     // TODO 响应 user数据和token
+    this.ctx.echo(user.toJSON());
   }
 
   async profile() {

@@ -25,6 +25,7 @@ module.exports = app => {
       type: String,
       unique: true,
       trip: true,
+      required: [ true, '不能缺少手机号码' ],
       // 不匹配“0开头的11位数字”
       match: [ /\d{11}/, '手机号码格式不正确' ],
     },
