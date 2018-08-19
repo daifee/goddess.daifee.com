@@ -17,7 +17,7 @@ class UserController extends Controller {
     const error = user.validateSync();
 
     if (error) {
-      this.ctx.throw(10002, { error });
+      this.ctx.throw(10002, '', { error });
     }
 
     user = await this.ctx.service.user.create(user);
