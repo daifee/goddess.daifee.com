@@ -15,7 +15,7 @@ describe('test/app/service/user.test.js', () => {
 
 
   describe('create(userJson)', () => {
-    it('成功——创建新用户', async () => {
+    it('创建新用户，成功', async () => {
       const ctx = app.mockContext({});
       const { User } = ctx.model;
       const data = mock.user();
@@ -37,7 +37,22 @@ describe('test/app/service/user.test.js', () => {
       assert(user.password !== data.password);
     });
 
-    it('数据验证失败', async () => {
+    it('创建新用户，密码加密失败', async () => {
+      const ctx = app.mockContext({});
+      const { User } = ctx.model;
+      try {
+        await ctx.service.user.create(new User({
+          phone: mock.string(11, '12345678932'),
+        }));
+
+        assert.fail('不应该运行到这里');
+      } catch (err) {
+        assert(err instanceof Error);
+        assert(err.code === 20004);
+      }
+    });
+
+    it('创建新用户，数据验证失败', async () => {
       const ctx = app.mockContext({});
       const { User } = ctx.model;
       try {
@@ -49,10 +64,11 @@ describe('test/app/service/user.test.js', () => {
         assert.fail('不应该运行到这里');
       } catch (err) {
         assert(err instanceof Error);
+        assert(err.code === 20002);
       }
     });
 
-    it('重复创建', async () => {
+    it('创建新用户，重复创建', async () => {
       const ctx = app.mockContext({});
       const { User } = ctx.model;
       const data = mock.user();

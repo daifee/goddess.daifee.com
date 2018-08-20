@@ -14,6 +14,11 @@ class UserService extends Service {
 
     try {
       doc.encryptPassword();
+    } catch (err) {
+      this.ctx.throw(20004, err.message, { error: err });
+    }
+
+    try {
       user = await User.create(doc);
     } catch (err) {
       if (err.code === 11000) {
