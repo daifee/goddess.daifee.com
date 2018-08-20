@@ -76,6 +76,23 @@ describe('test/app/router/v1.test.js', () => {
       assert(body.message);
     });
 
-    it('创建用户，已被占用');
+    it('创建用户，已被占用', async () => {
+      const user = await mock.createUser();
+      const response = await app.httpRequest()
+        .post('/api/v1/users/')
+        .set('Accept', 'application/json')
+        .send({
+          name: user.name,
+          phone: user.phone,
+          password: '12345678',
+          repeatPassword: '12345678',
+        })
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 20001);
+      assert(body.message);
+    });
   });
 });
