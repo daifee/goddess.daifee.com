@@ -3,7 +3,7 @@
 const { app, assert } = require('egg-mock/bootstrap');
 
 
-describe.only('test/app/extend/context.test.js', () => {
+describe('test/app/extend/context.test.js', () => {
   it('renderError(err, options)', () => {
     const context = app.mockContext();
     const error = new Error();
