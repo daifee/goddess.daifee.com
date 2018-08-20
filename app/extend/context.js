@@ -18,7 +18,7 @@ module.exports = {
    * @param {Error} err 错误对象
    * @param {object} options handlebars `options` 参数
    */
-  renderError(err, options) {
+  renderError(err, options = {}) {
     const app = this.app;
 
     if (!compiledErrorTemplate) {
