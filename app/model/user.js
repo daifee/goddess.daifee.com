@@ -4,6 +4,8 @@
 'use strict';
 
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const ms = require('ms');
 
 module.exports = app => {
   const { mongoose } = app;
@@ -73,6 +75,24 @@ module.exports = app => {
     encryptPassword() {
       const { salt, password } = this;
       this.password = encryptPassword(password, salt);
+    },
+    jwtSign() {
+      const token = jwt.sign({
+        data: this.toJSON(),
+        exp: Math.floor(ms('7d') / 1000),
+        iat: Math.floor(Date.now() / 1000),
+        iss: 'daifee',
+        sub: 'user',
+        aud: this.name,
+        jti: this.id + Date.now(),
+      }, app.config.secret);
+
+      return token;
+    },
+    jwtVerify(token) {
+      const decoded = jwt.verify(token, app.config.secret);
+
+      return decoded.data;
     },
   };
 
