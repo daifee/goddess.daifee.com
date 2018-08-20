@@ -21,9 +21,10 @@ class UserController extends Controller {
     }
 
     user = await this.ctx.service.user.create(user);
+    const responseData = user.toJSON();
+    responseData.token = user.jwtSign();
 
-    // TODO 响应 user数据和token
-    this.ctx.echo(user.toJSON());
+    this.ctx.echo(responseData);
   }
 
   async profile() {

@@ -77,22 +77,21 @@ module.exports = app => {
       this.password = encryptPassword(password, salt);
     },
     jwtSign() {
+      const now = Date.now();
       const token = jwt.sign({
-        data: this.toJSON(),
-        exp: Math.floor(ms('7d') / 1000),
-        iat: Math.floor(Date.now() / 1000),
+        user: this.toJSON(),
+        exp: Math.floor((ms('7d') + now) / 1000),
+        iat: Math.floor(now / 1000),
         iss: 'daifee',
         sub: 'user',
         aud: this.name,
-        jti: this.id + Date.now(),
+        jti: this.id + now,
       }, app.config.secret);
 
       return token;
     },
     jwtVerify(token) {
-      const decoded = jwt.verify(token, app.config.secret);
-
-      return decoded.data;
+      return jwt.verify(token, app.config.secret);
     },
   };
 

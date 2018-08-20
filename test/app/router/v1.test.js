@@ -13,7 +13,7 @@ describe('test/app/router/v1.test.js', () => {
   });
 
   describe('post /api/v1/users/', () => {
-    it('创建用户，成功', async () => {
+    it.only('创建用户，成功', async () => {
       const data = {
         name: mock.string(6),
         phone: mock.string(11, '123456789'),
@@ -36,6 +36,7 @@ describe('test/app/router/v1.test.js', () => {
         phone: data.phone,
       });
       assert(!body.data.password);
+      assert(body.data.token);
     });
 
     it('创建用户，密码不一致', async () => {
