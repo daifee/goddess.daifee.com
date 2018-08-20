@@ -12,14 +12,27 @@ class LikeService extends Service {
       targetId: doc.targetId,
       status: 'normal',
     };
+    let result;
 
-    return await Like.findOneAndUpdate({
-      targetId: obj.targetId,
-      userId: obj.userId,
-    }, obj, {
-      new: true,
-      upsert: true,
-    });
+    try {
+      result = await Like.findOneAndUpdate({
+        targetId: obj.targetId,
+        userId: obj.userId,
+      }, obj, {
+        new: true,
+        upsert: true,
+      });
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20301, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20302, error.message, { error });
+      } else {
+        this.ctx.throw(20303, error.message, { error });
+      }
+    }
+
+    return result;
   }
   // 移除收藏
   async delete(userId, targetId) {

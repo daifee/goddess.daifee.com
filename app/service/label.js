@@ -5,24 +5,50 @@ const { Service } = require('egg');
 class LabelService extends Service {
 
   async create(doc) {
+    let result;
     const { Label } = this.ctx.model;
-    const label = await Label.create(doc);
-    return label;
+    try {
+      result = await Label.create(doc);
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20401, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20402, error.message, { error });
+      } else {
+        this.ctx.throw(20403, error.message, { error });
+      }
+    }
+    return result;
   }
 
   async update(id, obj) {
     const { Label } = this.ctx.model;
-
     const query = Label.find({})
       .findOneAndUpdate({ _id: id }, obj, { new: true });
+    let result;
 
-    const label = await query.exec();
+    try {
+      result = await query.exec();
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20404, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20405, error.message, { error });
+      } else {
+        this.ctx.throw(20406, error.message, { error });
+      }
+    }
 
-    return label;
+    return result;
   }
 
   async delete(id) {
-    return await this.update(id, { status: 'deleted' });
+    const { Label } = this.ctx.model;
+    const query = Label.find({})
+      .update({ _id: id }, { status: 'deleted' });
+
+    const result = await query.exec();
+    return !!result.ok;
   }
 
   /**

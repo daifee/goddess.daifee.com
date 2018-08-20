@@ -6,23 +6,52 @@ class MicroBlogService extends Service {
   // 新建微博
   async create(doc) {
     const { MicroBlog } = this.ctx.model;
+    let result;
 
-    return await MicroBlog.create(doc);
+    try {
+      result = await MicroBlog.create(doc);
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20201, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20202, error.message, { error });
+      } else {
+        this.ctx.throw(20203, error.message, { error });
+      }
+    }
+    return result;
   }
 
   // 更新微博
   async update(id, obj) {
+    let result;
     const { MicroBlog } = this.ctx.model;
-
     const query = MicroBlog.find({})
       .findOneAndUpdate({ _id: id }, obj, { new: true });
 
-    return await query.exec();
+    try {
+      result = await query.exec();
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20204, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20205, error.message, { error });
+      } else {
+        this.ctx.throw(20206, error.message, { error });
+      }
+    }
+
+    return result;
   }
 
   // 删除微博
   async delete(id) {
-    return await this.update(id, { status: 'deleted' });
+    const { MicroBlog } = this.ctx.model;
+    const query = MicroBlog.find({})
+      .update({ _id: id }, { status: 'deleted' });
+
+    const result = await query.exec();
+    return !!result.ok;
   }
 
   // 查找微博（一条）

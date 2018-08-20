@@ -6,7 +6,21 @@ class PictureService extends Service {
   // 创建图片
   async create(doc) {
     const { Picture } = this.ctx.model;
-    return await Picture.create(doc);
+    let picture;
+
+    try {
+      picture = await Picture.create(doc);
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20101, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20102, error.message, { error });
+      } else {
+        this.ctx.throw(20103, error.message, { error });
+      }
+    }
+
+    return picture;
   }
 
   // 更新
@@ -14,12 +28,30 @@ class PictureService extends Service {
     const query = this.ctx.model.Picture.find({})
       .findOneAndUpdate({ _id: id }, obj, { new: true });
 
-    return await query.exec();
+    let result;
+    try {
+      result = await query.exec();
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(20104, '', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(20105, error.message, { error });
+      } else {
+        this.ctx.throw(20106, error.message, { error });
+      }
+    }
+
+    return result;
   }
 
   // 删除
   async delete(id) {
-    return await this.update(id, { status: 'deleted' });
+    const { Picture } = this.ctx.model;
+    const query = Picture.find({})
+      .update({ _id: id }, { status: 'deleted' });
+
+    const result = await query.exec();
+    return !!result.ok;
   }
 
   // 查找，分页
