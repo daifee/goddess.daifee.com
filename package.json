@@ -8,6 +8,7 @@
     "egg-mongoose": "^3.1.0",
     "egg-scripts": "^2.5.0",
     "egg-view-handlebars": "^2.0.1",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
