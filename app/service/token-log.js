@@ -12,6 +12,12 @@ class TokenLogService extends Service {
       this.ctx.app.logger.error('记录token：' + error.message);
     }
   }
+
+  async log(userId, token) {
+    const { TokenLog } = this.ctx.model;
+    const doc = new TokenLog({ userId, token });
+    return await this.create(doc);
+  }
 }
 
 

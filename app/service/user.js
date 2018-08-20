@@ -4,6 +4,23 @@ const { Service } = require('egg');
 
 class UserService extends Service {
   /**
+   * 注册用户
+   *
+   * @param {User} user 通过验证的user对象
+   * @return {Object} 拥有`token`属性的`user`对象
+   * @memberof UserService
+   */
+  async register(user) {
+    user = await this.create(user);
+    const result = user.toJSON();
+    result.token = user.jwtSign();
+
+    this.ctx.service.tokenLog.log(result.id, result.token);
+
+    return result;
+  }
+
+  /**
    * 创建新用户
    * @param {User} doc 用户对象
    * @return {User} 新用户对象
@@ -43,6 +60,18 @@ class UserService extends Service {
     const query = User.find({});
     const filter = { phone, status: { $ne: 'deleted' } };
     const projection = '-password -salt';
+
+    const user = await query.findOne(filter, projection).exec();
+
+    return user;
+  }
+
+  async dangerousFindByPhone(phone) {
+    const { User } = this.ctx.model;
+
+    const query = User.find({});
+    const filter = { phone, status: { $ne: 'deleted' } };
+    const projection = '';
 
     const user = await query.findOne(filter, projection).exec();
 

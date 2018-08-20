@@ -5,7 +5,7 @@ const objectUtil = require('../util/object');
 
 class UserController extends Controller {
   async post() {
-    const { request, model } = this.ctx;
+    const { request, model, service } = this.ctx;
     const { User } = model;
     const data = objectUtil.filter(request.body, 'name phone password repeatPassword');
 
@@ -20,11 +20,30 @@ class UserController extends Controller {
       this.ctx.throw(10002, '', { error });
     }
 
-    user = await this.ctx.service.user.create(user);
-    const responseData = user.toJSON();
-    responseData.token = user.jwtSign();
+    user = await service.user.register(user);
+    this.ctx.echo(user);
+  }
 
-    this.ctx.echo(responseData);
+  async authorize() {
+    const { request, model, service } = this.ctx;
+    const { User } = model;
+    const data = objectUtil.filter(request.body, 'phone password');
+    let user = new User(data);
+
+    const error = user.validateSync('phone password');
+    if (error) {
+      this.ctx.throw(10005, error.message, { error });
+    }
+
+    user = service.user.dangerousFindByPhone(data.phone);
+
+    if (!user) {
+      this.ctx.throw(10003);
+    }
+
+    if (!user.verifyPassword(data.password)) {
+      this.ctx.throw(10004);
+    }
   }
 
   async profile() {

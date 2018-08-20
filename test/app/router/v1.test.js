@@ -13,7 +13,7 @@ describe('test/app/router/v1.test.js', () => {
   });
 
   describe('post /api/v1/users/', () => {
-    it.only('创建用户，成功', async () => {
+    it('创建用户，成功', async () => {
       const data = {
         name: mock.string(6),
         phone: mock.string(11, '123456789'),
@@ -95,5 +95,9 @@ describe('test/app/router/v1.test.js', () => {
       assert(body.code === 20001);
       assert(body.message);
     });
+  });
+
+  describe('post /api/v1/users/authorization', () => {
+    it('授权，成功');
   });
 });

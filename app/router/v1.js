@@ -13,7 +13,7 @@ module.exports = app => {
    * * 授权
    */
   router.post('/api/v1/users/', controller.user.post);
-  router.post('/api/v1/authorization', todo);
+  router.post('/api/v1/authorization', controller.user.authorize);
 
   /**
    * 用户内容：
