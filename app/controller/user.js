@@ -44,6 +44,8 @@ class UserController extends Controller {
     if (!user.verifyPassword(data.password)) {
       this.ctx.throw(10004);
     }
+
+    this.ctx.echo(user.jwtSign());
   }
 
   async profile() {
