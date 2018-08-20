@@ -49,8 +49,7 @@ describe('test/app/service/micro-blog.test.js', () => {
 
       const result = await ctx.service.microBlog.delete(microBlog.id);
 
-      assert(microBlog.id === result.id);
-      assert(result.status === 'deleted');
+      assert(result === true);
     });
   });
 

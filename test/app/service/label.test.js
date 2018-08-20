@@ -56,7 +56,7 @@ describe('test/app/service/label.test.js', () => {
         await ctx.service.label.create(new Label(data));
         assert.fail('不应该运行到这里');
       } catch (err) {
-        assert(err.code === 11000);
+        assert(err.code === 20401);
         assert(err instanceof Error);
       }
     });
@@ -88,7 +88,7 @@ describe('test/app/service/label.test.js', () => {
         await ctx.service.label.update(label.id, { name: label2.name });
         assert.fail('不应该运行到这里');
       } catch (err) {
-        assert(err.code === 11000);
+        assert(err.code === 20404);
         assert(err instanceof Error);
       }
     });
@@ -122,7 +122,7 @@ describe('test/app/service/label.test.js', () => {
       const ctx = app.mockContext({});
 
       const result = await ctx.service.label.delete(label.id);
-      assert(result.status === 'deleted');
+      assert(result === true);
     });
   });
 

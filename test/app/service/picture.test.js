@@ -47,7 +47,7 @@ describe('test/app/service/picture.test.js', () => {
       const picture = await mock.createPicture();
 
       const result = await ctx.service.picture.delete(picture.id);
-      assert(result.status === 'deleted');
+      assert(result === true);
     });
   });
 
