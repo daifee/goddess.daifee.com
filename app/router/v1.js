@@ -27,23 +27,23 @@ module.exports = app => {
   // 微博列表
   router.get('/api/v1/users/:userId/micro-blogs/', authorize.user, todo);
   // 发布微博
-  router.post('/api/v1/users/:userId/micro-blogs/', todo);
+  router.post('/api/v1/users/:userId/micro-blogs/', authorize.user, todo);
   // 修改微博
-  router.put('/api/v1/users/:userId/micro-blogs/:blogId', todo);
+  router.put('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, todo);
   // 删除微博
-  router.delete('/api/v1/users/:userId/micro-blogs/:blogId', todo);
+  router.delete('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, todo);
   /**
    * 收藏
    */
   // 收藏列表
-  router.get('/api/v1/users/:userId/likes/', todo);
+  router.get('/api/v1/users/:userId/likes/', authorize.user, todo);
   // 添加收藏
-  router.post('/api/v1/users/:userId/likes/', todo);
+  router.post('/api/v1/users/:userId/likes/', authorize.user, todo);
   // 取消收藏
-  router.delete('/api/v1/users/:userId/likes/:likeId', todo);
+  router.delete('/api/v1/users/:userId/likes/:likeId', authorize.user, todo);
 
   /**
-   * 获取微博：运营主题（goddess, landscand, self），最多显示2条
+   * 获取微博：运营主题（goddess, landscape, self），最多显示2条
    */
   router.get('/api/v1/micro-blogs/', todo);
 };

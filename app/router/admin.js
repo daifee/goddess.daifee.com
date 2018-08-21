@@ -14,16 +14,16 @@ module.exports = app => {
   // 列表
   router.get('/api/admin/labels/', authorize.admin, controller.label.list);
   // 创建
-  router.post('/api/admin/labels/', todo);
+  router.post('/api/admin/labels/', authorize.admin, todo);
   // 更新
-  router.put('/api/admin/labels/:id', todo);
+  router.put('/api/admin/labels/:id', authorize.admin, todo);
   // 删除
-  router.delete('/api/admin/labels/:id', todo);
+  router.delete('/api/admin/labels/:id', authorize.admin, todo);
 
   /**
    * 图片
    */
-  router.get('/api/pictures/', todo);
-  router.put('/api/pictures/:id', todo);
+  router.get('/api/pictures/', authorize.admin, todo);
+  router.put('/api/pictures/:id', authorize.admin, todo);
 
 };
