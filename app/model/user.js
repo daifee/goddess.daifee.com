@@ -91,9 +91,19 @@ module.exports = app => {
       return token;
     },
     jwtVerify(token) {
-      return jwt.verify(token, app.config.secret);
+      return jwtVerify(token);
     },
   };
+
+  schema.statics = {
+    jwtVerify(token) {
+      return jwtVerify(token);
+    },
+  };
+
+  function jwtVerify(token) {
+    return jwt.verify(token, app.config.secret);
+  }
 
   /**
    * 对用户密码进行加密（加密后才能存库）
