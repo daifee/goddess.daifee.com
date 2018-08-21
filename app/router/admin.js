@@ -7,12 +7,13 @@ async function todo() {
 module.exports = app => {
   const { router, middleware, controller } = app;
   const { authorize } = middleware;
+  const { label } = controller.admin;
 
   /**
    * 标签
    */
   // 列表
-  router.get('/api/admin/labels/', authorize.admin, controller.label.list);
+  router.get('/api/admin/labels/', authorize.admin, label.list);
   // 创建
   router.post('/api/admin/labels/', authorize.admin, todo);
   // 更新

@@ -7,14 +7,15 @@ async function todo() {
 module.exports = app => {
   const { router, controller, middleware } = app;
   const { authorize } = middleware;
+  const { user } = controller.v1;
 
   /**
    * 用户：
    * * 注册
    * * 授权
    */
-  router.post('/api/v1/users/', controller.user.post);
-  router.post('/api/v1/authorization', controller.user.authorize);
+  router.post('/api/v1/users/', user.post);
+  router.post('/api/v1/authorization', user.authorize);
 
   /**
    * 用户内容：
