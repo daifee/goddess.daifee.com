@@ -98,6 +98,33 @@ describe('test/app/router/v1.test.js', () => {
   });
 
   describe('post /api/v1/users/authorization', () => {
-    it('授权，成功');
+    it('授权，成功', async () => {
+      const ctx = app.mockContext();
+      const { User } = ctx.model;
+      const data = {
+        name: mock.string(6),
+        phone: mock.string(11, '123456789'),
+        password: '12345678',
+      };
+
+      await mock.createUser(data);
+
+      const response = await app.httpRequest()
+        .post('/api/v1/authorization')
+        .send(data)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(typeof body.data === 'string');
+      // 很长的字符串
+      assert(body.data.length > 20);
+      // 验证token
+      const jwtVerify = (new User({})).jwtVerify;
+      const payload = jwtVerify(body.data);
+      assert(payload);
+    });
   });
 });

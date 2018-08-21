@@ -90,7 +90,13 @@ exports.createUsers = async function(num = 1, user = {}) {
   const ctx = app.mockContext({});
   const { User } = ctx.model;
 
-  const data = loop(() => exports.user(user), num);
+  const data = loop(() => {
+    const data = exports.user(user);
+    const doc = new User(data);
+    doc.encryptPassword();
+    return doc;
+  }, num);
+
   return await User.create(data);
 };
 

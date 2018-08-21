@@ -35,7 +35,7 @@ class UserController extends Controller {
       this.ctx.throw(10005, error.message, { error });
     }
 
-    user = service.user.dangerousFindByPhone(data.phone);
+    user = await service.user.dangerousFindByPhone(data.phone);
 
     if (!user) {
       this.ctx.throw(10003);
