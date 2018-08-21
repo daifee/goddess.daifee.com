@@ -5,7 +5,8 @@ async function todo() {
 }
 
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, controller, middleware } = app;
+  const { authorize } = middleware;
 
   /**
    * 用户：
@@ -24,7 +25,7 @@ module.exports = app => {
    * 微博
    */
   // 微博列表
-  router.get('/api/v1/users/:userId/micro-blogs/', todo);
+  router.get('/api/v1/users/:userId/micro-blogs/', authorize.user, todo);
   // 发布微博
   router.post('/api/v1/users/:userId/micro-blogs/', todo);
   // 修改微博

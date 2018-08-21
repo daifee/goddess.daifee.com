@@ -127,4 +127,8 @@ describe('test/app/router/v1.test.js', () => {
       assert(payload);
     });
   });
+
+  describe('get /api/v1/users/:userId/micro-blogs/', () => {
+
+  });
 });

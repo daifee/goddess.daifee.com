@@ -28,6 +28,10 @@ module.exports = (roles = []) => {
         ctx.throw(14005);
       }
     } catch (error) {
+      if (error.code === 14005) {
+        throw error;
+      }
+
       if (error.name === 'TokenExpiredError') {
         ctx.throw(14004, '', { error });
       } else {

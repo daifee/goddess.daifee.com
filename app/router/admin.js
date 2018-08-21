@@ -5,13 +5,14 @@ async function todo() {
 }
 
 module.exports = app => {
-  const { router } = app;
+  const { router, middleware } = app;
+  const { authorize } = middleware;
 
   /**
    * 标签
    */
   // 列表
-  router.get('/api/admin/labels/', todo);
+  router.get('/api/admin/labels/', authorize.admin, todo);
   // 创建
   router.post('/api/admin/labels/', todo);
   // 更新
