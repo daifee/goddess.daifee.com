@@ -39,7 +39,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1533867498821_8761';
 
   // add your config here
-  config.middleware = [ 'notFound' ];
+  config.middleware = [ 'notFound', 'pagination' ];
 
   /**
    * 配置模板引擎（handlebars）
