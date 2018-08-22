@@ -13,18 +13,6 @@ describe('test/app/extend/context.test.js', () => {
     assert(context.body);
   });
 
-  it('echo(data)', () => {
-    const context = app.mockContext();
-    const data = { name: 'test' };
-    context.echo(data);
-
-    assert.deepStrictEqual(context.body, {
-      code: 0,
-      message: 'success',
-      data,
-    });
-  });
-
   describe('throw(code = 99999, message = "", properties = {})', () => {
     it('框架异常', () => {
       const context = app.mockContext();
