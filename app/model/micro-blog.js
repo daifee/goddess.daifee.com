@@ -27,7 +27,7 @@ module.exports = app => {
     },
     type: {
       type: String,
-      required: [ true, 'type不能为空' ],
+      default: 'picture',
       enum: {
         values: [ 'picture', 'video' ],
         message: '未定义博文类型：{VALUE}',

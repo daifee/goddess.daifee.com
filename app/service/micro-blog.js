@@ -8,6 +8,10 @@ class MicroBlogService extends Service {
     const { MicroBlog } = this.ctx.model;
     let result;
 
+    if (doc.videoUrl) {
+      doc.type = 'video';
+    }
+
     try {
       result = await MicroBlog.create(doc);
     } catch (error) {
@@ -25,6 +29,9 @@ class MicroBlogService extends Service {
   // 更新微博
   async update(id, obj) {
     let result;
+    // 不能修改这个
+    obj.type = undefined;
+
     const { MicroBlog } = this.ctx.model;
     const query = MicroBlog.find({})
       .findOneAndUpdate({ _id: id }, obj, { new: true });

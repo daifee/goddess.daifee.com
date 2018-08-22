@@ -7,7 +7,7 @@ async function todo() {
 module.exports = app => {
   const { router, controller, middleware } = app;
   const { authorize } = middleware;
-  const { user } = controller.v1;
+  const { user, like, microBlog } = controller.v1;
 
   /**
    * 用户：
@@ -26,22 +26,22 @@ module.exports = app => {
    * 微博
    */
   // 微博列表
-  router.get('/api/v1/users/:userId/micro-blogs/', authorize.user, todo);
+  router.get('/api/v1/users/:userId/micro-blogs/', authorize.user, microBlog.list);
   // 发布微博
-  router.post('/api/v1/users/:userId/micro-blogs/', authorize.user, todo);
+  router.post('/api/v1/users/:userId/micro-blogs/', authorize.user, microBlog.create);
   // 修改微博
-  router.put('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, todo);
+  router.put('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, microBlog.update);
   // 删除微博
-  router.delete('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, todo);
+  router.delete('/api/v1/users/:userId/micro-blogs/:blogId', authorize.user, microBlog.delete);
   /**
    * 收藏
    */
   // 收藏列表
-  router.get('/api/v1/users/:userId/likes/', authorize.user, todo);
+  router.get('/api/v1/users/:userId/likes/', authorize.user, like.list);
   // 添加收藏
-  router.post('/api/v1/users/:userId/likes/', authorize.user, todo);
+  router.post('/api/v1/users/:userId/likes/', authorize.user, like.create);
   // 取消收藏
-  router.delete('/api/v1/users/:userId/likes/:likeId', authorize.user, todo);
+  router.delete('/api/v1/users/:userId/likes/:likeId', authorize.user, like.delete);
 
   /**
    * 获取微博：运营主题（goddess, landscape, self），最多显示2条
