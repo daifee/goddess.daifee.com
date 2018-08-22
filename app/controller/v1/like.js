@@ -1,6 +1,6 @@
 'use strict';
 
-const BaseController = require('../base');
+const BaseController = require('../../core/base-controller');
 
 class LikeController extends BaseController {
   async list() {

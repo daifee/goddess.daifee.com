@@ -1,12 +1,10 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../core/base-controller');
 
-class HomeController extends Controller {
+class HomeController extends BaseController {
   async index() {
-    const PAGE_NAME = 'home';
-    await this.ctx.render(PAGE_NAME, {
-      pageName: PAGE_NAME,
+    await this.render('home', {
       title: '首页标题',
     });
   }

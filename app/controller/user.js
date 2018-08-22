@@ -1,35 +1,31 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../core/base-controller');
 
-class UserController extends Controller {
+class UserController extends BaseController {
 
   async profile() {
-    const PAGE_NAME = 'user-profile';
-    await this.ctx.render(PAGE_NAME, {
-      pageName: PAGE_NAME,
+    await this.render('user-profile', {
       title: '用户主页',
       name: this.ctx.params.name,
     });
   }
 
   async list() {
-    const PAGE_NAME = 'user-list';
-    await this.ctx.render(PAGE_NAME, {
-      pageName: PAGE_NAME,
+    await this.render('user-list', {
       title: '用户列表页',
     });
   }
 
   async edit() {
-    await this.ctx.render('react', {
+    await this.render('react', {
       pageName: 'user-edit',
       title: '修改用户信息',
     });
   }
 
   async login() {
-    await this.ctx.render('react', {
+    await this.render('react', {
       pageName: 'login',
       title: '登录',
     });
