@@ -15,11 +15,11 @@ module.exports = app => {
   // 列表
   router.get('/api/admin/labels/', authorize.admin, label.list);
   // 创建
-  router.post('/api/admin/labels/', authorize.admin, todo);
+  router.post('/api/admin/labels/', authorize.admin, label.create);
   // 更新
-  router.put('/api/admin/labels/:id', authorize.admin, todo);
+  router.put('/api/admin/labels/:id', authorize.admin, label.update);
   // 删除
-  router.delete('/api/admin/labels/:id', authorize.admin, todo);
+  router.delete('/api/admin/labels/:id', authorize.admin, label.delete);
 
   /**
    * 图片

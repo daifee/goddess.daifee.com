@@ -1,3 +1,6 @@
+/**
+ * 用户鉴权，并增加2个属性：ctx.user, request.user
+ */
 'use strict';
 
 module.exports = (roles = []) => {
@@ -23,6 +26,7 @@ module.exports = (roles = []) => {
       const decoded = User.jwtVerify(values[1]);
       if (roles.indexOf(decoded.user.role) !== -1) {
         // 合法
+        ctx.user = ctx.request.user = decoded.user;
         await next();
       } else {
         ctx.throw(14005);

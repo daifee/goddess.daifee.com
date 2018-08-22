@@ -24,7 +24,11 @@ class LabelService extends Service {
   async update(id, obj) {
     const { Label } = this.ctx.model;
     const query = Label.find({})
-      .findOneAndUpdate({ _id: id }, obj, { new: true });
+      .findOneAndUpdate(
+        { _id: id, status: { $ne: 'deleted' } },
+        obj,
+        { new: true }
+      );
     let result;
 
     try {
