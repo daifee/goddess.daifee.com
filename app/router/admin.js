@@ -1,16 +1,14 @@
 'use strict';
 
-async function todo() {
-  this.ctx.body = { msg: 'TODO' };
-}
 
 module.exports = app => {
   const { router, middleware, controller } = app;
   const { authorize } = middleware;
-  const { label } = controller.admin;
+  const { label, picture } = controller.admin;
 
   /**
    * 标签
+   * 为内容贴标签
    */
   // 列表
   router.get('/api/admin/labels/', authorize.admin, label.list);
@@ -23,8 +21,9 @@ module.exports = app => {
 
   /**
    * 图片
+   * 对图片打标签
    */
-  router.get('/api/pictures/', authorize.admin, todo);
-  router.put('/api/pictures/:id', authorize.admin, todo);
+  router.get('/api/pictures/', authorize.admin, picture.list);
+  router.put('/api/pictures/:id', authorize.admin, picture.update);
 
 };
