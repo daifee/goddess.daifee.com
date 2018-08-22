@@ -117,7 +117,7 @@ $ open http://localhost:7001/
 - 自定义404页面响应和API响应
 - 自定义错误页面（500）
 - 自定义错误响应规范（重写`this.ctx.throw()`方法）
-- 定义API响应数据格式和接口 `ctx.echo(data)`
+- 定义API响应数据格式和接口 `controller.echo(data)`
 - 定义渲染React页面的方式
 
 

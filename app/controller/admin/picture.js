@@ -1,14 +1,13 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../../core/base-controller');
 
-
-class PictureController extends Controller {
+class PictureController extends BaseController {
   async list() {
     const { ctx } = this;
     const { query } = ctx.request;
     const pictures = ctx.service.picture.find(query.page, query.perPage);
-    ctx.echo(pictures);
+    this.echo(pictures);
   }
 
   async update() {
@@ -17,14 +16,12 @@ class PictureController extends Controller {
     const doc = new ctx.module.Picture({ labelIds });
     const error = doc.validateSync('labelIds');
 
-    if (error) {
-      ctx.throw(10009, '', { error });
-    }
+    this.assert(!error, 10009, '', { error });
 
     const picture = await ctx.service.picture.update(ctx.params.id, {
       labelIds,
     });
-    ctx.echo(picture);
+    this.echo(picture);
   }
 }
 

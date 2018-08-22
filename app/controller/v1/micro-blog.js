@@ -1,75 +1,65 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../../core/base-controller');
 const objectUtil = require('../../util/object');
 
-class MicroBlogController extends Controller {
+class MicroBlogController extends BaseController {
   async list() {
     const { ctx } = this;
-    const { params, query, user } = ctx;
+    const { params, query } = ctx;
 
-    if (user.id !== params.userId) {
-      ctx.throw(14007);
-    }
+    this.assertUser(params.userId);
 
     const blogs = await ctx.service.microBlog.findByUserId(
-      user.id,
+      params.userId,
       query.page,
       query.perPage
     );
-    ctx.echo(blogs);
+    this.echo(blogs);
   }
 
   async create() {
     const { ctx } = this;
-    const { params, user, request, service, model } = ctx;
+    const { params, request, service, model } = ctx;
 
-    if (user.id !== params.userId) {
-      ctx.throw(14008);
-    }
+    this.assertUser(params.userId);
 
     const data = objectUtil.filter(request.body, 'pictureUrls text');
-    Object.assign(data, { userId: user.id });
+    Object.assign(data, { userId: params.userId });
     const doc = new model.MicroBlog(data);
 
     const error = doc.validateSync();
-    if (error) {
-      ctx.throw(10010, '', { error });
-    }
+    this.assert(!error, '', { error });
+
     const blog = await service.microBlog.create(doc);
-    ctx.echo(blog);
+    this.echo(blog);
   }
 
   async update() {
     const { ctx } = this;
-    const { params, user, request, service, model } = ctx;
+    const { params, request, service, model } = ctx;
 
-    if (params.userId !== user.id) {
-      ctx.throw(14009);
-    }
+    this.assertUser(params.userId);
 
     const data = objectUtil.filter(request.body, 'pictureUrls text');
     const doc = new model.MicroBlog(data);
 
     const error = doc.validateSync(Object.keys(data));
-    if (error) {
-      ctx.throw(10011, '', { error });
-    }
+
+    this.assert(!error, 10011, '', { error });
 
     const blog = await service.microBlog.update(params.blogId, data);
-    ctx.echo(blog);
+    this.echo(blog);
   }
 
   async delete() {
     const { ctx } = this;
-    const { params, user, service } = ctx;
+    const { params, service } = ctx;
 
-    if (params.userId !== user.id) {
-      ctx.throw(14010);
-    }
+    this.assertUser(params.userId);
 
     const result = await service.microBlog.delete(params.blogId);
-    ctx.echo(result);
+    this.echo(result);
   }
 }
 

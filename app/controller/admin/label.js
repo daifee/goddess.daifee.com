@@ -1,13 +1,12 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('../../core/base-controller');
 const objectUtil = require('../../util/object');
 
-class LabelController extends Controller {
+class LabelController extends BaseController {
   async list() {
-    const { ctx } = this;
-    const labels = await ctx.service.label.find();
-    ctx.echo(labels);
+    const labels = await this.ctx.service.label.find();
+    this.echo(labels);
   }
 
   async create() {
@@ -15,18 +14,16 @@ class LabelController extends Controller {
     const requestBody = ctx.request.body;
     const { Label } = ctx.model;
     const doc = new Label({
-      userId: ctx.user.id,
+      userId: this.user.id,
       name: requestBody.name,
       description: requestBody.description,
     });
 
     const error = doc.validateSync();
-    if (error) {
-      ctx.throw(10006, '', { error });
-    }
+    this.assert(!error, 10006, '', { error });
 
     const label = await ctx.service.label.create(doc);
-    ctx.echo(label);
+    this.echo(label);
   }
 
   async update() {
@@ -35,23 +32,18 @@ class LabelController extends Controller {
     const doc = new ctx.model.Label(data);
     const error = doc.validateSync(Object.keys(data));
 
-    if (error) {
-      ctx.throw(10007, '', { error });
-    }
+    this.assert(!error, 10007, '', { error });
 
     const label = await ctx.service.label.update(ctx.params.id, data);
 
-    if (!label) {
-      ctx.throw(10008);
-    }
+    this.assert(label, 10008);
 
-    ctx.echo(label);
+    this.echo(label);
   }
 
   async delete() {
-    const { ctx } = this;
-    const result = await ctx.service.label.delete(ctx.params.id);
-    ctx.echo(result);
+    const result = await this.ctx.service.label.delete(this.ctx.params.id);
+    this.echo(result);
   }
 }
 

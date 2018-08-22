@@ -39,15 +39,6 @@ module.exports = {
     this.body = compiledErrorTemplate({ code: err.code });
   },
 
-  // 定义 API 输出 JSON 接口
-  echo(data) {
-    this.body = {
-      code: 0, // 0表示成功
-      message: 'success',
-      data,
-    };
-  },
-
   /**
    * 自定义错误响应规范
    * 重写Koa的`ctx.throw(status, message, properties)`接口
