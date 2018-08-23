@@ -18,14 +18,13 @@ class LikeController extends BaseController {
 
     const doc = new model.Like({
       userId: params.userId,
-      type: request.body.type,
       targetId: request.body.targetId,
     });
 
-    const error = doc.validateSync();
+    const error = doc.validateSync('userId targetId');
     this.assert(!error, 10012, (error && error.message), { error });
 
-    const like = service.like.create(doc);
+    const like = await service.like.create(params.userId, doc);
     this.echo(like);
   }
 
@@ -35,7 +34,7 @@ class LikeController extends BaseController {
 
     this.assertUser(params.userId);
 
-    const result = await service.like.delete(params.likeId);
+    const result = await service.like.delete(params.userId, params.likeId);
     this.echo(result);
   }
 }

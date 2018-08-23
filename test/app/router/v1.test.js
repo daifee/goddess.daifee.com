@@ -3,7 +3,7 @@
 const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
-describe.only('test/app/router/v1.test.js', () => {
+describe('test/app/router/v1.test.js', () => {
   before(async () => {
     await app.mongoose.connection.dropDatabase();
 
@@ -129,7 +129,23 @@ describe.only('test/app/router/v1.test.js', () => {
   });
 
   describe('get /api/v1/users/:userId/micro-blogs/', () => {
-    it('获取用户微博列表');
+    it('获取用户微博列表', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      await mock.createMicroBlogs(4, { userId: user.id });
+
+      const response = await app.httpRequest()
+        .get(`/api/v1/users/${user.id}/micro-blogs/`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length >= 4);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
@@ -147,7 +163,23 @@ describe.only('test/app/router/v1.test.js', () => {
   });
 
   describe('post /api/v1/users/:userId/micro-blogs/', () => {
-    it('发布微博');
+    it('发布微博', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const data = mock.microBlog();
+
+      const response = await app.httpRequest()
+        .post(`/api/v1/users/${user.id}/micro-blogs/`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data.userId === user.id);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
@@ -168,6 +200,25 @@ describe.only('test/app/router/v1.test.js', () => {
     it('修改微博', async () => {
       const user = await mock.createUser();
       const token = user.jwtSign();
+      const blog = await mock.createMicroBlog();
+
+      const response = await app.httpRequest()
+        .put(`/api/v1/users/${user.id}/micro-blogs/${blog.id}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ text: 'hello' })
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data.id === blog.id);
+      assert(body.data.text === 'hello');
+    });
+
+    it('没权限操作他人内容', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
       const response = await app.httpRequest()
         .put('/api/v1/users/other/micro-blogs/id')
         .set('Accept', 'application/json')
@@ -178,12 +229,25 @@ describe.only('test/app/router/v1.test.js', () => {
       const body = response.body;
       assert(body.code === 14015);
     });
-
-    it('没权限操作他人内容');
   });
 
   describe('delete /api/v1/users/:userId/micro-blogs/:blogId', () => {
-    it('删除微博');
+    it('删除微博', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const blog = await mock.createMicroBlog();
+
+      const response = await app.httpRequest()
+        .delete(`/api/v1/users/${user.id}/micro-blogs/${blog.id}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data === true);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
@@ -201,7 +265,23 @@ describe.only('test/app/router/v1.test.js', () => {
   });
 
   describe('get /api/v1/users/:userId/likes/', () => {
-    it('获取用户收藏列表');
+    it('获取用户收藏列表', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      await mock.createLikes(4, { userId: user.id });
+
+      const response = await app.httpRequest()
+        .get(`/api/v1/users/${user.id}/likes/`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length >= 4);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
@@ -219,7 +299,23 @@ describe.only('test/app/router/v1.test.js', () => {
   });
 
   describe('post /api/v1/users/:userId/likes/', () => {
-    it('用户添加收藏');
+    it('用户添加收藏', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const data = mock.like();
+
+      const response = await app.httpRequest()
+        .post(`/api/v1/users/${user.id}/likes/`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data.targetId === data.targetId);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
@@ -237,7 +333,22 @@ describe.only('test/app/router/v1.test.js', () => {
   });
 
   describe('delete /api/v1/users/:userId/likes/:likeId', () => {
-    it('用户删除收藏');
+    it('用户删除收藏', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const like = await mock.createLike({ userId: user.id });
+
+      const response = await app.httpRequest()
+        .delete(`/api/v1/users/${user.id}/likes/${like.id}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data === true);
+    });
 
     it('没权限操作他人内容', async () => {
       const user = await mock.createUser();
