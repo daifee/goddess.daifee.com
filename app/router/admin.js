@@ -23,7 +23,7 @@ module.exports = app => {
    * 图片
    * 对图片打标签
    */
-  router.get('/api/pictures/', authorize.admin, picture.list);
-  router.put('/api/pictures/:id', authorize.admin, picture.update);
+  router.get('/api/admin/pictures/', authorize.admin, picture.list);
+  router.put('/api/admin/pictures/:id', authorize.admin, picture.update);
 
 };

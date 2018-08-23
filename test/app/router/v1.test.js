@@ -129,6 +129,44 @@ describe('test/app/router/v1.test.js', () => {
   });
 
   describe('get /api/v1/users/:userId/micro-blogs/', () => {
+    it('获取用户微博列表');
 
+    it('没权限操作他人内容');
+  });
+
+  describe('post /api/v1/users/:userId/micro-blogs/', () => {
+    it('发布微博');
+
+    it('没权限操作他人内容');
+  });
+
+  describe('put /api/v1/users/:userId/micro-blogs/:blogId', () => {
+    it('修改微博');
+
+    it('没权限操作他人内容');
+  });
+
+  describe('delete /api/v1/users/:userId/micro-blogs/:blogId', () => {
+    it('删除微博');
+
+    it('没权限操作他人内容');
+  });
+
+  describe('get /api/v1/users/:userId/likes/', () => {
+    it('获取用户收藏列表');
+
+    it('没权限操作他人内容');
+  });
+
+  describe('post /api/v1/users/:userId/likes/', () => {
+    it('用户添加收藏');
+
+    it('没权限操作他人内容');
+  });
+
+  describe('delete /api/v1/users/:userId/likes/:likeId', () => {
+    it('用户删除收藏');
+
+    it('没权限操作他人内容');
   });
 });

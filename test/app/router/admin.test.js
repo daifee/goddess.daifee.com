@@ -94,4 +94,27 @@ describe('test/app/router/admin.test.js', () => {
       assert(response.body.code === 14006);
     });
   });
+
+
+  describe('post /api/admin/labels/', () => {
+    it('创建标签');
+  });
+
+  describe('put /api/admin/labels/:id', () => {
+    it('更新标签');
+  });
+
+  describe('delete /api/admin/labels/:id', () => {
+    it('删除标签');
+  });
+
+  describe('get /api/admin/pictures/', () => {
+    it('获取图片列表');
+  });
+
+  describe('put /api/admin/pictures/:id', () => {
+    it('更新图片');
+  });
+
+
 });
