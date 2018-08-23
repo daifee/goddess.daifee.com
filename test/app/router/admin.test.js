@@ -3,7 +3,7 @@
 const { app, assert } = require('egg-mock/bootstrap');
 const mock = require('../../mock');
 
-describe('test/app/router/admin.test.js', () => {
+describe.only('test/app/router/admin.test.js', () => {
   before(async () => {
     await app.mongoose.connection.dropDatabase();
 
@@ -97,11 +97,51 @@ describe('test/app/router/admin.test.js', () => {
 
 
   describe('post /api/admin/labels/', () => {
-    it('创建标签');
+    it('创建标签', async () => {
+      const admin = await mock.createUser({ role: 'admin' });
+      const token = admin.jwtSign();
+      const data = {
+        name: mock.string(5),
+        description: mock.string(14),
+      };
+      const response = await app.httpRequest()
+        .post('/api/admin/labels/')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert.deepStrictEqual(data, {
+        name: body.data.name,
+        description: body.data.description,
+      });
+    });
   });
 
   describe('put /api/admin/labels/:id', () => {
-    it('更新标签');
+    it('更新标签', async () => {
+      const label = await mock.createLabel();
+      const admin = await mock.createUser({ role: 'admin' });
+      const token = admin.jwtSign();
+      const data = {
+        name: mock.string(5),
+      };
+      const response = await app.httpRequest()
+        .put(`/api/admin/labels/${label.id}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data.id === label.id);
+      assert(body.data.name === data.name);
+    });
   });
 
   describe('delete /api/admin/labels/:id', () => {

@@ -36,6 +36,7 @@ module.exports = app => {
     },
   }, {
     timestamps: true,
+    toJSON: { virtuals: true, getters: true },
   });
 
   schema.index({ userId: 1, targetId: 1 }, { unique: true });

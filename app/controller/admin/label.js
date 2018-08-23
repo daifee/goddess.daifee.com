@@ -37,7 +37,6 @@ class LabelController extends BaseController {
     const label = await ctx.service.label.update(ctx.params.id, data);
 
     this.assert(label, 10008);
-
     this.echo(label);
   }
 

@@ -20,6 +20,7 @@ module.exports = app => {
     },
   }, {
     timestamps: true,
+    toJSON: { virtuals: true, getters: true },
   });
 
   return mongoose.model('TokenLog', schema);
