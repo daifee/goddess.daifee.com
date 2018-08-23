@@ -6,14 +6,15 @@ class PictureController extends BaseController {
   async list() {
     const { ctx } = this;
     const { query } = ctx.request;
-    const pictures = ctx.service.picture.find(query.page, query.perPage);
+    const pictures = await ctx.service.picture.find(query.page, query.perPage);
+
     this.echo(pictures);
   }
 
   async update() {
     const { ctx } = this;
     const labelIds = ctx.request.body.labelIds;
-    const doc = new ctx.module.Picture({ labelIds });
+    const doc = new ctx.model.Picture({ labelIds });
     const error = doc.validateSync('labelIds');
 
     this.assert(!error, 10009, '', { error });

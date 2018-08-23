@@ -131,7 +131,19 @@ describe('test/app/router/v1.test.js', () => {
   describe('get /api/v1/users/:userId/micro-blogs/', () => {
     it('获取用户微博列表');
 
-    it('没权限操作他人内容');
+    it('没权限操作他人内容', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const response = await app.httpRequest()
+        .get('/api/v1/users/other/micro-blogs/')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 14015);
+    });
   });
 
   describe('post /api/v1/users/:userId/micro-blogs/', () => {

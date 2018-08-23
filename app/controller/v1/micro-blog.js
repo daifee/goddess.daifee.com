@@ -7,7 +7,6 @@ class MicroBlogController extends BaseController {
   async list() {
     const { ctx } = this;
     const { params, query } = ctx;
-
     this.assertUser(params.userId);
 
     const blogs = await ctx.service.microBlog.findByUserId(

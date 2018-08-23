@@ -24,10 +24,10 @@ module.exports = (roles = []) => {
 
     try {
       const decoded = User.jwtVerify(values[1]);
+
       if (roles.indexOf(decoded.user.role) !== -1) {
         // 合法
         ctx.user = ctx.request.user = decoded.user;
-        await next();
       } else {
         ctx.throw(14005);
       }
@@ -42,6 +42,13 @@ module.exports = (roles = []) => {
         ctx.throw(14006, '', { error });
       }
     }
+
+    // try {
+    //   await next();
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    await next();
   };
 };
 
