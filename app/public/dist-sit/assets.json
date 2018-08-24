@@ -1,0 +1,23 @@
+{
+  "user-profile": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/user-profile-1b126cb04da170407600.js"
+  },
+  "user-list": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/user-list-2f3dbb20cef861144b25.js"
+  },
+  "user-edit": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/user-edit-2f22baa76f0b298ae594.js"
+  },
+  "login": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/login-7adcaa33202905352735.js"
+  },
+  "home": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/home-f9c728d3f5d1f3ed785d.js"
+  },
+  "common": {
+    "js": "http://127.0.0.1:7001/public/dist-sit/js/common-3e593684567c9a218884.js"
+  },
+  "metadata": {
+    "build-time": 1535100258274
+  }
+}
