@@ -42,12 +42,6 @@ module.exports = (roles = []) => {
         ctx.throw(14006, '', { error });
       }
     }
-
-    // try {
-    //   await next();
-    // } catch (error) {
-    //   console.log(error);
-    // }
     await next();
   };
 };
