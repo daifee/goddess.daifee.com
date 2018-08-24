@@ -32,9 +32,11 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-egg-demo",
+    "comment-section": "生产&测试必须传入环境变量：PORT, SECRET, KEYS, MONGO_URL, MONGO_USER, MONGO_PASSWORD",
+    "start": "egg-scripts start --daemon --title=goddess",
     "start-sit": "EGG_SERVER_ENV=sit npm start",
-    "stop": "egg-scripts stop --title=egg-server-egg-demo",
+
+    "stop": "egg-scripts stop --title=goddess",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
@@ -43,6 +45,7 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
+
     "dev-assets": "EGG_SERVER_ENV=local RUN_ENV=server ./node_modules/.bin/guido server",
     "build-assets-prod": "EGG_SERVER_ENV=prod npm run build-assets",
     "build-assets-sit": "EGG_SERVER_ENV=sit npm run build-assets",

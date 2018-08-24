@@ -12,7 +12,11 @@ describe('test/app/router.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(404);
 
-      assert.deepStrictEqual(response.body, {
+      const body = response.body;
+      assert.deepStrictEqual({
+        code: body.code,
+        message: body.message,
+      }, {
         code: 404,
         message: 'Not Found',
       });
