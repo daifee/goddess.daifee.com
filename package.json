@@ -1,7 +1,7 @@
 {
-  "name": "egg-demo",
+  "name": "goddess",
   "version": "1.0.0",
-  "description": "基于egg和guido的demo项目",
+  "description": "hello world",
   "private": true,
   "dependencies": {
     "egg": "^2.2.1",
