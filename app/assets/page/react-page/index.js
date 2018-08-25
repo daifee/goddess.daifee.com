@@ -1,16 +1,16 @@
 import React from 'react';
 import render, { hideInitLoading } from '../render';
 
-function UserEdit() {
+function Login() {
     return (
         <React.Fragment>
-            <h1>编辑用户资料</h1>
+            <h1>登录</h1>
             <p>这是React渲染的页面</p>
         </React.Fragment>
     );
 }
 
-class UserEditContainer extends React.Component {
+class LoginContainer extends React.Component {
   state = {
       loading: true,
   };
@@ -25,8 +25,8 @@ class UserEditContainer extends React.Component {
   render() {
       if (this.state.loading) return null;
 
-      return (<UserEdit />);
+      return (<Login />);
   }
 }
 
-render(UserEditContainer);
+render(LoginContainer);

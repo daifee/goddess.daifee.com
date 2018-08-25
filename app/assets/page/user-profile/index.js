@@ -1,2 +1,2 @@
 
-console.log('hello, user-profile');
+console.log('hello, world');

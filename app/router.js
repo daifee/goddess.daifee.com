@@ -1,23 +1,28 @@
 'use strict';
 
+// function noop() {
+//   // todo
+// }
 
 /**
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, middleware, controller } = app;
+  const { authorize } = middleware;
+  const { home, like, user, microBlog } = controller;
   require('./router/v1')(app);
   require('./router/admin')(app);
 
-  // 首页
-  router.get('/', controller.home.index);
-
   // 登录页
-  router.get('/login', controller.user.login);
-  // 用户列表页
-  router.get('/users/', controller.user.list);
+  router.get('/login', home.login);
+  // 注册页
+  router.get('/register', home.register);
   // 用户主页
-  router.get('/users/:name', controller.user.profile);
-  // 编辑用户资料
-  router.get('/users/:name/edit', controller.user.edit);
+  router.get('/users/:id', authorize.user, user.profile);
+  // 收藏列表
+  router.get('/users/:id/likes/', authorize.user, like.list);
+  // 专题页
+  router.get('/recommended/', microBlog.recommended);
+
 };
