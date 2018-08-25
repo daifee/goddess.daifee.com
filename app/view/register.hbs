@@ -2,7 +2,24 @@
 
 {{#> defaultLayout}}
   {{#*inline "page"}}
-    <h1>注册</h1>
+    <form class="form-register">
+      <h1 class="h3 mb-3 font-weight-normal">免费注册</h1>
+
+      <label for="phone" class="sr-only">手机号码</label>
+      <input type="text" id="phone" class="form-control" placeholder="手机号码" required="" autofocus="">
+
+      <label for="name" class="sr-only">用户名</label>
+      <input type="text" id="name" class="form-control" placeholder="用户名" required="" autofocus="">
+
+      <label for="password" class="sr-only">密码</label>
+      <input type="password" id="password" class="form-control" placeholder="密码" required="">
+
+      <label for="repeat-password" class="sr-only">确认密码</label>
+      <input type="password" id="repeat-password" class="form-control" placeholder="确认密码" required="">
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+      <a class="btn btn-lg btn-link" href="/login" role="button">登录</a>
+    </form>
   {{/inline}}
 {{/defaultLayout}}
 

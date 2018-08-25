@@ -2,7 +2,15 @@
 
 {{#> defaultLayout}}
   {{#*inline "page"}}
-    <h1>登录</h1>
+    <form class="form-login">
+      <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
+      <label for="phone" class="sr-only">手机号码</label>
+      <input type="text" id="phone" class="form-control" placeholder="手机号码" required="" autofocus="">
+      <label for="password" class="sr-only">密码</label>
+      <input type="password" id="password" class="form-control" placeholder="密码" required="">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      <a class="btn btn-lg btn-link" href="/register" role="button">注册</a>
+    </form>
   {{/inline}}
 {{/defaultLayout}}
 
