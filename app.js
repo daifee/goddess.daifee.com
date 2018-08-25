@@ -11,13 +11,8 @@ module.exports = function(app) {
       const fileName = 'assets.json';
       const config = app.config;
 
-      if (app.config.env === 'local') {
-        const url = `${config.assets.publicPath}/${fileName}`;
-        const response = await app.curl(url, {
-          method: 'GET',
-          dataType: 'json',
-        });
-        assetsMap = response.data;
+      if (app.config.env === 'unittest') {
+        assetsMap = {};
       } else {
         const file = path.resolve(config.assets.outputPath, fileName);
         assetsMap = require(file);
