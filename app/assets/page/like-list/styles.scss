@@ -1,23 +1,20 @@
 
+.container {
+  overflow: hidden;
+}
+
 .thumbnail-list {
+  margin: 0 auto;
   background-color: #fff;
-  font-size: 0;
-  line-height: 0;
-  text-align: center;
   padding: 10px;
 
-  .thumbnail {
+  .thumbnail-item {
     display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
     margin: 5px;
   }
 }
 
-
-.pagination-wrapper {
-  margin-top: 20px;
-  margin-bottom: 40px;
-
-  .page-link {
-    // background-color: transparent;
-  }
-}

@@ -1,0 +1,22 @@
+
+
+
+.blog-item {
+  background-color: #fff;
+  margin-top: 10px;
+  padding: 20px;
+
+  .thumbnail-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .thumbnail-item {
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 150px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
