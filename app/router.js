@@ -19,9 +19,9 @@ module.exports = app => {
   // 注册页
   router.get('/register', home.register);
   // 用户主页
-  router.get('/users/:id', authorize.user, user.profile);
+  router.get('/users/:id', user.profile);
   // 收藏列表
-  router.get('/users/:id/likes/', authorize.user, like.list);
+  router.get('/users/:id/likes/', like.list);
   // 专题页
   router.get('/recommended/', microBlog.recommended);
 

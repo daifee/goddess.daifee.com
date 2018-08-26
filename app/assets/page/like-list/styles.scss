@@ -1,0 +1,23 @@
+
+.thumbnail-list {
+  background-color: #fff;
+  font-size: 0;
+  line-height: 0;
+  text-align: center;
+  padding: 10px;
+
+  .thumbnail {
+    display: inline-block;
+    margin: 5px;
+  }
+}
+
+
+.pagination-wrapper {
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  .page-link {
+    // background-color: transparent;
+  }
+}

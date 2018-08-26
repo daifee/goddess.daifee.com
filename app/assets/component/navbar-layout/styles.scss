@@ -1,0 +1,19 @@
+
+
+body {
+  background-color: rgba($color:  #e3f2fd, $alpha: 0.6);
+}
+
+nav.navbar-light {
+  background-color: #e3f2fd;
+}
+
+body>.container {
+  max-width: 600px;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+}
