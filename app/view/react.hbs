@@ -1,7 +1,7 @@
-{{!-- 使用 ./partials/default-layout.hbs 布局 --}}
 
-{{#> defaultLayout}}
-  {{#*inline "page"}}
+
+{{#> blankLayout}}
+  {{#*inline "mainContent"}}
     <style>
       #init-loading {
         position: fixed;
@@ -31,5 +31,5 @@
     </div>
     <main id="app"></main>
   {{/inline}}
-{{/defaultLayout}}
+{{/blankLayout}}
 

@@ -1,7 +1,6 @@
-{{!-- 使用 ./partials/default-layout.hbs 布局 --}}
 
-{{#> defaultLayout}}
-  {{#*inline "page"}}
+{{#> blankLayout}}
+  {{#*inline "mainContent"}}
     <form class="form-login">
       <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
       <label for="phone" class="sr-only">手机号码</label>
@@ -12,5 +11,5 @@
       <a class="btn btn-lg btn-link" href="/register" role="button">注册</a>
     </form>
   {{/inline}}
-{{/defaultLayout}}
+{{/blankLayout}}
 

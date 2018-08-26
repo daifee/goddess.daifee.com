@@ -1,23 +1,6 @@
-{{!-- 使用 ./partials/default-layout.hbs 布局 --}}
 
-{{#> defaultLayout}}
-  {{#*inline "page"}}
-    <nav class="navbar navbar-light justify-content-center">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">宠物</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">美景</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">女神</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">username</a>
-        </li>
-      </ul>
-    </nav>
+{{#> navbarLayout}}
+  {{#*inline "mainContent"}}
     <div class="container">
       <ul class="feed-list">
         <li class="feed-item">
@@ -53,5 +36,6 @@
       <p class="tips">每天显示2条内容，定时更新...</p>
     </div>
   {{/inline}}
-{{/defaultLayout}}
+{{/navbarLayout}}
 
+main

@@ -1,0 +1,24 @@
+{{#> baseLayout}}
+  {{#*inline "headContent"}}
+    {{!-- empty --}}
+  {{/inline}}
+  {{#*inline "bodyContent"}}
+    <nav class="navbar navbar-light justify-content-center">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">宠物</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">美景</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">女神</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">@username</a>
+        </li>
+      </ul>
+    </nav>
+    {{> mainContent}}
+  {{/inline}}
+{{/baseLayout}}
