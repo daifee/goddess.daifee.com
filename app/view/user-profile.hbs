@@ -2,6 +2,16 @@
 
 {{#> navbarLayout}}
   {{#*inline "mainContent"}}
+    <form>
+      <div class="form-group">
+        <label for="text">正文</label>
+        <textarea class="form-control" id="text" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary">添加图片</button>
+        <button type="submit" class="btn btn-primary">发布</button>
+      </div>
+    </form>
     {{> blogList}}
     {{> pagination}}
   {{/inline}}
