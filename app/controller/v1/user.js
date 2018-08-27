@@ -33,8 +33,13 @@ class UserController extends BaseController {
 
     this.assert(user, 10003);
     this.assert(user.verifyPassword(data.password), 10004);
-    const token = user.jwtSign();
-    this.echo(token);
+    const responseData = user.toJSON();
+    responseData.token = user.jwtSign();
+
+    delete responseData.password;
+    delete responseData.salt;
+
+    this.echo(responseData);
   }
 }
 

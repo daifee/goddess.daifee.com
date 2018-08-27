@@ -117,13 +117,15 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
+      const token = body.data.token;
       assert(body.code === 0);
-      assert(typeof body.data === 'string');
+      assert(body.data.phone === data.phone);
+      assert(typeof token === 'string');
       // 很长的字符串
-      assert(body.data.length > 20);
+      assert(token.length > 20);
       // 验证token
       const jwtVerify = (new User({})).jwtVerify;
-      const payload = jwtVerify(body.data);
+      const payload = jwtVerify(token);
       assert(payload);
     });
   });
