@@ -45,6 +45,8 @@ class BaseController extends Controller {
       locals.pageName = name;
     }
 
+    locals.isLogin = this.isLogin();
+
     if (this.ctx.app.config.env === 'local') {
       await this.updateAssetsMap();
     }

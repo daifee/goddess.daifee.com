@@ -7,6 +7,7 @@ class UserController extends BaseController {
   async profile() {
     await this.render('user-profile', {
       title: '用户主页',
+      activeMenuKey: 'profile',
     });
   }
 

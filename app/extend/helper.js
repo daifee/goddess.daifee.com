@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+  activeMenu(expect, actual) {
+    return expect === actual ? 'active' : 'disabled';
+  },
+
   // 页面
   pageStyleAssets(pageName, assetsMap) {
     const assets = [
