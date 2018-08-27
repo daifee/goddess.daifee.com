@@ -116,8 +116,6 @@ module.exports = appInfo => {
     secretKey: TENCENT_COS_SECRET_KEY, // 固定密钥
     bucket: 'goddess-1257388993',
     region: 'ap-chengdu',
-    // 这里改成允许的路径前缀，这里可以根据自己网站的用户登录态判断允许上传的目录，例子：* 或者 a/* 或者 a.jpg
-    allowPrefix: '*',
   };
 
 

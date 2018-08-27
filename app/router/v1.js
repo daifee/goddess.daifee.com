@@ -7,15 +7,17 @@ async function todo() {
 module.exports = app => {
   const { router, controller, middleware } = app;
   const { authorize } = middleware;
-  const { user, like, microBlog } = controller.v1;
+  const { user, like, microBlog, tencentCos } = controller.v1;
 
   /**
    * 用户：
    * * 注册
    * * 授权
+   * * cos临时key
    */
   router.post('/api/v1/users/', user.post);
   router.post('/api/v1/authorization', user.authorize);
+  router.get('/api/v1/cos/sts', tencentCos.getTempKeys);
 
   /**
    * 用户内容：

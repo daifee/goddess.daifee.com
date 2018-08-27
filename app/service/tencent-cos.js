@@ -35,8 +35,9 @@ class TencentCosService extends Service {
     this.config = ctx.app.config.tencentCos;
   }
 
-  async getTempKeys() {
-    const { bucket, region, allowPrefix, url, domain, secretId, secretKey, proxy } = this.config;
+  // 这里改成允许的路径前缀，这里可以根据自己网站的用户登录态判断允许上传的目录，例子：* 或者 user.id/*
+  async getTempKeys(allowPrefix = '*') {
+    const { bucket, region, url, domain, secretId, secretKey, proxy } = this.config;
     const shortBucketName = bucket.substr(0, bucket.lastIndexOf('-'));
     const appId = bucket.substr(1 + bucket.lastIndexOf('-'));
     const policy = {
@@ -44,13 +45,11 @@ class TencentCosService extends Service {
       statement: [{
         action: [
           // 简单文件操作
-          'name/cos:PutObject',
           'name/cos:PostObject',
           'name/cos:AppendObject',
           'name/cos:GetObject',
           'name/cos:HeadObject',
           'name/cos:OptionsObject',
-          'name/cos:PutObjectCopy',
           'name/cos:PostObjectRestore',
           // 分片上传操作
           'name/cos:InitiateMultipartUpload',
@@ -63,13 +62,13 @@ class TencentCosService extends Service {
         effect: 'allow',
         principal: { qcs: [ '*' ] },
         resource: [
-          'qcs::cos:' + region + ':uid/' + appId + ':prefix//' + appId + '/' + shortBucketName + '/',
-          'qcs::cos:' + region + ':uid/' + appId + ':prefix//' + appId + '/' + shortBucketName + '/' + allowPrefix,
+          `qcs::cos:${region}:uid/${appId}:prefix//${appId}/${shortBucketName}/${allowPrefix}`,
         ],
       }],
     };
     const policyStr = JSON.stringify(policy);
 
+    // cache
     if (tempKeysCache.expiredTime - Date.now() / 1000 > 30 && tempKeysCache.policyStr === policyStr) {
       return tempKeysCache;
     }

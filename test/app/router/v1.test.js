@@ -128,6 +128,26 @@ describe('test/app/router/v1.test.js', () => {
     });
   });
 
+  describe('get /api/v1/cos/sts', () => {
+    it('获取临时key，成功', async () => {
+      const user = await mock.createUser();
+      const token = user.jwtSign();
+      const response = await app.httpRequest()
+        .get('/api/v1/cos/sts')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(body.data.credentials.tmpSecretId);
+      assert(body.data.credentials.tmpSecretKey);
+      assert(body.data.credentials.sessionToken);
+      assert(body.data.expiredTime);
+    });
+  });
+
   describe('get /api/v1/users/:userId/micro-blogs/', () => {
     it('获取用户微博列表', async () => {
       const user = await mock.createUser();
