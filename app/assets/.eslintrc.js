@@ -31,7 +31,7 @@ module.exports = {
     // 强制使用一致的缩进
     "indent": [
       "warn",
-      4,
+      2,
       {
         "SwitchCase": 1
       }

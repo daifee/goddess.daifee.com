@@ -4,6 +4,10 @@ const { Controller } = require('egg');
 
 
 class BaseController extends Controller {
+  isLogin() {
+    return !!this.ctx.cookies.get('Authorization', { signed: false });
+  }
+
   /**
    * 当前用户
    * 依赖 `./middleware/authorize.js` 实现

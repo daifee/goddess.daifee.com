@@ -3,13 +3,27 @@
 const BaseController = require('../core/base-controller');
 
 class HomeController extends BaseController {
+  async logout() {
+    this.ctx.cookies.set('Authorization', '', { maxAge: -1 });
+    this.ctx.redirect('/');
+  }
+
   async login() {
+    if (this.isLogin()) {
+      this.ctx.redirect('/');
+    }
+
     await this.render('login', {
       title: '登录',
     });
   }
 
   async register() {
+    if (this.isLogin()) {
+      this.ctx.redirect('/');
+      return;
+    }
+
     await this.render('register', {
       title: '注册',
     });
