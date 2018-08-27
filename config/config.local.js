@@ -9,6 +9,7 @@ module.exports = () => {
 
   // 配置异常处理器
   config.onerror = {
+
     // todo html
     json(error, ctx) {
       ctx.status = 200;

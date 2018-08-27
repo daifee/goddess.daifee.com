@@ -70,10 +70,6 @@ module.exports = appInfo => {
   config.errorCodes = errorCodes;
   // 异常处理器
   config.onerror = {
-    // 不支持异步
-    html(err, ctx) {
-      ctx.renderError(err);
-    },
     json(err, ctx) {
       ctx.status = 200;
       ctx.body = {
