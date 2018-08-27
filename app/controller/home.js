@@ -9,8 +9,8 @@ class HomeController extends BaseController {
   }
 
   async login() {
-    if (this.isLogin()) {
-      this.ctx.redirect('/');
+    if (this.ctx.getCookieUser()) {
+      return this.ctx.redirect('/');
     }
 
     await this.render('login', {
@@ -19,9 +19,8 @@ class HomeController extends BaseController {
   }
 
   async register() {
-    if (this.isLogin()) {
-      this.ctx.redirect('/');
-      return;
+    if (this.ctx.getCookieUser()) {
+      return this.ctx.redirect('/');
     }
 
     await this.render('register', {

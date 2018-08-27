@@ -4,9 +4,6 @@ const { Controller } = require('egg');
 
 
 class BaseController extends Controller {
-  isLogin() {
-    return !!this.ctx.cookies.get('Authorization', { signed: false });
-  }
 
   /**
    * 当前用户
@@ -45,7 +42,7 @@ class BaseController extends Controller {
       locals.pageName = name;
     }
 
-    locals.isLogin = this.isLogin();
+    locals.user = this.ctx.getCookieUser();
 
     if (this.ctx.app.config.env === 'local') {
       await this.updateAssetsMap();
