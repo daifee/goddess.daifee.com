@@ -3,9 +3,8 @@
  */
 
 'use strict';
-const path = require('path');
 
-module.exports = appInfo => {
+module.exports = () => {
   const config = exports = {};
 
   // 配置异常处理器
@@ -20,15 +19,6 @@ module.exports = appInfo => {
       };
     },
   };
-
-  /**
-   * 配置assets
-   */
-  config.assets = {
-    publicPath: 'http://localhost:8080',
-    outputPath: path.resolve(appInfo.baseDir, './.guido-cache/dist'),
-  };
-
 
   return config;
 };
