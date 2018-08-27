@@ -5,7 +5,7 @@
 
 module.exports = (roles = []) => {
   return async function authorize(ctx, next) {
-    const value = ctx.cookies.get('Authorization');
+    const value = ctx.cookies.get('Authorization', { signed: false });
 
     if (!value) {
       ctx.throw(14021);

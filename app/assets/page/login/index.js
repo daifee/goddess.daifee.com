@@ -20,8 +20,9 @@ $('#login').on('submit', () => {
         return;
       }
 
-      auth.set(body.data);
-      window.location.href = '/';
+      const user = body.data;
+      auth.set(user.token);
+      window.location.href = `/users/${user.id}`;
     })
     .fail(error => {
       console.log(error);
