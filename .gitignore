@@ -12,3 +12,5 @@ run/
 *.un~
 .vscode/
 .guido-cache/
+
+*.env

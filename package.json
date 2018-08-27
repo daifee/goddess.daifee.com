@@ -4,6 +4,7 @@
   "description": "hello world",
   "private": true,
   "dependencies": {
+    "dotenv": "^6.0.0",
     "egg": "^2.2.1",
     "egg-mongoose": "^3.1.0",
     "egg-scripts": "^2.5.0",
@@ -33,19 +34,17 @@
   },
   "scripts": {
     "comment-section": "生产&测试必须传入环境变量：PORT, SECRET, KEYS, MONGO_URL, MONGO_USER, MONGO_PASSWORD",
-    "start": "egg-scripts start --daemon --title=goddess",
-    "start-sit": "EGG_SERVER_ENV=sit npm start",
-
+    "start": "EGG_SERVER_ENV=prod egg-scripts start --daemon --title=goddess",
+    "start-sit": "EGG_SERVER_ENV=sit egg-scripts start --daemon --title=goddess-test",
     "stop": "egg-scripts stop --title=goddess",
-    "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "dev": "EGG_SERVER_ENV=local egg-bin dev",
+    "debug": "EGG_SERVER_ENV=local egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "egg-bin test",
+    "test-local": "EGG_SERVER_ENV=unittest egg-bin test",
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-
     "dev-assets": "EGG_SERVER_ENV=local RUN_ENV=server ./node_modules/.bin/guido server",
     "build-assets-prod": "EGG_SERVER_ENV=prod npm run build-assets",
     "build-assets-sit": "EGG_SERVER_ENV=sit npm run build-assets",

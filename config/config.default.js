@@ -4,6 +4,8 @@
  */
 'use strict';
 
+require('../scripts/loadEnv');
+
 const path = require('path');
 const errorCodes = require('./error-codes');
 
@@ -12,26 +14,34 @@ module.exports = appInfo => {
   const config = exports = {};
   const {
     PORT,
-    SECRET,
-    KEYS,
+    AUTHORIZATION_SECRET,
+    COOKIE_KEYS,
+
     MONGO_URL,
     MONGO_USER,
     MONGO_PASSWORD,
+
+    TENCENT_COS_SECRET_ID,
+    TENCENT_COS_SECRET_KEY,
+
+    ASSETS_OUTPUT_DIRNAME,
+    ASSETS_PUBLIC_PATH,
   } = process.env;
+
 
   config.cluster = {
     listen: {
-      port: PORT,
+      port: Number(PORT),
     },
   };
 
   /**
    * 安全相关
    */
-  // 机密，用于生成 authorization token
-  config.secret = SECRET;
+  // 秘密
+  config.secret = AUTHORIZATION_SECRET;
   // use for cookie sign key, should change to your own and keep security
-  config.keys = KEYS;
+  config.keys = COOKIE_KEYS;
   // 关掉csrf
   config.security = {
     csrf: {
@@ -90,9 +100,25 @@ module.exports = appInfo => {
    */
   config.assets = {
     path: path.resolve(appInfo.baseDir, './app/assets'),
-    outputPath: path.resolve(appInfo.baseDir, './app/public/dist-prod'),
-    publicPath: `http://127.0.0.1:${PORT}`,
+    outputPath: path.resolve(appInfo.baseDir, './app/public', ASSETS_OUTPUT_DIRNAME),
+    publicPath: ASSETS_PUBLIC_PATH,
   };
+
+  /**
+   * 腾讯云 COS
+   */
+  config.tencentCos = {
+    url: 'https://sts.api.qcloud.com/v2/index.php',
+    domain: 'sts.api.qcloud.com',
+    proxy: '',
+    secretId: TENCENT_COS_SECRET_ID, // 固定密钥
+    secretKey: TENCENT_COS_SECRET_KEY, // 固定密钥
+    bucket: 'goddess-1257388993',
+    region: 'ap-chengdu',
+    // 这里改成允许的路径前缀，这里可以根据自己网站的用户登录态判断允许上传的目录，例子：* 或者 a/* 或者 a.jpg
+    allowPrefix: '*',
+  };
+
 
   return config;
 };

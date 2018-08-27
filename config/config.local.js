@@ -8,24 +8,6 @@ const path = require('path');
 module.exports = appInfo => {
   const config = exports = {};
 
-
-  config.cluster = {
-    listen: {
-      port: 7001,
-    },
-  };
-
-  /**
-   * 安全相关
-   */
-  // 机密，用于生成 authorization token
-  config.secret = 'so easy';
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1533867498821_8761';
-
-  /**
-   * 异常处理
-   */
   // 配置异常处理器
   config.onerror = {
     // todo html
@@ -47,20 +29,6 @@ module.exports = appInfo => {
     outputPath: path.resolve(appInfo.baseDir, './.guido-cache/dist'),
   };
 
-  /**
-   * 配置mongoose
-   */
-  config.mongoose = {
-    client: {
-      url: 'mongodb://127.0.0.1:27017/goddess',
-      options: {
-        auth: {
-          user: 'web',
-          password: '123456',
-        },
-      },
-    },
-  };
 
   return config;
 };
