@@ -102,6 +102,7 @@ module.exports = appInfo => {
     path: path.resolve(appInfo.baseDir, './app/assets'),
     outputPath: path.resolve(appInfo.baseDir, './app/public', ASSETS_OUTPUT_DIRNAME),
     publicPath: ASSETS_PUBLIC_PATH,
+    assetsMapFileName: 'assets.json',
   };
 
   /**

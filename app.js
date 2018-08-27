@@ -9,13 +9,12 @@ module.exports = function(app) {
 
     try {
       let assetsMap;
-      const fileName = 'assets.json';
       const config = app.config;
 
       if (app.config.env === 'unittest') {
         assetsMap = {};
       } else {
-        const file = path.resolve(config.assets.outputPath, fileName);
+        const file = path.resolve(config.assets.outputPath, config.assets.assetsMapFileName);
         assetsMap = require(file);
       }
 

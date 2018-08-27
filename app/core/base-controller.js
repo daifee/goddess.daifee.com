@@ -40,7 +40,23 @@ class BaseController extends Controller {
     if (!locals.pageName) {
       locals.pageName = name;
     }
+
+    if (this.ctx.app.config.env === 'local') {
+      await this.updateAssetsMap();
+    }
     return await this.ctx.render(name, locals, options);
+  }
+
+  async updateAssetsMap() {
+    const app = this.ctx.app;
+    const config = app.config.assets;
+    const url = config.publicPath + '/' + config.assetsMapFileName;
+
+    const response = await this.ctx.curl(url, { dataType: 'json' });
+
+    Object.assign(app.locals, {
+      assetsMap: response.data,
+    });
   }
 
   /**
