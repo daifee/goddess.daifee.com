@@ -3,7 +3,7 @@
 const { app, assert } = require('egg-mock/bootstrap');
 
 
-describe.skip('test/app/service/tencent-cos.test.js', () => {
+describe('test/app/service/tencent-cos.test.js', () => {
 
   it('getTempKeys()', async () => {
     const ctx = app.mockContext();

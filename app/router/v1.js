@@ -17,7 +17,7 @@ module.exports = app => {
    */
   router.post('/api/v1/users/', user.post);
   router.post('/api/v1/authorization', user.authorize);
-  router.get('/api/v1/cos/sts', tencentCos.getTempKeys);
+  router.get('/api/v1/cos/sts', authorize.user, tencentCos.getTempKeys);
 
   /**
    * 用户内容：
