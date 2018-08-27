@@ -4,6 +4,7 @@
   "description": "hello world",
   "private": true,
   "dependencies": {
+    "cos-js-sdk-v5": "^0.4.14",
     "dotenv": "^6.0.0",
     "egg": "^2.2.1",
     "egg-mongoose": "^3.1.0",

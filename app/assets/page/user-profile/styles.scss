@@ -4,3 +4,14 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+form {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.form-control-file {
+  display: inline-block;
+  width: 30%;
+  margin-bottom: 8px;
+}
