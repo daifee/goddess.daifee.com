@@ -75,6 +75,7 @@ module.exports = appInfo => {
       ctx.body = {
         code: err.code,
         message: err.message,
+        stack: err.stack,
       };
     },
   };

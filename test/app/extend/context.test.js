@@ -4,14 +4,7 @@ const { app, assert } = require('egg-mock/bootstrap');
 
 
 describe('test/app/extend/context.test.js', () => {
-  it('renderError(err, options)', () => {
-    const context = app.mockContext();
-    const error = new Error();
-    error.code = 500;
-    context.renderError(error);
-    assert(context.status === 500);
-    assert(context.body);
-  });
+
 
   describe('throw(code = 99999, message = "", properties = {})', () => {
     it('框架异常', () => {

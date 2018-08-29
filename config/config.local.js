@@ -7,19 +7,5 @@
 module.exports = () => {
   const config = exports = {};
 
-  // 配置异常处理器
-  config.onerror = {
-
-    // todo html
-    json(error, ctx) {
-      ctx.status = 200;
-      ctx.body = {
-        code: error.code,
-        message: error.message,
-        error,
-      };
-    },
-  };
-
   return config;
 };
