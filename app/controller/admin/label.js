@@ -1,9 +1,9 @@
 'use strict';
 
-const BaseController = require('../../core/base-controller');
+const ApiController = require('../../core/api-controller');
 const objectUtil = require('../../util/object');
 
-class LabelController extends BaseController {
+class LabelController extends ApiController {
   async list() {
     const labels = await this.ctx.service.label.find();
     this.echo(labels);

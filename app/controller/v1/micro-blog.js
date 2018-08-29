@@ -1,9 +1,9 @@
 'use strict';
 
-const BaseController = require('../../core/base-controller');
+const ApiController = require('../../core/api-controller');
 const objectUtil = require('../../util/object');
 
-class MicroBlogController extends BaseController {
+class MicroBlogController extends ApiController {
   async list() {
     const { ctx } = this;
     const { params, query } = ctx;

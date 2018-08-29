@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../../core/base-controller');
+const ApiController = require('../../core/api-controller');
 
-class TencentCosController extends BaseController {
+class TencentCosController extends ApiController {
   async getTempKeys() {
     const prefix = `${this.user.id}/*`;
     const result = await this.ctx.service.tencentCos.getTempKeys(prefix);

@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../core/base-controller');
+const ViewController = require('../core/view-controller');
 
-class HomeController extends BaseController {
+class HomeController extends ViewController {
   async logout() {
     this.ctx.cookies.set('Authorization', '', { maxAge: -1 });
     this.ctx.redirect('/');

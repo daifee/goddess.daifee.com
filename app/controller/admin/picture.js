@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../../core/base-controller');
+const ApiController = require('../../core/api-controller');
 
-class PictureController extends BaseController {
+class PictureController extends ApiController {
   async list() {
     const { ctx } = this;
     const { query } = ctx.request;

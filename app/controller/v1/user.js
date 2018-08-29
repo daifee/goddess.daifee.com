@@ -1,9 +1,9 @@
 'use strict';
 
-const BaseController = require('../../core/base-controller');
+const ApiController = require('../../core/api-controller');
 const objectUtil = require('../../util/object');
 
-class UserController extends BaseController {
+class UserController extends ApiController {
   async post() {
     const { request, model, service } = this.ctx;
     const { User } = model;
