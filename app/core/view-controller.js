@@ -4,6 +4,12 @@ const BaseController = require('./base-controller');
 const USER = Symbol('USER');
 
 class ViewController extends BaseController {
+  /**
+   * 当前用户
+   * 依赖cookie
+   * @readonly
+   * @memberof ViewController
+   */
   get user() {
     if (typeof this[USER] !== undefined) {
       return this[USER];
