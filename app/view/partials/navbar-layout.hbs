@@ -14,9 +14,11 @@
         <li class="nav-item">
           <a class="nav-link  {{helper.activeMenu 'goddess' activeMenuKey}}" href="/recommended?type=goddess">美女</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link  {{helper.activeMenu 'profile' activeMenuKey}}" href="/users/{{user.id}}">@username</a>
-        </li>
+        {{#if user}}
+          <li class="nav-item">
+            <a class="nav-link  {{helper.activeMenu 'profile' activeMenuKey}}" href="/users/{{user.id}}">@{{user.name}}</a>
+          </li>
+        {{/if}}
         <li class="nav-item">
           {{#if user}}
             <a class="nav-link disabled" href="/logout">退出</a>

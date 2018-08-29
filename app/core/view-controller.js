@@ -11,12 +11,14 @@ class ViewController extends BaseController {
    * @memberof ViewController
    */
   get user() {
-    if (typeof this[USER] !== undefined) {
+    if (typeof this[USER] !== 'undefined') {
       return this[USER];
     }
 
-    const { User } = this.model;
-    const token = this.cookies.get('Authorization', { signed: false });
+    const ctx = this.ctx;
+
+    const { User } = ctx.model;
+    const token = ctx.cookies.get('Authorization', { signed: false });
     try {
       const tokenObj = User.jwtVerify(token);
       this[USER] = tokenObj.user;
@@ -28,11 +30,11 @@ class ViewController extends BaseController {
   }
 
   login(token) {
-    this.cookies.set('Authorization', token, { signed: false });
+    this.ctx.cookies.set('Authorization', token, { signed: false });
   }
 
   logout() {
-    this.cookies.set('Authorization', '', { signed: false, maxAge: -1 });
+    this.ctx.cookies.set('Authorization', '', { signed: false, maxAge: -1 });
   }
 
   /**
@@ -48,7 +50,7 @@ class ViewController extends BaseController {
       locals.pageName = name;
     }
 
-    locals.user = this.ctx.getCookieUser();
+    locals.user = this.user;
 
     if (this.ctx.app.config.env === 'local') {
       await this.updateAssetsMap();

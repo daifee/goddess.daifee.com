@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../core/base-controller');
+const ViewController = require('../core/view-controller');
 
-class UserController extends BaseController {
+class UserController extends ViewController {
 
   async profile() {
     if (!this.user) {

@@ -4,7 +4,7 @@ const ViewController = require('../core/view-controller');
 
 class HomeController extends ViewController {
   async logout() {
-    this.logout();
+    super.logout();
     this.ctx.redirect('/');
   }
 

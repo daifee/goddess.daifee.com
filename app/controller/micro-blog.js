@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../core/base-controller');
+const ViewController = require('../core/view-controller');
 
-class MicroBlogController extends BaseController {
+class MicroBlogController extends ViewController {
   async recommended() {
     const type = this.ctx.query.type || 'animal';
 

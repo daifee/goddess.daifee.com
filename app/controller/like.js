@@ -1,8 +1,8 @@
 'use strict';
 
-const BaseController = require('../core/base-controller');
+const ViewController = require('../core/view-controller');
 
-class LikeController extends BaseController {
+class LikeController extends ViewController {
   async list() {
     if (!this.user) {
       return this.ctx.redirect('/login');
