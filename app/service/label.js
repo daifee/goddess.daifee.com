@@ -11,11 +11,11 @@ class LabelService extends Service {
       result = await Label.create(doc);
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20401, '', { error });
+        this.ctx.throw(400, '已存在该标签', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20402, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20403, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
     return result;
@@ -35,11 +35,11 @@ class LabelService extends Service {
       result = await query.exec();
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20404, '', { error });
+        this.ctx.throw(400, '标签已存在', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20405, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20406, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
 

@@ -31,19 +31,19 @@ class UserService extends Service {
 
     try {
       doc.encryptPassword();
-    } catch (err) {
-      this.ctx.throw(20004, err.message, { error: err });
+    } catch (error) {
+      this.ctx.throw(501, error.message, { error });
     }
 
     try {
       user = await User.create(doc);
-    } catch (err) {
-      if (err.code === 11000) {
-        this.ctx.throw(20001, '', { error: err });
-      } else if (err.name === 'ValidationError') {
-        this.ctx.throw(20002, err.message, { error: err });
+    } catch (error) {
+      if (error.code === 11000) {
+        this.ctx.throw(400, '用户已存在', { error });
+      } else if (error.name === 'ValidationError') {
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20003, err.message, { error: err });
+        this.ctx.throw(503, error.message, { error });
       }
     }
     // 不暴露

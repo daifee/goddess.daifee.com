@@ -7,41 +7,27 @@ module.exports = (roles = []) => {
   return async function authorize(ctx, next) {
     const value = ctx.get('Authorization');
 
-    if (!value) {
-      ctx.throw(14001);
-    }
+    ctx.assert(value, 401, '缺少Authorization');
 
     const values = value.split(/\s+/);
     const { User } = ctx.model;
 
-    if (values.length !== 2) {
-      ctx.throw(14002);
-    }
-
-    if (values[0].toUpperCase() !== 'BEARER') {
-      ctx.throw(14003);
-    }
+    ctx.assert(values.length === 2, 401, 'Authorization格式错误');
+    ctx.assert(values[0].toUpperCase() === 'BEARER', 401, 'Authorization格式错误');
 
     try {
       const decoded = User.jwtVerify(values[1]);
-
-      if (roles.indexOf(decoded.user.role) !== -1) {
-        // 合法
-        ctx.user = ctx.request.user = decoded.user;
-      } else {
-        ctx.throw(14005);
-      }
+      ctx.user = ctx.request.user = decoded.user;
     } catch (error) {
-      if (error.code === 14005) {
-        throw error;
-      }
-
       if (error.name === 'TokenExpiredError') {
-        ctx.throw(14004, '', { error });
+        ctx.throw(403, 'authorization已过期', { error });
       } else {
-        ctx.throw(14006, '', { error });
+        ctx.throw(403, 'authorization不合法', { error });
       }
     }
+
+    ctx.assert(roles.indexOf(ctx.user.role) !== -1, 403, '权限不够');
+
     await next();
   };
 };

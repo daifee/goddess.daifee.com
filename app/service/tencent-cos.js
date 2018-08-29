@@ -104,12 +104,12 @@ class TencentCosService extends Service {
       // body
       responseBody = response.data;
     } catch (error) {
-      this.ctx.throw(20501, error.message, { error });
+      this.ctx.throw(503, error.message, { error });
     }
 
     if (responseBody.code) {
       const message = responseBody.errorDesc + ': ' + responseBody.code;
-      this.ctx.throw(20502, '', { error: new Error(message) });
+      this.ctx.throw(503, message);
     }
 
     tempKeysCache = responseBody.data;

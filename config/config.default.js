@@ -7,7 +7,6 @@
 require('../scripts/loadEnv');
 
 const path = require('path');
-const errorCodes = require('./error-codes');
 
 
 module.exports = appInfo => {
@@ -66,8 +65,6 @@ module.exports = appInfo => {
   /**
    * 配置异常处理器
    */
-  // 自定义API错误码
-  config.errorCodes = errorCodes;
   // 异常处理器
   config.onerror = {
     json(err, ctx) {

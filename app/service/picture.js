@@ -12,11 +12,11 @@ class PictureService extends Service {
       picture = await Picture.create(doc);
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20101, '', { error });
+        this.ctx.throw(400, '重复发布改图片', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20102, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20103, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
 
@@ -33,11 +33,11 @@ class PictureService extends Service {
       result = await query.exec();
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20104, '', { error });
+        this.ctx.throw(400, '重复发布', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20105, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20106, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
 

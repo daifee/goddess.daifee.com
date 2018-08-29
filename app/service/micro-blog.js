@@ -16,11 +16,11 @@ class MicroBlogService extends Service {
       result = await MicroBlog.create(doc);
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20201, '', { error });
+        this.ctx.throw(400, '重复发布', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20202, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20203, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
     return result;
@@ -40,11 +40,11 @@ class MicroBlogService extends Service {
       result = await query.exec();
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20204, '', { error });
+        this.ctx.throw(400, '重复发布', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20205, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20206, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
 

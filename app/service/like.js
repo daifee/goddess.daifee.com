@@ -24,11 +24,11 @@ class LikeService extends Service {
       });
     } catch (error) {
       if (error.code === 11000) {
-        this.ctx.throw(20301, '', { error });
+        this.ctx.throw(400, '已收藏过', { error });
       } else if (error.name === 'ValidationError') {
-        this.ctx.throw(20302, error.message, { error });
+        this.ctx.throw(400, error.message, { error });
       } else {
-        this.ctx.throw(20303, error.message, { error });
+        this.ctx.throw(503, error.message, { error });
       }
     }
 
