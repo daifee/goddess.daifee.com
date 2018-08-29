@@ -5,7 +5,7 @@ const BaseController = require('../core/base-controller');
 class UserController extends BaseController {
 
   async profile() {
-    if (!this.ctx.getCookieUser()) {
+    if (!this.user) {
       return this.ctx.redirect('/login');
     }
 

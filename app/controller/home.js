@@ -4,13 +4,13 @@ const ViewController = require('../core/view-controller');
 
 class HomeController extends ViewController {
   async logout() {
-    this.ctx.cookies.set('Authorization', '', { maxAge: -1 });
+    this.logout();
     this.ctx.redirect('/');
   }
 
   async login() {
-    if (this.ctx.getCookieUser()) {
-      return this.ctx.redirect('/');
+    if (this.user) {
+      return this.ctx.redirect(`/users/${this.user.id}`);
     }
 
     await this.render('login', {
@@ -19,8 +19,8 @@ class HomeController extends ViewController {
   }
 
   async register() {
-    if (this.ctx.getCookieUser()) {
-      return this.ctx.redirect('/');
+    if (this.user) {
+      return this.ctx.redirect(`/users/${this.user.id}`);
     }
 
     await this.render('register', {

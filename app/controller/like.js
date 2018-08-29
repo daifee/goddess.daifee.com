@@ -4,7 +4,7 @@ const BaseController = require('../core/base-controller');
 
 class LikeController extends BaseController {
   async list() {
-    if (!this.ctx.getCookieUser()) {
+    if (!this.user) {
       return this.ctx.redirect('/login');
     }
 

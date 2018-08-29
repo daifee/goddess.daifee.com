@@ -1,8 +1,33 @@
 'use strict';
 
 const BaseController = require('./base-controller');
+const USER = Symbol('USER');
 
 class ViewController extends BaseController {
+  get user() {
+    if (typeof this[USER] !== undefined) {
+      return this[USER];
+    }
+
+    const { User } = this.model;
+    const token = this.cookies.get('Authorization', { signed: false });
+    try {
+      const tokenObj = User.jwtVerify(token);
+      this[USER] = tokenObj.user;
+    } catch (error) {
+      this[USER] = null;
+    }
+
+    return this[USER];
+  }
+
+  login(token) {
+    this.cookies.set('Authorization', token, { signed: false });
+  }
+
+  logout() {
+    this.cookies.set('Authorization', '', { signed: false, maxAge: -1 });
+  }
 
   /**
      * Render a file by view engine
