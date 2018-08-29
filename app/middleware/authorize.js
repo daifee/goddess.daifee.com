@@ -12,8 +12,8 @@ module.exports = (roles = []) => {
     const values = value.split(/\s+/);
     const { User } = ctx.model;
 
-    ctx.assert(values.length === 2, 401, 'Authorization格式错误');
-    ctx.assert(values[0].toUpperCase() === 'BEARER', 401, 'Authorization格式错误');
+    ctx.assert(values.length === 2, 403, 'Authorization格式错误');
+    ctx.assert(values[0].toUpperCase() === 'BEARER', 403, 'Authorization格式错误');
 
     try {
       const decoded = User.jwtVerify(values[1]);

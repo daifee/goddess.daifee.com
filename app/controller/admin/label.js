@@ -20,7 +20,7 @@ class LabelController extends BaseController {
     });
 
     const error = doc.validateSync();
-    this.assert(!error, 10006, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const label = await ctx.service.label.create(doc);
     this.echo(label);
@@ -32,11 +32,11 @@ class LabelController extends BaseController {
     const doc = new ctx.model.Label(data);
     const error = doc.validateSync(Object.keys(data));
 
-    this.assert(!error, 10007, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const label = await ctx.service.label.update(ctx.params.id, data);
 
-    this.assert(label, 10008);
+    this.assert(label, 503, '更新失败');
     this.echo(label);
   }
 

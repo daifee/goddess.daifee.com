@@ -48,7 +48,7 @@ describe('test/app/service/user.test.js', () => {
         assert.fail('不应该运行到这里');
       } catch (err) {
         assert(err instanceof Error);
-        assert(err.code === 20004);
+        assert(err.status === 501);
       }
     });
 
@@ -64,7 +64,7 @@ describe('test/app/service/user.test.js', () => {
         assert.fail('不应该运行到这里');
       } catch (err) {
         assert(err instanceof Error);
-        assert(err.code === 20002);
+        assert(err.status === 400);
       }
     });
 
@@ -79,7 +79,7 @@ describe('test/app/service/user.test.js', () => {
         await ctx.service.user.create(new User(data));
         assert.fail('不应该运行到这里');
       } catch (err) {
-        assert(err.code === 20001);
+        assert(err.status === 400);
         assert(err instanceof Error);
       }
     });

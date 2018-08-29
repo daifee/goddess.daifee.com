@@ -31,17 +31,17 @@ describe('test/app/router/admin.test.js', () => {
       assert(body.data.length >= 4);
     });
 
-    it('14001', async () => {
+    it('没有权限，缺少Authorization', async () => {
       const response = await app.httpRequest()
         .get('/api/admin/labels/')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14001);
+      assert(response.body.code === 401);
     });
 
-    it('14002', async () => {
+    it('没有权限，Authorization格式不正确', async () => {
       const user = await mock.createUser();
       const token = user.jwtSign();
       const response = await app.httpRequest()
@@ -51,10 +51,10 @@ describe('test/app/router/admin.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14002);
+      assert(response.body.code === 403);
     });
 
-    it('14003', async () => {
+    it('没有权限，Authorization格式不正确', async () => {
       const user = await mock.createUser();
       const token = user.jwtSign();
       const response = await app.httpRequest()
@@ -64,10 +64,10 @@ describe('test/app/router/admin.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14003);
+      assert(response.body.code === 403);
     });
 
-    it('14004 token已过期', async () => {
+    it('token已过期', async () => {
       const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvbGUiOiJhZG1pbiIsInN0YXR1cyI6Im5vcm1hbCIsIl9pZCI6IjViN2VhNTI1NDQyNzM5OGRlYTgzOWMxZSIsIm5hbWUiOiLlj5HlpYflpYflgbblj5Hovr445aWHNyIsInBhc3N3b3JkIjoiM2ZjY2JmNjNhZGU1ZDAyMTJkY2E3Mjc0ZGRjMTY3N2U4OTJlMGM5Y2Q5NjNlNDQwOTZiMWRjNDdmYzUzOGMyOCIsInBob25lIjoiNzEzNTQ5NjUxNjMiLCJzYWx0IjoiMTUzNTAyNjQ2OTk2NyIsImNyZWF0ZWRBdCI6IjIwMTgtMDgtMjNUMTI6MTQ6MjkuOTY4WiIsInVwZGF0ZWRBdCI6IjIwMTgtMDgtMjNUMTI6MTQ6MjkuOTY4WiIsIl9fdiI6MCwiaWQiOiI1YjdlYTUyNTQ0MjczOThkZWE4MzljMWUifSwiZXhwIjo2MDQ4MDAsImlhdCI6MTUzNTAyNjQ2OSwiaXNzIjoiZGFpZmVlIiwic3ViIjoidXNlciIsImF1ZCI6IuWPkeWlh-Wlh-WBtuWPkei-vjjlpYc3IiwianRpIjoiNWI3ZWE1MjU0NDI3Mzk4ZGVhODM5YzFlMTUzNTAyNjQ2OTk2OSJ9.KZXv2JZ8cR6ZfkQ63kBIGx91qkPGWu1ejPv-Cm16rYA';
       const response = await app.httpRequest()
         .get('/api/admin/labels/')
@@ -76,10 +76,10 @@ describe('test/app/router/admin.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14004);
+      assert(response.body.code === 403);
     });
 
-    it('14005', async () => {
+    it('权限不够', async () => {
       const user = await mock.createUser();
       const token = user.jwtSign();
       const response = await app.httpRequest()
@@ -89,10 +89,10 @@ describe('test/app/router/admin.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14005);
+      assert(response.body.code === 403);
     });
 
-    it('14006', async () => {
+    it('没有权限，token不合法', async () => {
       const token = 'fuck';
       const response = await app.httpRequest()
         .get('/api/admin/labels/')
@@ -101,7 +101,7 @@ describe('test/app/router/admin.test.js', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      assert(response.body.code === 14006);
+      assert(response.body.code === 403);
     });
   });
 

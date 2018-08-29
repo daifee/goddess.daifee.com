@@ -22,7 +22,7 @@ class LikeController extends BaseController {
     });
 
     const error = doc.validateSync('userId targetId');
-    this.assert(!error, 10012, (error && error.message), { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const like = await service.like.create(params.userId, doc);
     this.echo(like);

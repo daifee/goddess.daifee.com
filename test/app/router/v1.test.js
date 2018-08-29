@@ -54,7 +54,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 10001);
+      assert(body.code === 400);
       assert(body.message);
     });
 
@@ -73,7 +73,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 10002);
+      assert(body.code === 400);
       assert(body.message);
     });
 
@@ -92,7 +92,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 20001);
+      assert(body.code === 400);
       assert(body.message);
     });
   });
@@ -180,7 +180,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -214,7 +214,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -249,7 +249,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -282,7 +282,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -316,7 +316,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -350,7 +350,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 
@@ -383,7 +383,7 @@ describe('test/app/router/v1.test.js', () => {
         .expect(200);
 
       const body = response.body;
-      assert(body.code === 14015);
+      assert(body.code === 403);
     });
   });
 });

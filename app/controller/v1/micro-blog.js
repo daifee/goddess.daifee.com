@@ -28,7 +28,7 @@ class MicroBlogController extends BaseController {
     const doc = new model.MicroBlog(data);
 
     const error = doc.validateSync();
-    this.assert(!error, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const blog = await service.microBlog.create(doc);
     this.echo(blog);
@@ -45,7 +45,7 @@ class MicroBlogController extends BaseController {
 
     const error = doc.validateSync(Object.keys(data));
 
-    this.assert(!error, 10011, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const blog = await service.microBlog.update(params.blogId, data);
     this.echo(blog);

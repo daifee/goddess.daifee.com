@@ -67,12 +67,12 @@ module.exports = appInfo => {
    */
   // 异常处理器
   config.onerror = {
-    json(err, ctx) {
+    json(error, ctx) {
       ctx.status = 200;
       ctx.body = {
-        code: err.code,
-        message: err.message,
-        stack: err.stack,
+        code: error.status,
+        message: error.message,
+        stack: error.stack,
       };
     },
   };

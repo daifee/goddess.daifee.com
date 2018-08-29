@@ -17,7 +17,7 @@ class PictureController extends BaseController {
     const doc = new ctx.model.Picture({ labelIds });
     const error = doc.validateSync('labelIds');
 
-    this.assert(!error, 10009, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     const picture = await ctx.service.picture.update(ctx.params.id, {
       labelIds,

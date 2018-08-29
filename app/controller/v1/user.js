@@ -9,12 +9,12 @@ class UserController extends BaseController {
     const { User } = model;
     const data = objectUtil.filter(request.body, 'name phone password repeatPassword');
 
-    this.assert(data.password === data.repeatPassword, 10001);
+    this.assert(data.password === data.repeatPassword, 400, '密码不一致');
 
     let user = new User(data);
     const error = user.validateSync();
 
-    this.assert(!error, 10002, '', { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     user = await service.user.register(user);
     this.echo(user);
@@ -27,12 +27,12 @@ class UserController extends BaseController {
     let user = new User(data);
     const error = user.validateSync('phone password');
 
-    this.assert(!error, 10005, (error && error.message), { error });
+    this.assert(!error, 400, (error && error.message), { error });
 
     user = await service.user.dangerousFindByPhone(data.phone);
 
-    this.assert(user, 10003);
-    this.assert(user.verifyPassword(data.password), 10004);
+    this.assert(user, 400, '不存在');
+    this.assert(user.verifyPassword(data.password), 400, '密码错误');
     const responseData = user.toJSON();
     responseData.token = user.jwtSign();
 

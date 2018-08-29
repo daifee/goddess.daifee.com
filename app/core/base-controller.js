@@ -62,19 +62,8 @@ class BaseController extends Controller {
     });
   }
 
-  /**
-   * 断言，如果 value 为 false，则抛出错误
-   *
-   * @param {boolean} value 值
-   * @param {*} code errorCodes
-   * @param {string} [message=''] 错误信息
-   * @param {*} [properties={}] error对象扩展属性
-   * @memberof BaseController
-   */
-  assert(value, code, message = '', properties = {}) {
-    if (!value) {
-      this.ctx.throw(code, message, properties);
-    }
+  assert(value, status, message = '', properties = {}) {
+    this.ctx.assert(value, status, message, properties);
   }
 
   /**
@@ -84,7 +73,7 @@ class BaseController extends Controller {
    * @memberof BaseController
    */
   assertUser(userId) {
-    this.assert(this.user && this.user.id === userId, 14015);
+    this.assert(this.user && this.user.id === userId, 403);
   }
 }
 
