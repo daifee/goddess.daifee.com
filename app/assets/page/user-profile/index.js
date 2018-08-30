@@ -3,16 +3,18 @@ import '../../component/navbar-layout';
 import '../../component/blog-list';
 import '../../component/pagination';
 import './styles.scss';
+import * as ajax from '../../util/ajax';
 
-const $ = window.$;
 const Bucket = 'goddess-1257388993';
 const Region = 'ap-chengdu';
+const userId = window.location.pathname.split('/')[2];
+
 
 // 初始化实例
 const cos = new COS({
   getAuthorization(options, callback) {
     // 异步获取签名
-    $.get('/api/v1/cos/sts', {
+    ajax.get('/api/v1/cos/sts', {
       bucket: options.Bucket,
       region: options.Region,
     })
@@ -40,12 +42,14 @@ document.getElementById('picture-1').onchange = function () {
 
   const file = this.files[0];
   if (!file) return;
-
+  // 当天上传相同文件名，会覆盖
+  const day = Math.floor(Date.now() / 1000 / 60 / 60 / 24);
+  const key = `${userId}/${day}-${file.name}`;
   // 分片上传文件
   cos.sliceUploadFile({
     Bucket,
     Region,
-    Key: 'a/' + file.name,
+    Key: key,
     Body: file,
   }, function (err, data) {
     console.log(err, data);
