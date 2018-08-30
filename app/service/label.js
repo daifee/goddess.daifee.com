@@ -1,6 +1,6 @@
 'use strict';
 
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 class LabelService extends Service {
 
@@ -10,13 +10,7 @@ class LabelService extends Service {
     try {
       result = await Label.create(doc);
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '已存在该标签', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
     return result;
   }
@@ -34,13 +28,7 @@ class LabelService extends Service {
     try {
       result = await query.exec();
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '标签已存在', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
 
     return result;

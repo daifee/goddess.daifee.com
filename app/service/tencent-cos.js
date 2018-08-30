@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 let tempKeysCache = {};
 

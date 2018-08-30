@@ -1,6 +1,6 @@
 'use strict';
 
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 class UserService extends Service {
   /**
@@ -38,13 +38,7 @@ class UserService extends Service {
     try {
       user = await User.create(doc);
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '用户已存在', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
     // 不暴露
     user.password = undefined;

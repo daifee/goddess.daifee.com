@@ -1,6 +1,6 @@
 'use strict';
 
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 class PictureService extends Service {
   // 创建图片
@@ -11,13 +11,7 @@ class PictureService extends Service {
     try {
       picture = await Picture.create(doc);
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '重复发布改图片', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
 
     return picture;
@@ -32,13 +26,7 @@ class PictureService extends Service {
     try {
       result = await query.exec();
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '重复发布', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
 
     return result;

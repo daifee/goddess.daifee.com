@@ -1,6 +1,6 @@
 'use strict';
 
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 class TokenLogService extends Service {
   async create(doc) {

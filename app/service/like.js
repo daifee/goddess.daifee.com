@@ -1,6 +1,6 @@
 'use strict';
 
-const { Service } = require('egg');
+const Service = require('../core/base-service');
 
 class LikeService extends Service {
   // 添加收藏，定义`userId`参数是为了强调
@@ -23,13 +23,7 @@ class LikeService extends Service {
         upsert: true,
       });
     } catch (error) {
-      if (error.code === 11000) {
-        this.ctx.throw(400, '已收藏过', { error });
-      } else if (error.name === 'ValidationError') {
-        this.ctx.throw(400, error.message, { error });
-      } else {
-        this.ctx.throw(503, error.message, { error });
-      }
+      this.handleMongooseError(error);
     }
 
     return result;
