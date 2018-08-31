@@ -51,6 +51,9 @@ document.getElementById('picture-1').onchange = function () {
     Region,
     Key: key,
     Body: file,
+    onProgress(info) {
+      console.log(info);
+    },
   }, function (err, data) {
     console.log(err, data);
   });

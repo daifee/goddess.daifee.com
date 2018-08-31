@@ -1,0 +1,33 @@
+
+
+
+<div class="image-loader-item">
+  <input id="{{id}}" type="file">
+  {{#compare state "===" "empty"}}
+    <div class="image">
+      <label for="{{id}}">
+        <span>+</span>
+      </label>
+    </div>
+  {{/compare}}
+  {{#compare state "===" "loading"}}
+    <div class="image">
+      <label for="{{id}}">
+        <span>loading</span>
+      </label>
+    </div>
+  {{/compare}}
+  {{#compare state "===" "success"}}
+    <div class="image">
+      <img src="{{url}}" alt="你上传的图片" >
+    </div>
+  {{/compare}}
+  {{#compare state "===" "error"}}
+    <div class="image">
+      <label for="{{id}}">
+        <span>error</span>
+      </label>
+    </div>
+  {{/compare}}
+  <div class="close">x</div>
+</div>
