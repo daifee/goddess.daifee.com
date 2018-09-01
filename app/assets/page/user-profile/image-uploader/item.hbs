@@ -1,7 +1,7 @@
 
 
 
-<div class="image-loader-item">
+<div class="image-loader-item {{id}}">
   <input id="{{id}}" type="file">
   {{#compare state "===" "empty"}}
     <div class="image">
@@ -11,7 +11,7 @@
     </div>
   {{/compare}}
   {{#compare state "===" "loading"}}
-    <div class="image">
+    <div class="image loading">
       <label for="{{id}}">
         <span>loading</span>
       </label>
@@ -23,11 +23,11 @@
     </div>
   {{/compare}}
   {{#compare state "===" "error"}}
-    <div class="image">
+    <div class="image error">
       <label for="{{id}}">
         <span>error</span>
       </label>
     </div>
   {{/compare}}
-  <div class="close">x</div>
+  <div class="clear">x</div>
 </div>

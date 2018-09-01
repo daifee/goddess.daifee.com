@@ -1,12 +1,13 @@
 
 'use strict';
-
+const path = require('path');
 const childProcess = require('child_process');
 const assert = require('assert');
 const webpack = require('guido').webpack;
 const AssetsPlugin = require('assets-webpack-plugin');
 const loadAppConfig = require('./scripts/loadAppConfig');
 const readWebpackEntry = require('./scripts/readWebpackEntry');
+
 
 /**
  * EGG_SERVER_ENV环境变量
@@ -27,6 +28,8 @@ childProcess.execSync(`rm -rf ${appConfig.assets.outputPath}`);
 
 
 module.exports = {
+  handlebarsHelperDirs: path.resolve(appConfig.assets.path, 'handlebars-helper-dir'),
+
   context: appConfig.assets.path,
   entry: readWebpackEntry(appConfig),
 
