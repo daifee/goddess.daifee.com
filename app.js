@@ -11,7 +11,7 @@ module.exports = function(app) {
       let assetsMap;
       const config = app.config;
 
-      if (app.config.env === 'unittest') {
+      if (app.config.env === 'unittest' || app.config.env === 'local') {
         assetsMap = {};
       } else {
         const file = path.resolve(config.assets.outputPath, config.assets.assetsMapFileName);
