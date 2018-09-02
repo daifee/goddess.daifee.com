@@ -9,7 +9,6 @@ class MicroBlogController extends ViewController {
 
     const list = await microBlog.findRecommended(type);
 
-    console.log(list);
     await this.render('micro-blog-recommended', {
       title: '推荐内容',
       activeMenuKey: type,
