@@ -1,5 +1,7 @@
 
 
+
+{{#if list.length}}
 <ul class="blog-list">
   {{#each list}}
   <li class="blog-item">
@@ -12,3 +14,6 @@
   </li>
   {{/each}}
 </ul>
+{{else}}
+<p style="text-align: center; padding: 20px;">没有内容...</p>
+{{/if}}
