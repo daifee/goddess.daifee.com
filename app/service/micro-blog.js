@@ -79,6 +79,7 @@ class MicroBlogService extends Service {
   async findByUserId(userId, page = 1, perPage = 10) {
     const query = this.ctx.model.MicroBlog.find({})
       .find({ userId, status: { $ne: 'deleted' } })
+      .sort({ updatedAt: -1 })
       .skip((page - 1) * perPage)
       .limit(perPage);
 

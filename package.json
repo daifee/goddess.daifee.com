@@ -15,7 +15,8 @@
     "mongoose": "^5.2.7",
     "ms": "^2.1.1",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "swiper": "^4.3.5"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.9.5",
@@ -36,25 +37,19 @@
   },
   "scripts": {
     "comment-section": "生产&测试必须传入环境变量：PORT, SECRET, KEYS, MONGO_URL, MONGO_USER, MONGO_PASSWORD",
-
     "start": "EGG_SERVER_ENV=prod egg-scripts start --daemon --title=goddess",
     "stop": "egg-scripts stop --title=goddess",
-
     "start-sit": "EGG_SERVER_ENV=sit egg-scripts start --daemon --title=goddess-sit",
     "stop-sit": "egg-scripts stop --title=goddess-sit",
-
     "dev": "EGG_SERVER_ENV=local egg-bin dev --title=goddess & npm run dev-assets",
     "stop-dev": "egg-scripts stop --title=goddess",
-
     "debug": "EGG_SERVER_ENV=local egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "EGG_SERVER_ENV=unittest egg-bin test",
-
     "cov": "EGG_SERVER_ENV=unittest egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-
     "dev-assets": "EGG_SERVER_ENV=local RUN_ENV=server ./node_modules/.bin/guido server",
     "build-assets-prod": "EGG_SERVER_ENV=prod npm run build-assets",
     "build-assets-sit": "EGG_SERVER_ENV=sit npm run build-assets",
