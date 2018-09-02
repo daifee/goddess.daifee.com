@@ -6,13 +6,13 @@ const objectUtil = require('../../util/object');
 class MicroBlogController extends ApiController {
   async list() {
     const { ctx } = this;
-    const { params, query } = ctx;
+    const { params } = ctx;
     this.assertUser(params.userId);
 
     const blogs = await ctx.service.microBlog.findByUserId(
       params.userId,
-      query.page,
-      query.perPage
+      this.page,
+      this.perPage
     );
     this.echo(blogs);
   }

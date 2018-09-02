@@ -81,4 +81,8 @@ describe('test/app/service/picture.test.js', () => {
       assert(result);
     });
   });
+
+  describe('findMultiple(urls)', () => {
+    it('查找多个图片文档');
+  });
 });

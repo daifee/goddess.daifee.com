@@ -60,7 +60,7 @@ module.exports = appInfo => {
   };
 
   // 全局中间件
-  config.middleware = [ 'notFound', 'pagination' ];
+  config.middleware = [ 'notFound' ];
 
   /**
    * 配置异常处理器

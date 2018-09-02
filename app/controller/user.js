@@ -13,7 +13,8 @@ class UserController extends ViewController {
 
     const { microBlog } = this.ctx.service;
     const page = this.page;
-    const list = await microBlog.findByUserId(this.user.id, page, this.perPage);
+    const perPage = this.perPage;
+    const list = await microBlog.findByUserId(this.user.id, page, perPage);
 
 
     const prevPage = page - 1;

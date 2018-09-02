@@ -4,11 +4,11 @@ const ApiController = require('../../core/api-controller');
 
 class LikeController extends ApiController {
   async list() {
-    const { params, query, service } = this.ctx;
+    const { params, service } = this.ctx;
 
     this.assertUser(params.userId);
 
-    const likes = await service.like.find(params.userId, query.page, query.perPage);
+    const likes = await service.like.find(params.userId, this.page, this.perPage);
     this.echo(likes);
   }
 

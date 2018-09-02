@@ -29,14 +29,6 @@ class ViewController extends BaseController {
     return this[USER];
   }
 
-  get page() {
-    return Number(this.ctx.query.page) || 1;
-  }
-
-  get perPage() {
-    return Number(this.ctx.query.perPage) || 10;
-  }
-
   login(token) {
     this.ctx.cookies.set('Authorization', token, { signed: false });
   }

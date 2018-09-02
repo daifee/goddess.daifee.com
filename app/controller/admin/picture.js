@@ -5,8 +5,7 @@ const ApiController = require('../../core/api-controller');
 class PictureController extends ApiController {
   async list() {
     const { ctx } = this;
-    const { query } = ctx.request;
-    const pictures = await ctx.service.picture.find(query.page, query.perPage);
+    const pictures = await ctx.service.picture.find(this.page, this.perPage);
 
     this.echo(pictures);
   }
