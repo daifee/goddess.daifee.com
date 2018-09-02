@@ -9,7 +9,7 @@ const $ = window.$;
 const userId = window.location.pathname.split('/')[2];
 
 const imageUploader = new ImageUploader(document.getElementById('image-uploader-container'), userId);
-const $submitBtn = $('input[type="submit"]');
+const $submitBtn = $('button[type="submit"]');
 
 $('#micro-blog').on('submit', () => {
   const pictureUrls = imageUploader.getUrls();
@@ -26,14 +26,17 @@ $('#micro-blog').on('submit', () => {
     return false;
   }
 
+  if ($submitBtn.text() !== '发布') return false;
   $submitBtn.text('loading...');
   const api = `/api/v1/users/${userId}/micro-blogs/`;
   ajax.post(api, JSON.stringify({ text, pictureUrls }))
     .done(response => {
-      console.log(response);
+      window.location.href = `/users/${userId}`;
     })
     .fail(error => {
       console.log(error);
+      // eslint-disable-next-line
+      window.alert(error.message);
     })
     .always(() => {
       $submitBtn.text('发布');

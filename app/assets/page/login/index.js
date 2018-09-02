@@ -5,10 +5,12 @@ import * as ajax from '../../util/ajax';
 import * as auth from '../../util/auth';
 
 const $ = window.$;
+const $submitBtn = $('button[type="submit"]');
 
 $('#login').on('submit', () => {
 
-  console.warn('TODO show loading');
+  if ($submitBtn.text() !== '登录') return false;
+  $submitBtn.text('loading...');
 
   ajax.post('/api/v1/authorization', JSON.stringify({
     phone: $('input[name="phone"]').val(),
@@ -16,7 +18,8 @@ $('#login').on('submit', () => {
   }))
     .done(body => {
       if (body.code) {
-        console.warn('TODO show error ' + body.message);
+        // eslint-disable-next-line
+        window.alert(body.message);
         return;
       }
 
@@ -25,11 +28,11 @@ $('#login').on('submit', () => {
       window.location.href = `/users/${user.id}`;
     })
     .fail(error => {
-      console.log(error);
-      console.warn('TODO show error');
+      // eslint-disable-next-line
+      window.alert(error.message);
     })
     .always(() => {
-      console.warn('TODO hide loading');
+      $submitBtn.text('登录');
     });
   return false;
 });
