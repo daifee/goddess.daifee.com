@@ -1,18 +1,14 @@
 
 
 <ul class="blog-list">
-      <li class="blog-item">
-        <p class="text">这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述这是一段很长很长的描述</p>
-        <ul class="thumbnail-list">
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-          <li class="thumbnail-item" style="background-image: url(https://wx3.sinaimg.cn/thumb150/63eb5b8dgy1fumw7vt38zj21j4328kjl.jpg)"></li>
-        </ul>
-      </li>
+  {{#each list}}
+  <li class="blog-item">
+    <p class="text">{{text}}</p>
+    <ul class="thumbnail-list">
+      {{#each pictureUrls}}
+      <li class="thumbnail-item" style="background-image: url({{@this}})"></li>
+      {{/each}}
     </ul>
+  </li>
+  {{/each}}
+</ul>
