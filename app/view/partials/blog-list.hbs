@@ -8,7 +8,7 @@
     <p class="text">{{text}}</p>
     <ul class="thumbnail-list">
       {{#each pictureUrls}}
-      <li class="thumbnail-item" style="background-image: url({{@this}})"></li>
+      <li class="thumbnail-item" data-url="{{@this}}" style="background-image: url({{@this}})"></li>
       {{/each}}
     </ul>
   </li>
