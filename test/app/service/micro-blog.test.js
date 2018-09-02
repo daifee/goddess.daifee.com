@@ -26,6 +26,18 @@ describe('test/app/service/micro-blog.test.js', () => {
       assert(newDoc.id === doc.id);
       assert(newDoc === doc);
     });
+
+    it('创建新微博，而且图片会创建Picture文档', async () => {
+      const data = mock.microBlog();
+
+      const ctx = app.mockContext({});
+      const { MicroBlog, Picture } = ctx.model;
+      const doc = new MicroBlog(data);
+      const newDoc = await ctx.service.microBlog.create(doc);
+
+      const pictures = await Picture.find({ userId: newDoc.userId }).exec();
+      assert(newDoc.pictureUrls.length === pictures.length);
+    });
   });
 
   describe('update(id, obj)', () => {

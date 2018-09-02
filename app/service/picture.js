@@ -51,6 +51,19 @@ class PictureService extends Service {
 
     return query.exec();
   }
+
+  async createMultiple(userId, urls = []) {
+    const { Picture } = this.ctx.model;
+    const objs = urls.map(url => {
+      return { url, userId };
+    });
+
+    try {
+      return await Picture.create(objs);
+    } catch (error) {
+      this.handleMongooseError(error);
+    }
+  }
 }
 
 module.exports = PictureService;

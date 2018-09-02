@@ -50,7 +50,7 @@
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "EGG_SERVER_ENV=unittest egg-bin test",
 
-    "cov": "egg-bin cov",
+    "cov": "EGG_SERVER_ENV=unittest egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",

@@ -6,12 +6,14 @@ class MicroBlogService extends Service {
   // 新建微博
   async create(doc) {
     const { MicroBlog } = this.ctx.model;
+    const { picture } = this.ctx.service;
     let result;
 
     if (doc.videoUrl) {
       doc.type = 'video';
     }
 
+    await picture.createMultiple(doc.userId, doc.pictureUrls);
     try {
       result = await MicroBlog.create(doc);
     } catch (error) {

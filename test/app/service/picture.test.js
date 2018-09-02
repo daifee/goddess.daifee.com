@@ -66,4 +66,19 @@ describe('test/app/service/picture.test.js', () => {
       });
     });
   });
+
+  describe('createMultiple(userId, urls = [])', () => {
+    it('创建多个图片文档', async () => {
+      const userId = mock.stringId();
+      const urls = [
+        mock.string(13, 'jfiodajioruf'),
+        mock.string(13, 'jfiodajioruf'),
+      ];
+      const ctx = app.mockContext();
+
+      const result = await ctx.service.picture.createMultiple(userId, urls);
+      assert(result.length === 2);
+      assert(result);
+    });
+  });
 });
