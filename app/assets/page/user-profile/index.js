@@ -1,65 +1,42 @@
-// import COS from 'cos-js-sdk-v5';
 import '../../component/navbar-layout';
 import '../../component/blog-list';
 import '../../component/pagination';
 import './styles.scss';
-// import * as ajax from '../../util/ajax';
 import ImageUploader from './image-uploader';
+import * as ajax from '../../util/ajax';
 
+const $ = window.$;
 const userId = window.location.pathname.split('/')[2];
 
-new ImageUploader(document.getElementById('image-uploader-container'), userId);
+const imageUploader = new ImageUploader(document.getElementById('image-uploader-container'), userId);
+const $submitBtn = $('input[type="submit"]');
 
-// const Bucket = 'goddess-1257388993';
-// const Region = 'ap-chengdu';
+$('#micro-blog').on('submit', () => {
+  const pictureUrls = imageUploader.getUrls();
+  if (!pictureUrls.length) {
+    // eslint-disable-next-line
+    window.alert('图片不能为空');
+    return false;
+  }
+  const text = $('#text').val();
 
+  if (!text) {
+    // eslint-disable-next-line
+    window.alert('内容不能为空');
+    return false;
+  }
 
-// // 初始化实例
-// const cos = new COS({
-//   getAuthorization(options, callback) {
-//     // 异步获取签名
-//     ajax.get('/api/v1/cos/sts', {
-//       bucket: options.Bucket,
-//       region: options.Region,
-//     })
-//       .done(response => {
-//         if (response.code) {
-//           return callback(new Error(response.message));
-//         }
-
-//         const keys = response.data.credentials;
-//         callback({
-//           TmpSecretId: keys.tmpSecretId,
-//           TmpSecretKey: keys.tmpSecretKey,
-//           XCosSecurityToken: keys.sessionToken,
-//           ExpiredTime: response.data.expiredTime,
-//         });
-//       })
-//       .fail(error => {
-//         callback(error);
-//       });
-//   },
-// });
-
-// // 监听选文件
-// document.getElementById('picture-1').onchange = function () {
-
-//   const file = this.files[0];
-//   if (!file) return;
-//   // 当天上传相同文件名，会覆盖
-//   const day = Math.floor(Date.now() / 1000 / 60 / 60 / 24);
-//   const key = `${userId}/${day}-${file.name}`;
-//   // 分片上传文件
-//   cos.sliceUploadFile({
-//     Bucket,
-//     Region,
-//     Key: key,
-//     Body: file,
-//     onProgress(info) {
-//       console.log(info);
-//     },
-//   }, function (err, data) {
-//     console.log(err, data);
-//   });
-
-// };
+  $submitBtn.text('loading...');
+  const api = `/api/v1/users/${userId}/micro-blogs/`;
+  ajax.post(api, JSON.stringify({ text, pictureUrls }))
+    .done(response => {
+      console.log(response);
+    })
+    .fail(error => {
+      console.log(error);
+    })
+    .always(() => {
+      $submitBtn.text('发布');
+    });
+  return false;
+});

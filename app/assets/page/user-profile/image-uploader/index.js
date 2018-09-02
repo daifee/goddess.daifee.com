@@ -49,6 +49,14 @@ export default class ImageUploader {
     this.$el = $(el);
     this.list = new List(this);
   }
+
+  getUrls() {
+    const result = [];
+    this.$el.find('.image>img').each(function () {
+      result.push(this.src);
+    });
+    return result;
+  }
 }
 
 class List {
@@ -119,7 +127,8 @@ class Item {
     const input = this.$el.find('input')[0];
     const file = input.files[0];
     if (!file) {
-      return this.handleClear();
+      // return this.handleClear();
+      return;
     }
 
     const day = Math.floor(Date.now() / 1000 / 60 / 60 / 24);
