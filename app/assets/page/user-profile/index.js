@@ -6,6 +6,7 @@ import ImageUploader from './image-uploader';
 import * as ajax from '../../util/ajax';
 import ImageViewer from './image-viewer';
 
+
 const $ = window.$;
 const userId = window.location.pathname.split('/')[2];
 

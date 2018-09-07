@@ -1,32 +1,32 @@
 {
   "react-page": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/react-page-5da9331943a38b57ad71.js"
+    "js": "https://goddess.daifee.com/public/dist-prod/js/react-page-92baca849d1e0867d3e3.js"
   },
   "user-profile": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/user-profile-52246999f667243619ff.js",
-    "css": "https://goddess.daifee.com/public/dist-prod/css/user-profile-0c2a13f52ae0ec4e926ee19d7cdad521.css"
+    "js": "https://goddess.daifee.com/public/dist-prod/js/user-profile-372971ee48ac2d864277.js",
+    "css": "https://goddess.daifee.com/public/dist-prod/css/user-profile-71836fa09c9f379af28c5405b28df982.css"
   },
   "register": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/register-7dfca6be8ded5f473341.js",
+    "js": "https://goddess.daifee.com/public/dist-prod/js/register-865ed03094ce6290f2ca.js",
     "css": "https://goddess.daifee.com/public/dist-prod/css/register-4c95116be378c7ec8be1311b341e7d42.css"
   },
   "micro-blog-recommended": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/micro-blog-recommended-a9a94046ab9d1491c9a4.js",
+    "js": "https://goddess.daifee.com/public/dist-prod/js/micro-blog-recommended-d4ee1175cee8897ac533.js",
     "css": "https://goddess.daifee.com/public/dist-prod/css/micro-blog-recommended-d8547aa2e7d6a3a7c78d5ae4131843c7.css"
   },
   "login": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/login-a810180839f6dfebcb3b.js",
+    "js": "https://goddess.daifee.com/public/dist-prod/js/login-426c0f1fb5a416b5f0b5.js",
     "css": "https://goddess.daifee.com/public/dist-prod/css/login-101b94b987bbffb6f6f984b754090c7a.css"
   },
   "like-list": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/like-list-e09efc7f4bbe265980cf.js",
+    "js": "https://goddess.daifee.com/public/dist-prod/js/like-list-161c2ce2faa74bcae7e0.js",
     "css": "https://goddess.daifee.com/public/dist-prod/css/like-list-c4522c55a9a8a30dbbcd7605ee7c4aaa.css"
   },
   "common": {
-    "js": "https://goddess.daifee.com/public/dist-prod/js/common-01b4ce594afe8df1e40b.js",
+    "js": "https://goddess.daifee.com/public/dist-prod/js/common-478b6aac6064b22d20a0.js",
     "css": "https://goddess.daifee.com/public/dist-prod/css/common-dda0a742679e10311529ea781b11839f.css"
   },
   "metadata": {
-    "build-time": 1535354200920
+    "build-time": 1536328574718
   }
 }

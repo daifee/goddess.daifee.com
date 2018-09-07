@@ -10,8 +10,11 @@ assert(VALID_ENV.indexOf(process.env.EGG_SERVER_ENV) !== -1, '必须在执行启
 // 加载环境变量
 const envPath = path.resolve(process.cwd(), `.${process.env.EGG_SERVER_ENV}.env`);
 
-assert(fs.existsSync(envPath), `不存在 ${envPath} 文件`);
 
-require('dotenv').config({
-  path: envPath,
-});
+// assert(fs.existsSync(envPath), `不存在 ${envPath} 文件`);
+// 开发环境才用`.env`
+if (fs.existsSync(envPath)) {
+  require('dotenv').config({
+    path: envPath,
+  });
+}

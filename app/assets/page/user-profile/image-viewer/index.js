@@ -1,5 +1,5 @@
 
-import Swiper from 'swiper';
+import Swiper from 'swiper/dist/js/swiper.min';
 import 'swiper/dist/css/swiper.css';
 import './styles.scss';
 import template from './template.hbs';
