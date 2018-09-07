@@ -22,9 +22,6 @@ module.exports = appInfo => {
 
     TENCENT_COS_SECRET_ID,
     TENCENT_COS_SECRET_KEY,
-
-    ASSETS_OUTPUT_DIRNAME,
-    ASSETS_PUBLIC_PATH,
   } = process.env;
 
 
@@ -94,8 +91,8 @@ module.exports = appInfo => {
    */
   config.assets = {
     path: path.resolve(appInfo.baseDir, './app/assets'),
-    outputPath: path.resolve(appInfo.baseDir, './app/public', ASSETS_OUTPUT_DIRNAME),
-    publicPath: ASSETS_PUBLIC_PATH,
+    outputPath: path.resolve(appInfo.baseDir, './app/public', 'dist-prod'),
+    publicPath: 'https://goddess.daifee.com/public/dist-prod',
     assetsMapFileName: 'assets.json',
   };
 
