@@ -14,7 +14,7 @@ module.exports = appInfo => {
    */
   config.assets = {
     outputPath: path.resolve(appInfo.baseDir, './app/public', 'dist-sit'),
-    publicPath: 'https://goddess-test.daifee.com/public/dist-sit',
+    publicPath: 'http://127.0.0.1:6080/public/dist-sit',
   };
 
   return config;
