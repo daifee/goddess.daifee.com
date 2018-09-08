@@ -131,7 +131,7 @@ class Item {
       return;
     }
 
-    const day = Math.floor(Date.now() / 1000 / 60 / 60 / 24);
+    const day = Date.now();
     const key = `${this.list.container.path}/${day}-${file.name}`;
 
     this.handleLoading();
