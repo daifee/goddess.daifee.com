@@ -4,12 +4,14 @@
  */
 'use strict';
 
-require('../scripts/loadEnv');
-
 const path = require('path');
 
 
 module.exports = appInfo => {
+  if (appInfo.env !== 'prod') {
+    require('../scripts/loadEnv');
+  }
+
   const config = exports = {};
   const {
     PORT,

@@ -37,6 +37,7 @@
   },
   "scripts": {
     "comment-section": "生产&测试必须传入环境变量：PORT, SECRET, KEYS, MONGO_URL, MONGO_USER, MONGO_PASSWORD",
+    "build": "npm run build-assets-prod",
     "start": "EGG_SERVER_ENV=prod egg-scripts start --daemon --title=goddess",
     "stop": "egg-scripts stop --title=goddess",
     "start-sit": "EGG_SERVER_ENV=sit egg-scripts start --daemon --title=goddess-sit",
