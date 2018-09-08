@@ -14,4 +14,4 @@ run/
 .guido-cache/
 
 *.env
-app/public/dist-local
+app/public/dist-*
