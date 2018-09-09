@@ -4,7 +4,6 @@ import '../../component/pagination';
 import './styles.scss';
 import ImageUploader from './image-uploader';
 import * as ajax from '../../util/ajax';
-import ImageViewer from './image-viewer';
 
 
 const $ = window.$;
@@ -46,15 +45,3 @@ $('#micro-blog').on('submit', () => {
   return false;
 });
 
-
-// image-viewer
-$(document.body).on('click', '.blog-item .thumbnail-item', function () {
-  const $target = $(this);
-  const index = $target.index();
-  const urls = [];
-  $target.parent().children().each(function () {
-    urls.push($(this).data('url'));
-  });
-
-  new ImageViewer(index, urls);
-});
