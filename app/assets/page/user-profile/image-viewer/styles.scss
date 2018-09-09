@@ -9,24 +9,30 @@
   height: 100%;
   overflow: hidden;
   background-color: rgba($color: #000000, $alpha: 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   .swiper-container {
-    // max-width: 800px;
+
     max-width: 100%;
+    height: 100%;
   }
 
   .swiper-wrapper {
-    align-items: center;
+    height: 100%;
   }
 
   .swiper-slide {
     text-align: center;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    img {
-      max-width: 80%;
+    .img {
+      width: 80%;
+      height: 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 
@@ -40,6 +46,7 @@
 
   .close {
     position: absolute;
+    z-index: 2;
     right: -60px;
     top: -60px;
     background-color: #fff;
