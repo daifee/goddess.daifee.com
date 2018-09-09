@@ -11,6 +11,12 @@ const md5 = require('../app/util/md5');
 module.exports = appInfo => {
   const config = exports = {};
 
+  config.alinode = {
+    // 从 `Node.js 性能平台` 获取对应的接入参数
+    appid: '75760',
+    secret: '21937ba41784a54dfbfab096c00b03a5d7c02e13',
+  };
+
   // 异常处理器
   const errorTplFile = './app/view/error.hbs';
   const errorTpl = fs.readFileSync(path.resolve(appInfo.baseDir, errorTplFile), 'utf8');

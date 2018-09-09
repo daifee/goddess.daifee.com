@@ -7,6 +7,7 @@
     "cos-js-sdk-v5": "^0.4.14",
     "dotenv": "^6.0.0",
     "egg": "^2.2.1",
+    "egg-alinode": "^2.0.1",
     "egg-mongoose": "^3.1.0",
     "egg-scripts": "^2.5.0",
     "egg-view-handlebars": "^2.0.1",
