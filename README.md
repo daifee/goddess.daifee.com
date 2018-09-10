@@ -13,6 +13,8 @@
   - [Model](#model)
   - [API](#api)
     - [HTTP响应“规范”](#http%E5%93%8D%E5%BA%94%E8%A7%84%E8%8C%83)
+    - [鉴权](#%E9%89%B4%E6%9D%83)
+    - [api列表](#api%E5%88%97%E8%A1%A8)
 
 ## 目标
 
@@ -128,3 +130,18 @@ API设计主要参考**RESTful**，然后稍作自定义。
   stackId: '' // 错误栈ID
 }
 ```
+
+### 鉴权
+
+在HTTP请求header附带用户`token`:
+
+* `Authorization: Bearer {token}`
+
+
+### api列表
+
+源码对API的描述很清晰、简洁：
+
+- `app/router.js` “传统网站”页面路由
+- `api/router/v1.js` 面向用户的API，v1版
+- `api/router/admin.js` 面向管理员的API
