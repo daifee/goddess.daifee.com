@@ -386,4 +386,46 @@ describe('test/app/router/v1.test.js', () => {
       assert(body.code === 403);
     });
   });
+
+  describe('get /api/v1/users/:userId/micro-blogs/', () => {
+    it('获取微博列表，默认', async () => {
+      const user = await mock.createUser();
+      await mock.createMicroBlogs(4, {
+        userId: user.id,
+        recommended: 'goddess',
+      });
+
+      const response = await app.httpRequest()
+        .get('/api/v1/micro-blogs/')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length === 2);
+      assert(body.data[0].recommended === 'goddess');
+    });
+
+    it('获取微博列表，animal', async () => {
+      const user = await mock.createUser();
+      await mock.createMicroBlogs(4, {
+        userId: user.id,
+        recommended: 'animal',
+      });
+
+      const response = await app.httpRequest()
+        .get('/api/v1/micro-blogs/?type=animal')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length === 2);
+      assert(body.data[0].recommended === 'animal');
+    });
+  });
 });

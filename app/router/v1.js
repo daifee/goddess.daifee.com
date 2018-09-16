@@ -1,8 +1,5 @@
 'use strict';
 
-async function todo() {
-  this.ctx.body = { msg: 'TODO' };
-}
 
 module.exports = app => {
   const { router, controller, middleware } = app;
@@ -46,7 +43,7 @@ module.exports = app => {
   router.delete('/api/v1/users/:userId/likes/:likeId', authorize.user, like.delete);
 
   /**
-   * 获取微博：运营主题（goddess, landscape, self），最多显示2条
+   * 获取微博
    */
-  router.get('/api/v1/micro-blogs/', todo);
+  router.get('/api/v1/micro-blogs/', microBlog.recommended);
 };

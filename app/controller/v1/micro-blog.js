@@ -4,6 +4,15 @@ const ApiController = require('../../core/api-controller');
 const objectUtil = require('../../util/object');
 
 class MicroBlogController extends ApiController {
+  async recommended() {
+    const type = this.ctx.query.type || 'goddess';
+    const { microBlog } = this.ctx.service;
+
+    const blogs = await microBlog.findRecommended(type);
+
+    this.echo(blogs);
+  }
+
   async list() {
     const { ctx } = this;
     const { params } = ctx;
