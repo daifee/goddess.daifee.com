@@ -162,3 +162,14 @@ function loop(cb, times = 0) {
 
   return result;
 }
+
+exports.createApiController = async function() {
+  await app.ready();
+  return app.controller.admin.label;
+};
+
+exports.createViewController = async function() {
+  await app.ready();
+  return app.controller.home;
+};
+
