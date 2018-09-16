@@ -64,6 +64,12 @@ class PictureService extends Service {
       this.handleMongooseError(error);
     }
   }
+
+  async findMultiple(urls = []) {
+    const query = this.ctx.model.Picture.find({ url: { $in: urls } });
+    const pictures = await query.exec();
+    return pictures;
+  }
 }
 
 module.exports = PictureService;

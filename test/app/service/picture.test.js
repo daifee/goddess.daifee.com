@@ -77,12 +77,23 @@ describe('test/app/service/picture.test.js', () => {
       const ctx = app.mockContext();
 
       const result = await ctx.service.picture.createMultiple(userId, urls);
-      assert(result.length === 2);
+
       assert(result);
+      assert(result.length === 2);
     });
   });
 
   describe('findMultiple(urls)', () => {
-    it('查找多个图片文档');
+    it('查找多个图片文档', async () => {
+      const pictures = await mock.createPictures(4);
+      const urls = pictures.map(item => {
+        return item.url;
+      });
+      const ctx = app.mockContext();
+      const result = await ctx.service.picture.findMultiple(urls);
+
+      assert(result);
+      assert(result.length === 4);
+    });
   });
 });

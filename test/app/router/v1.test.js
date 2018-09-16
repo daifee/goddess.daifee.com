@@ -428,4 +428,26 @@ describe('test/app/router/v1.test.js', () => {
       assert(body.data[0].recommended === 'animal');
     });
   });
+
+  describe('get /api/v1/pictures/multiple/', () => {
+    it('获取多张图片', async () => {
+      const pictures = await mock.createPictures(4);
+      let urls = pictures.map(item => {
+        return item.url;
+      });
+      urls = urls.join(',');
+      urls = encodeURIComponent(urls);
+
+      const response = await app.httpRequest()
+        .get(`/api/v1/pictures/multiple/?urls=${urls}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length === 4);
+    });
+  });
 });

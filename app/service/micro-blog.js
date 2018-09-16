@@ -1,6 +1,6 @@
 'use strict';
-
 const Service = require('../core/base-service');
+
 
 class MicroBlogService extends Service {
   // 新建微博
@@ -108,13 +108,29 @@ class MicroBlogService extends Service {
 
   // 查找微博（根据推荐专题，只返回2条，根据推荐时间排序）
   async findRecommended(recommended = 'goddess') {
-    const query = this.ctx.model.MicroBlog.find({})
+    const queryBlogs = this.ctx.model.MicroBlog.find({})
       .find({ status: { $ne: 'deleted' }, recommended })
       .sort({ recommendedTime: -1 })
       .limit(2);
+    const blogs = await queryBlogs.exec();
 
+    const userIds = blogs.map(item => {
+      return item.userId;
+    });
 
-    return await query.exec();
+    const queryUsers = this.ctx.model.User.find({ _id: { $in: userIds } });
+    const users = await queryUsers.exec();
+
+    const userMap = {};
+    users.forEach(user => {
+      userMap[user.id] = user;
+    });
+
+    blogs.forEach(blog => {
+      blog.user = userMap[blog.userId];
+    });
+
+    return blogs;
   }
 
   // 推荐

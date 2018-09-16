@@ -13,6 +13,9 @@ module.exports = app => {
       required: [ true, 'userId不能为空' ],
       maxlength: [ 100, '用户ID不能超过100个字符' ],
     },
+    user: {
+      type: Object,
+    },
     pictureUrls: {
       type: [ String ],
       required: [ function() {

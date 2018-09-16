@@ -4,7 +4,7 @@
 module.exports = app => {
   const { router, controller, middleware } = app;
   const { authorize } = middleware;
-  const { user, like, microBlog, tencentCos } = controller.v1;
+  const { user, like, microBlog, picture, tencentCos } = controller.v1;
 
   /**
    * 用户：
@@ -46,4 +46,5 @@ module.exports = app => {
    * 获取微博
    */
   router.get('/api/v1/micro-blogs/', microBlog.recommended);
+  router.get('/api/v1/pictures/multiple/', picture.getMultiple);
 };

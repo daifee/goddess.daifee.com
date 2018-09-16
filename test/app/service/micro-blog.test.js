@@ -131,17 +131,23 @@ describe('test/app/service/micro-blog.test.js', () => {
 
   describe('findRecommended(type = "goddess")', () => {
     it('查找微博（根据推荐专题，只返回2条，根据推荐时间排序）', async () => {
-      await mock.createMicroBlog({ recommended: 'goddess' });
-      await mock.createMicroBlog({ recommended: 'goddess' });
-      await mock.createMicroBlog({ recommended: 'goddess' });
-      await mock.createMicroBlog({ recommended: 'goddess' });
-      await mock.createMicroBlog({ recommended: 'goddess' });
+      const user = await mock.createUser();
+      // 时间问题，不能一起创建
+      await mock.createMicroBlog({ userId: user.id, recommended: 'goddess' });
+      await mock.createMicroBlog({ userId: user.id, recommended: 'goddess' });
+      await mock.createMicroBlog({ userId: user.id, recommended: 'goddess' });
+      await mock.createMicroBlog({ userId: user.id, recommended: 'goddess' });
+      await mock.createMicroBlog({ userId: user.id, recommended: 'goddess' });
 
       const ctx = app.mockContext({});
       const docs = await ctx.service.microBlog.findRecommended('goddess');
 
       assert(docs.length === 2);
       assert(docs[0].recommendedTime > docs[1].recommendedTime);
+      const blog = docs[0];
+      assert(blog.user);
+      assert(blog.user.id === user.id);
+      assert(blog.toJSON().user);
     });
 
     it('查找微博（根据推荐专题，只返回2条，根据推荐时间排序），landscape', async () => {
