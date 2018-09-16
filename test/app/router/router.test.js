@@ -84,4 +84,31 @@ describe('test/app/router/router.test.js', () => {
       assert(body.length >= 20);
     });
   });
+
+
+  describe('cros', () => {
+    it('optiont请求', async () => {
+      const response = await app.httpRequest()
+        .options('/api/options')
+        .set('Accept', 'text')
+        .set('Access-Control-Request-Headers', 'Authorization')
+        .expect('Content-Type', /text/)
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect('Access-Control-Allow-Methods', 'DELETE, GET, PUT, POST, OPTIONTS')
+        .expect('Access-Control-Allow-Headers', 'Authorization')
+        .expect('Access-Control-Max-Age', '86400')
+        .expect(200);
+
+      const body = response.text;
+      assert(body === 'allow cros');
+    });
+
+    it('delete请求', async () => {
+      await app.httpRequest()
+        .delete('/api/options')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect('Access-Control-Allow-Origin', '*');
+    });
+  });
 });

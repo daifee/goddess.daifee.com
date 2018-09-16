@@ -45,6 +45,9 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
+    methodnoallow: {
+      enable: false,
+    },
   };
 
   config.mongoose = {
@@ -59,7 +62,7 @@ module.exports = appInfo => {
   };
 
   // 全局中间件
-  config.middleware = [ 'notFound' ];
+  config.middleware = [ 'notFound', 'cros' ];
 
   /**
    * 配置异常处理器
