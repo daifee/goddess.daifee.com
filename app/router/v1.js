@@ -25,6 +25,7 @@ module.exports = app => {
    * 微博
    */
   // 微博列表
+  // TODO 应该支持查询参数：`recommended=goddess|animal|landspcape|all`
   router.get('/api/v1/users/:userId/micro-blogs/', authorize.user, microBlog.list);
   // 发布微博
   router.post('/api/v1/users/:userId/micro-blogs/', authorize.user, microBlog.create);
