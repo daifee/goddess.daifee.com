@@ -12,6 +12,46 @@ describe('test/app/router/admin.test.js', () => {
     await User.ensureIndexes();
   });
 
+  describe('get /api/admin/users/', () => {
+    it('获取所有用户', async () => {
+      await mock.createUsers(4);
+      const admin = await mock.createUser({ role: 'admin' });
+      const token = admin.jwtSign();
+
+      const response = await app.httpRequest()
+        .get('/api/admin/users/')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length >= 4);
+    });
+  });
+
+  describe('get /api/admin/blogs/', () => {
+    it('获取所有微博', async () => {
+      await mock.createMicroBlogs(4);
+      const admin = await mock.createUser({ role: 'admin' });
+      const token = admin.jwtSign();
+
+      const response = await app.httpRequest()
+        .get('/api/admin/blogs/')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const body = response.body;
+      assert(body.code === 0);
+      assert(Array.isArray(body.data));
+      assert(body.data.length >= 4);
+    });
+  });
+
   describe('get /api/admin/labels/', () => {
     it('获取所有标签', async () => {
       await mock.createLabels(4);

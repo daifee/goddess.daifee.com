@@ -4,7 +4,17 @@
 module.exports = app => {
   const { router, middleware, controller } = app;
   const { authorize } = middleware;
-  const { label, picture } = controller.admin;
+  const { label, picture, user, blog } = controller.admin;
+
+  /**
+   * 用户
+   */
+  router.get('/api/admin/users/', authorize.admin, user.list);
+  /**
+   * 博客
+   */
+  router.get('/api/admin/blogs/', authorize.admin, blog.list);
+
 
   /**
    * 标签

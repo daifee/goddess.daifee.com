@@ -84,6 +84,16 @@ class UserService extends Service {
 
     return user;
   }
+
+  // 查找用户（全部，分页）
+  async find({ page, perPage }) {
+    const query = this.ctx.model.User.find({})
+      .find({ status: { $ne: 'deleted' } })
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    return await query.exec();
+  }
 }
 
 module.exports = UserService;

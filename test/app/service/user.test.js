@@ -13,6 +13,14 @@ describe('test/app/service/user.test.js', () => {
     await User.ensureIndexes();
   });
 
+  describe('find(page, perPage)', () => {
+    it('获取所有用户', async () => {
+      await mock.createUsers(4);
+      const ctx = app.mockContext();
+      const users = await ctx.service.user.find({ page: 1, perPage: 3 });
+      assert(users.length === 3);
+    });
+  });
 
   describe('create(userJson)', () => {
     it('创建新用户，成功', async () => {
