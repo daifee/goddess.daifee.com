@@ -157,6 +157,7 @@ describe('test/app/service/micro-blog.test.js', () => {
       const blog = docs[0];
       assert(blog.user);
       assert(blog.user.id === user.id);
+      assert(blog.user.phone === undefined);
       assert(blog.toJSON().user);
     });
 
