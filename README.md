@@ -4,6 +4,7 @@
 
 
 - [goddess.daifee.com](#goddessdaifeecom)
+  - [TODO](#todo)
   - [目标](#%E7%9B%AE%E6%A0%87)
   - [快速入门](#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8)
     - [本地开发](#%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91)
@@ -15,6 +16,13 @@
     - [HTTP响应“规范”](#http%E5%93%8D%E5%BA%94%E8%A7%84%E8%8C%83)
     - [鉴权](#%E9%89%B4%E6%9D%83)
     - [api列表](#api%E5%88%97%E8%A1%A8)
+
+## TODO
+
+- [ ] `/api/v1/users/:userId/micro-blogs/` 支持查询参数
+- [ ] 实现 `/api/admin/users/`
+- [ ] 实现 `/api/admin/blogs/`
+- [ ] `user`需要隐藏`phone`数据
 
 ## 目标
 
