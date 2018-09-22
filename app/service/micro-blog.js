@@ -141,8 +141,12 @@ class MicroBlogService extends Service {
     });
 
     blogs.forEach(blog => {
-      blog.user = userMap[blog.userId];
-      blog.user.phone = undefined;
+      let user = userMap[blog.userId];
+      if (user) {
+        user = user.toJSON();
+        user.phone = undefined;
+        blog.user = user;
+      }
     });
 
     return blogs;
