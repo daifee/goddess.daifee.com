@@ -76,12 +76,26 @@ class MicroBlogService extends Service {
   }
 
   // 查找微博（用户，分页）
-  async findByUserId(userId, page = 1, perPage = 10) {
-    const query = this.ctx.model.MicroBlog.find({})
-      .find({ userId, status: { $ne: 'deleted' } })
+  async findByUserId(userId, { page, perPage, recommended }) {
+    console.log(recommended);
+    let query = this.ctx.model.MicroBlog.find({})
+      .find({
+        userId,
+        status: { $ne: 'deleted' },
+      })
       .sort({ updatedAt: -1 })
       .skip((page - 1) * perPage)
       .limit(perPage);
+
+    if (recommended) {
+      if (recommended === 'all') {
+        query = query.find({
+          recommended: { $ne: null },
+        });
+      } else {
+        query = query.find({ recommended });
+      }
+    }
 
     return await query.exec();
   }

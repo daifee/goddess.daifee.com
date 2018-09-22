@@ -20,8 +20,7 @@ class MicroBlogController extends ApiController {
 
     const blogs = await ctx.service.microBlog.findByUserId(
       params.userId,
-      this.page,
-      this.perPage
+      { page: this.page, perPage: this.perPage }
     );
     this.echo(blogs);
   }

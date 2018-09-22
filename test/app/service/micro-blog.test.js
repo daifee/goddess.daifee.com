@@ -97,13 +97,23 @@ describe('test/app/service/micro-blog.test.js', () => {
   });
 
   describe('findByUserId(userId, page = 1, perPage = 10)', () => {
-    it('查找微博（用户，分页）', async () => {
+    it('查找用户微博（用户，分页）', async () => {
       const userId = mock.stringId();
       await mock.createMicroBlogs(5, { userId });
       const ctx = app.mockContext({});
-      const docs = await ctx.service.microBlog.findByUserId(userId, 1, 30);
+      const docs = await ctx.service.microBlog.findByUserId(userId, { page: 1, perPage: 3 });
 
-      assert(docs.length === 5);
+      assert(docs.length === 3);
+    });
+
+    it('查找用户微博（被推荐）', async () => {
+      const userId = mock.stringId();
+      await mock.createMicroBlogs(3, { recommended: 'animal', userId });
+      await mock.createMicroBlogs(2, { recommended: 'landscape', userId });
+      const ctx = app.mockContext();
+      const docs = await ctx.service.microBlog.findByUserId(userId, { page: 1, perPage: 5, recommended: 'animal' });
+
+      assert(docs.length === 3);
     });
   });
 

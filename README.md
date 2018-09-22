@@ -19,7 +19,7 @@
 
 ## TODO
 
-- [ ] `/api/v1/users/:userId/micro-blogs/` 支持查询参数
+- [x] `/api/v1/users/:userId/micro-blogs/` 支持查询参数
 - [ ] 实现 `/api/admin/users/`
 - [ ] 实现 `/api/admin/blogs/`
 - [ ] `user`需要隐藏`phone`数据
