@@ -86,6 +86,9 @@ module.exports = appInfo => {
   config.view = {
     defaultViewEngine: 'handlebars',
     defaultExtension: '.hbs',
+    mapping: {
+      '.ejs': 'ejs',
+    },
   };
   config.handlebars = {
     knownHelpersOnly: false,

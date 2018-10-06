@@ -34,6 +34,12 @@ class HomeController extends ViewController {
       title: '登录',
     });
   }
+
+  async about() {
+    await this.render('about.ejs', {
+      title: '关于 daifee',
+    });
+  }
 }
 
 module.exports = HomeController;

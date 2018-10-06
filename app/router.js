@@ -13,6 +13,9 @@ module.exports = app => {
   require('./router/v1')(app);
   require('./router/admin')(app);
 
+  // 关于
+  router.get('/about', home.about);
+
   // 登录页
   router.get('/login', home.login);
   // 注册页
