@@ -21,8 +21,8 @@
 1. 安装系统依赖：
     1. Node.js(>=v8.0.0)
     2. MongoDB(>=3.0.0)
-2. 启动MongoDB：`sudo mongod --dbpath ~/data/db/mongo/ --logpath ~/data/log/mongo.log`
-3. 创建MongoDB帐号，并配置`./config`
+2. 启动MongoDB：`sudo mongod --dbpath ~/data/db/mongo/ --logpath ~/data/log/mongo.log`
+3. 创建MongoDB帐号，并配置`./config`
 4. 启动服务`npm run dev`
 5. 浏览器访问
 
@@ -51,8 +51,8 @@
 
 **发布操作：**
 
-1. 为准备发布的版本打标签（`git tag vx.x.x`）
-2. 推送标签到远程仓库
+1. 为准备发布的版本打标签（`git tag vx.x.x`）
+2. 推送标签到远程仓库
 3. 登录“发布服务器”
 4. 执行“发布脚本”，根据提示选择版本（标签）
 
