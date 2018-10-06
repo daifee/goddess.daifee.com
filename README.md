@@ -9,7 +9,7 @@
 1. [x] [API服务](https://github.com/daifee/goddess.daifee.com)
 2. [x] [传统网站（PC）](https://github.com/daifee/goddess.daifee.com)
 3. [x] [单页应用（Mobile, React）](https://github.com/daifee/goddess-spa.daifee.com)
-4. [ ] 同构应用（Mobile, React）
+4. [x] [同构应用（Mobile, React, next.js）](https://github.com/daifee/goddess-ssr.daifee.com)
 5. [ ] 微信小程序
 6. [ ] Android应用
 7. [ ] iOS应用
