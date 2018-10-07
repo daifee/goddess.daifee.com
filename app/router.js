@@ -16,6 +16,8 @@ module.exports = app => {
   // 关于
   router.get('/about', home.about);
 
+  router.get('/test', home.test);
+
   // 登录页
   router.get('/login', home.login);
   // 注册页

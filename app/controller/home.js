@@ -8,6 +8,10 @@ class HomeController extends ViewController {
     this.ctx.redirect('/');
   }
 
+  async test() {
+    this.ctx.body = '<h1>goddess.daifee.com</h1><p>Egg程序</p>';
+  }
+
   async login() {
     if (this.user) {
       return this.ctx.redirect(`/users/${this.user.id}`);
