@@ -2,6 +2,8 @@
 
 基于Egg的一个Demo项目。
 
+访问[goddess.daifee.com](https://goddess.daifee.com/)
+
 ## 目标
 
 本项目提供API服务，然后基于API服务实现多个版本客户端：
@@ -46,7 +48,7 @@
 
 1. 本地虚拟机安装Ubuntu作为“发布服务器”
 2. 发布服务器已上传密钥到生产服务器
-3. 发布服务器部署好“发布脚本”`./script/publish/main.sh`
+3. 发布服务器部署好“发布脚本”`/home/daifee/sf_development/publish-goddess/main.sh`
 
 
 **发布操作：**

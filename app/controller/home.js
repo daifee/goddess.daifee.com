@@ -13,7 +13,8 @@ class HomeController extends ViewController {
   }
 
   async wetest() {
-    this.ctx.body = 'wetest-a3522a1756f1d80968709444bc64f396.txt';
+    // this.ctx.body = 'wetest-a3522a1756f1d80968709444bc64f396.txt';
+    return this.ctx.redirect('/static/wetest.txt', 301);
   }
 
   async login() {
