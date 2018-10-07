@@ -10,6 +10,8 @@
 module.exports = app => {
   const { router, controller } = app;
   const { home, like, user, microBlog } = controller;
+  router.get('/wetest-a3522a1756f1d80968709444bc64f396.txt', home.wetest);
+
   require('./router/v1')(app);
   require('./router/admin')(app);
 

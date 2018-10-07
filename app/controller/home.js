@@ -12,6 +12,10 @@ class HomeController extends ViewController {
     this.ctx.body = '<h1>goddess.daifee.com</h1><p>Egg程序</p>';
   }
 
+  async wetest() {
+    this.ctx.body = 'wetest-a3522a1756f1d80968709444bc64f396.txt';
+  }
+
   async login() {
     if (this.user) {
       return this.ctx.redirect(`/users/${this.user.id}`);
