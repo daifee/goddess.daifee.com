@@ -12,9 +12,19 @@ class HomeController extends ViewController {
     this.ctx.body = '<h1>goddess.daifee.com</h1><p>Egg程序</p>';
   }
 
+  async test2() {
+    const start = Date.now();
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve(true);
+      }, 200);
+    });
+    const offset = Date.now() - start;
+    this.ctx.body = `<h1>goddess.daifee.com</h1><p>Egg程序 ${offset}</p>`;
+  }
+
   async wetest() {
-    // this.ctx.body = 'wetest-a3522a1756f1d80968709444bc64f396.txt';
-    return this.ctx.redirect('/static/wetest.txt', 301);
+    this.ctx.body = 'wetest-a3522a1756f1d80968709444bc64f396';
   }
 
   async login() {
